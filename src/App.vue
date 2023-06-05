@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import HelloWorld from '@/components/HelloWorld.vue'
+import AppBar from '@/components/AppBar.vue'
 </script>
-
 <template>
   <v-app>
+    <AppBar />
     <v-main>
-      <HelloWorld />
+      <RouterView />
     </v-main>
   </v-app>
 </template>
