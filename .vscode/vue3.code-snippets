@@ -12,6 +12,21 @@
       "</template>"
     ]
   },
+
+  "Vue 3 Options Api" : {
+    "scope": "vue, html",
+    "prefix": "v3-options-api-ts",
+    "body": [
+      "<script lang=\"ts\">",
+      "import { defineComponent } from 'vue'",
+      "export default defineComponent({",
+      "\tsetup() {",
+      "\t\treturn {$1}",
+      "\t}",
+      "})",
+      "</script>"
+    ]
+  },
   "Vue3 Script Setup": {
     "scope": "vue, html",
     "prefix": "v3-sfc",
