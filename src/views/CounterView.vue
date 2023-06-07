@@ -24,19 +24,23 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 
+function useCounter() {
+  const counter = ref(0)
+  const increaseValue = () => {
+    counter.value++
+  }
+  const decreaseValue = () => {
+    counter.value--
+  }
+  const resetCounter = () => {
+    counter.value = 0
+  }
+  return { counter, increaseValue, decreaseValue, resetCounter }
+}
+
 export default defineComponent({
   setup() {
-    const counter = ref(0)
-    const increaseValue = () => {
-      counter.value++
-    }
-    const decreaseValue = () => {
-      counter.value--
-    }
-    const resetCounter = () => {
-      counter.value = 0
-    }
-
+    const { counter, increaseValue, decreaseValue, resetCounter } = useCounter()
     return { counter, increaseValue, decreaseValue, resetCounter }
   }
 })
