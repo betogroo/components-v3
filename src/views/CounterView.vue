@@ -27,20 +27,17 @@ import { defineComponent, ref } from 'vue'
 export default defineComponent({
   setup() {
     const counter = ref(0)
-
-    return { counter }
-  },
-
-  methods: {
-    increaseValue() {
-      this.counter++
-    },
-    decreaseValue() {
-      this.counter--
-    },
-    resetCounter() {
-      this.counter = 0
+    const increaseValue = () => {
+      counter.value++
     }
+    const decreaseValue = () => {
+      counter.value--
+    }
+    const resetCounter = () => {
+      counter.value = 0
+    }
+
+    return { counter, increaseValue, decreaseValue, resetCounter }
   }
 })
 </script>
