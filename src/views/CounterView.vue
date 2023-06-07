@@ -22,14 +22,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
-  data() {
-    return {
-      counter: 0
-    }
+  setup() {
+    const counter = ref(0)
+
+    return { counter }
   },
+
   methods: {
     increaseValue() {
       this.counter++
