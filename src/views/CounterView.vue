@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import useCounter from '@/composables/useCounter'
+
+const { counter, increaseValue, decreaseValue, resetCounter } = useCounter()
+</script>
+
 <template>
   <v-container class="fill-height d-flex justify-center">
     <v-card width="400" class="text-center pa-3">
@@ -20,15 +26,3 @@
     </v-card>
   </v-container>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import useCounter from '@/composables/useCounter'
-
-export default defineComponent({
-  setup() {
-    const { counter, increaseValue, decreaseValue, resetCounter } = useCounter()
-    return { counter, increaseValue, decreaseValue, resetCounter }
-  }
-})
-</script>
