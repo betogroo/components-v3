@@ -22,21 +22,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-
-function useCounter() {
-  const counter = ref(0)
-  const increaseValue = () => {
-    counter.value++
-  }
-  const decreaseValue = () => {
-    counter.value--
-  }
-  const resetCounter = () => {
-    counter.value = 0
-  }
-  return { counter, increaseValue, decreaseValue, resetCounter }
-}
+import { defineComponent } from 'vue'
+import useCounter from '@/composables/useCounter'
 
 export default defineComponent({
   setup() {
