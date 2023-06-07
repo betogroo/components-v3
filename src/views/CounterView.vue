@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import useCounter from '@/composables/useCounter'
 
-const { counter, increaseValue, decreaseValue, resetCounter } = useCounter()
+const { counter, increaseValue, decreaseValue, resetCounter } = useCounter(10)
 </script>
 
 <template>

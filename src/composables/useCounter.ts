@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 
-const useCounter = () => {
-  const counter = ref(0)
+const useCounter = (initialValue: number) => {
+  const counter = ref(initialValue)
   const increaseValue = () => {
     counter.value++
   }
