@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
+import CounterView from '@/views/CounterView.vue'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -14,6 +15,11 @@ const routes: RouteRecordRaw[] = [
     path: '/:catchAll(.*)',
     name: 'NotFound',
     component: () => import('@/views/NotFound.vue')
+  },
+  {
+    path: '/counter',
+    name: 'CounterView',
+    component: CounterView
   }
 ]
 
