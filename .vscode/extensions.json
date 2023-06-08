@@ -10,6 +10,7 @@
     "esbenp.prettier-vscode",
     "vue.vscode-typescript-vue-plugin",
     "vue.volar",
-    "lukas-tr.materialdesignicons-intellisense"
+    "lukas-tr.materialdesignicons-intellisense",
+    "sdras.vue-vscode-snippets"
   ]
 }
