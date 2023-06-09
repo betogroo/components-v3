@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const email = ref('')
+const password = ref('')
+const handleClick = () => {
+  console.log(email.value, password.value)
+}
+</script>
+
 <template>
   <v-container class="fill-height justify-center">
     <v-card elevation="6" class="pa-4 rounded" width="400">
@@ -27,20 +37,5 @@
     </v-card>
   </v-container>
 </template>
-
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
-
-export default defineComponent({
-  setup() {
-    const email = ref('')
-    const password = ref('')
-    const handleClick = () => {
-      console.log(email.value, password.value)
-    }
-    return { email, password, handleClick }
-  }
-})
-</script>
 
 <style scoped></style>
