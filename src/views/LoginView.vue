@@ -1,11 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-const email = ref('')
-const password = ref('')
-const handleClick = () => {
-  console.log(email.value, password.value)
-}
+import useAuth from '@/composables/useAuth'
+const { email, password, handleClick } = useAuth()
 </script>
 
 <template>
