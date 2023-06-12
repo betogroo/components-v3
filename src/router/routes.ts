@@ -20,6 +20,11 @@ const routes: RouteRecordRaw[] = [
     path: '/counter',
     name: 'CounterView',
     component: CounterView
+  },
+  {
+    path: '/login',
+    name: 'LoginView',
+    component: () => import('@/views/LoginView.vue')
   }
 ]
 
