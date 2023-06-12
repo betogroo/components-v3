@@ -1,0 +1,16 @@
+{
+    "version": "0.2",
+    "ignorePaths": [],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "language": "en,pt-BR,lorem",
+    "words": [
+        "Composables",
+        "materialdesignicons",
+        "Roboto",
+        "vuetify",
+        "webfontloader"
+    ],
+    "ignoreWords": [],
+    "import": []
+}
