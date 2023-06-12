@@ -1,9 +1,23 @@
 {
-  "cSpell.words": [
-    "Composables",
-    "materialdesignicons",
-    "vuetify",
-    "webfontloader"
-  ],
-  "cSpell.language": "en,pt-BR,lorem"
+  "workbench.colorTheme": "Dracula",
+    "workbench.iconTheme": "material-icon-theme",
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "cSpell.dictionaryDefinitions": [],
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "explorer.confirmDragAndDrop": false,
+  "typescript.updateImportsOnFileMove.enabled": "never",
+  "javascript.updateImportsOnFileMove.enabled": "never",
+  "cSpell.languageSettings": []
 }
