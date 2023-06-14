@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import useCounter from '@/composables/useCounter'
+import useCounter from '@/modules/counter/composables/useCounter'
+
 interface Props {
   initialValue?: number | string
   title?: string
