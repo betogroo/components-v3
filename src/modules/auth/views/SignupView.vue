@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import useAuth from '@/composables/useAuth'
+import useAuth from '@/modules/auth/composables/useAuth'
 
 const email = ref('')
 const password = ref('')

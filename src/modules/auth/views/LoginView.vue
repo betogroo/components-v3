@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import useAuth from '@/composables/useAuth'
+import useAuth from '@/modules/auth/composables/useAuth'
 const { email, password, handleClick } = useAuth()
 </script>
 
