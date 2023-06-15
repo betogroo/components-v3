@@ -13,9 +13,9 @@
     "firebase": "^9.22.2",
     "roboto-fontface": "*",
     "vite": "^4.3.9",
-    "vue": "^3.2.0",
+    "vue": "^3.3.4",
     "vue-router": "^4.2.2",
-    "vuetify": "^3.0.0",
+    "vuetify": "^3.3.3",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
