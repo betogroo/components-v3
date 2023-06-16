@@ -14,6 +14,17 @@ module.exports = {
     ecmaVersion: 2020
   },
   rules: {
+    'vue/max-attributes-per-line': [
+      'error',
+      {
+        singleline: {
+          max: 1
+        },
+        multiline: {
+          max: 1
+        }
+      }
+    ],
     'vue/component-tags-order': [
       'error',
       {
