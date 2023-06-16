@@ -1,3 +1,5 @@
+const { RouterLink } = require('vue-router')
+
 module.exports = {
   env: {
     node: true
@@ -18,6 +20,15 @@ module.exports = {
       'error',
       {
         order: ['script[setup]', 'template', 'style']
+      }
+    ],
+    'vue/component-name-in-template-casing': [
+      'error',
+      'PascalCase',
+      {
+        registeredComponentsOnly: true,
+        ignores: [],
+        globals: ['RouterView', 'RouterLink']
       }
     ]
   },

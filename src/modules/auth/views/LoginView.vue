@@ -26,8 +26,7 @@ const { email, password, handleClick } = useAuth()
       </v-form>
       <p class="mt-3 text-subtitle text-body-1">
         Esqueceu a senha? Clique
-        <router-link :to="{ name: 'HomeView' }">aqui</router-link> para
-        restaurar
+        <RouterLink :to="{ name: 'HomeView' }">aqui</RouterLink> para restaurar
       </p>
     </v-card>
   </v-container>
