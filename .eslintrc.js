@@ -1,5 +1,3 @@
-const { RouterLink } = require('vue-router')
-
 module.exports = {
   env: {
     node: true
