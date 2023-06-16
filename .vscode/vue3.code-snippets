@@ -151,11 +151,7 @@
   "HANDLE CLICK ASYNC": {
     "scope": "javascript,typescript",
     "prefix": "v3-handle-click-async",
-    "body": [
-      "const ${1:handleClick} = async () => {",
-      "$await ",
-      "}"
-    ]
+    "body": ["const ${1:handleClick} = async () => {", "$await ", "}"]
   },
   "HANDLE SUBMIT": {
     "scope": "javascript,typescript",

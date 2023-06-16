@@ -17,7 +17,12 @@ const handleClick = async () => {
 
 <template>
   <v-container class="fill-height justify-center align">
-    <v-card :loading="isPending" elevation="6" class="pa-4 rounded" width="400">
+    <v-card
+      :loading="isPending"
+      elevation="6"
+      class="pa-4 rounded"
+      width="400"
+    >
       <v-card-title class="text-center text-h4 mb-4">Registro</v-card-title>
       <v-form>
         <v-text-field
@@ -34,8 +39,18 @@ const handleClick = async () => {
           label="Senha"
           variant="outlined"
         />
-        <v-btn @click="handleClick" color="primary" block>Gravar</v-btn>
-        <v-alert v-if="error" class="mt-3" type="error">{{ error }}</v-alert>
+        <v-btn
+          @click="handleClick"
+          color="primary"
+          block
+          >Gravar</v-btn
+        >
+        <v-alert
+          v-if="error"
+          class="mt-3"
+          type="error"
+          >{{ error }}</v-alert
+        >
       </v-form>
     </v-card>
   </v-container>
