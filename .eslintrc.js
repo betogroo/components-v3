@@ -14,6 +14,31 @@ module.exports = {
     ecmaVersion: 2020
   },
   rules: {
+    'vue/define-macros-order': [
+      'error',
+      {
+        order: ['defineProps', 'defineEmits']
+      }
+    ],
+    'vue/attributes-order': [
+      'error',
+      {
+        order: [
+          'DEFINITION',
+          'LIST_RENDERING',
+          'CONDITIONALS',
+          'RENDER_MODIFIERS',
+          'GLOBAL',
+          ['UNIQUE', 'SLOT'],
+          'TWO_WAY_BINDING',
+          'OTHER_DIRECTIVES',
+          'OTHER_ATTR',
+          'EVENTS',
+          'CONTENT'
+        ],
+        alphabetical: true
+      }
+    ],
     'vue/max-attributes-per-line': [
       'error',
       {
