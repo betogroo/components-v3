@@ -6,8 +6,8 @@ const { email, password, handleClick } = useAuth()
 <template>
   <v-container class="fill-height justify-center">
     <v-card
-      elevation="6"
       class="pa-4 rounded"
+      elevation="6"
       width="400"
     >
       <v-card-title class="text-center text-h4 mb-4">Login</v-card-title>
@@ -15,21 +15,21 @@ const { email, password, handleClick } = useAuth()
         <v-text-field
           v-model="email"
           hint="Digite o seu email de cadastro"
-          type="email"
           label="Email"
+          type="email"
           variant="outlined"
         />
         <v-text-field
           v-model="password"
           hint="A senha deve conter números e letras"
-          type="password"
           label="Senha"
+          type="password"
           variant="outlined"
         />
         <v-btn
-          @click="handleClick"
-          color="primary"
           block
+          color="primary"
+          @click="handleClick"
           >Login</v-btn
         >
       </v-form>

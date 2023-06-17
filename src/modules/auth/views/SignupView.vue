@@ -18,9 +18,9 @@ const handleClick = async () => {
 <template>
   <v-container class="fill-height justify-center align">
     <v-card
-      :loading="isPending"
-      elevation="6"
       class="pa-4 rounded"
+      elevation="6"
+      :loading="isPending"
       width="400"
     >
       <v-card-title class="text-center text-h4 mb-4">Registro</v-card-title>
@@ -28,21 +28,21 @@ const handleClick = async () => {
         <v-text-field
           v-model="email"
           hint="Digite o seu email de cadastro"
-          type="email"
           label="Email"
+          type="email"
           variant="outlined"
         />
         <v-text-field
           v-model="password"
           hint="A senha deve conter números e letras"
-          type="password"
           label="Senha"
+          type="password"
           variant="outlined"
         />
         <v-btn
-          @click="handleClick"
-          color="primary"
           block
+          color="primary"
+          @click="handleClick"
           >Gravar</v-btn
         >
         <v-alert

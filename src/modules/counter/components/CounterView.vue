@@ -17,31 +17,31 @@ const { counter, increaseValue, decreaseValue, resetCounter } = useCounter(
 
 <template>
   <v-card
-    width="400"
     class="pa-3"
+    width="400"
   >
     <v-card-title>{{ title }}</v-card-title>
     <h1 class="text-h1 text-center">{{ counter }}</h1>
     <div class="mb-4 d-flex justify-space-between">
       <v-btn
+        color="red"
         :disabled="counter === 0"
         min-width="174"
         @click="decreaseValue"
-        color="red"
         ><v-icon>mdi-minus-thick</v-icon></v-btn
       >
       <v-btn
+        color="blue"
         min-width="174"
         @click="increaseValue"
-        color="blue"
         ><v-icon>mdi-plus-thick</v-icon></v-btn
       >
     </div>
     <v-btn
+      block
+      color="error"
       :disabled="counter === 0"
       @click="resetCounter"
-      color="error"
-      block
       >Reset</v-btn
     >
   </v-card>

@@ -5,8 +5,8 @@ import CounterView from '../components/CounterView.vue'
 <template>
   <v-container class="fill-height d-flex justify-center">
     <CounterView
-      title="Homens"
       :initial-value="10"
+      title="Homens"
     />
     <CounterView title="Mulheres" />
   </v-container>
