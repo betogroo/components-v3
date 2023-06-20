@@ -20,7 +20,5 @@
   "typescript.updateImportsOnFileMove.enabled": "never",
   "javascript.updateImportsOnFileMove.enabled": "never",
   "cSpell.languageSettings": [],
-  "auto-rename-tag.activationOnLanguage": [
-    "*"
-  ]
+  "auto-rename-tag.activationOnLanguage": ["*"]
 }

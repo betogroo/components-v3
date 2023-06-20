@@ -3,8 +3,8 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/counter',
     name: 'CounterView',
-    component: () => import('../views/CounterView.vue')
-  }
+    component: () => import('../views/CounterView.vue'),
+  },
 ]
 
 export default routes

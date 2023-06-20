@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import {
   auth,
   createUserWithEmailAndPassword,
-  FirebaseError
+  FirebaseError,
 } from '@/plugins/firebase'
 
 const useAuth = () => {

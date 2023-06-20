@@ -7,11 +7,11 @@ interface Props {
 }
 const props = withDefaults(defineProps<Props>(), {
   initialValue: 0,
-  title: ''
+  title: '',
 })
 
 const { counter, increaseValue, decreaseValue, resetCounter } = useCounter(
-  Number(props.initialValue)
+  Number(props.initialValue),
 )
 </script>
 
