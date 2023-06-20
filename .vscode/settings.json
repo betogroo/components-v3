@@ -19,5 +19,8 @@
   "explorer.confirmDragAndDrop": false,
   "typescript.updateImportsOnFileMove.enabled": "never",
   "javascript.updateImportsOnFileMove.enabled": "never",
-  "cSpell.languageSettings": []
+  "cSpell.languageSettings": [],
+  "auto-rename-tag.activationOnLanguage": [
+    "*"
+  ]
 }
