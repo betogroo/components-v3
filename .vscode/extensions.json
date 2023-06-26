@@ -12,6 +12,7 @@
     "vue.volar",
     "lukas-tr.materialdesignicons-intellisense",
     "sdras.vue-vscode-snippets",
-    "formulahendry.auto-rename-tag"
+    "formulahendry.auto-rename-tag",
+    "shinotatwu-ds.file-tree-generator"
   ]
 }
