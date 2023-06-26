@@ -2,6 +2,7 @@ import { ref } from 'vue'
 import {
   auth,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   FirebaseError,
 } from '@/plugins/firebase'
 
@@ -11,8 +12,26 @@ const useAuth = () => {
   const error = ref<string | null>(null)
   const isPending = ref(false)
 
-  const handleClick = () => {
-    console.log(email.value, password.value)
+  const login = async () => {
+    error.value = null
+    isPending.value = true
+    try {
+      const res = await signInWithEmailAndPassword(
+        auth,
+        email.value,
+        password.value,
+      )
+      if (!res) {
+        throw new FirebaseError('auth/default-error', 'Erro ao entrar')
+      }
+      error.value = null
+      isPending.value = false
+    } catch (err) {
+      const e = err as FirebaseError
+      console.log(e.code)
+      error.value = e.message
+      isPending.value = false
+    }
   }
 
   const signup = async (email: string, password: string) => {
@@ -32,7 +51,7 @@ const useAuth = () => {
       isPending.value = false
     }
   }
-  return { email, password, handleClick, signup, error, isPending }
+  return { email, password, login, signup, error, isPending }
 }
 
 export default useAuth
