@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import useAuth from '@/modules/auth/composables/useAuth'
 import { useRouter } from 'vue-router'
-const { email, password, isPending, error, login } = useAuth()
+const { email, password, isPending, error, login, user } = useAuth()
 const router = useRouter()
 const handleClick = async () => {
   await login()
@@ -13,6 +13,12 @@ const handleClick = async () => {
 
 <template>
   <v-container class="fill-height justify-center">
+    <div
+      v-if="user"
+      class="text-h6"
+    >
+      {{ user.email }}
+    </div>
     <v-card
       class="pa-4 rounded"
       elevation="6"
