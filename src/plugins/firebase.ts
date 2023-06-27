@@ -4,6 +4,8 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
 } from 'firebase/auth'
 const firebaseConfig = {
   apiKey: 'AIzaSyDPh0c9Mf5LOn1-gFwu6_MFWTZ28aPQe58',
@@ -26,5 +28,7 @@ export {
   auth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
   FirebaseError,
 }
