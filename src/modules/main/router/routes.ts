@@ -1,9 +1,25 @@
 import { RouteRecordRaw } from 'vue-router'
+import { auth } from '@/plugins/firebase'
+import { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
+
+const requireAuth = (
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized,
+  next: NavigationGuardNext,
+) => {
+  const user = auth.currentUser
+  if (!user) {
+    next({ name: 'LoginView' })
+  } else {
+    next()
+  }
+}
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'HomeView',
     component: () => import('../views/HomeView.vue'),
+    beforeEnter: requireAuth,
   },
   {
     path: '/about',
