@@ -22,5 +22,4 @@ const handleClick = async () => {
       </template>
     </div>
   </v-app-bar>
-  {{ user }}
 </template>
