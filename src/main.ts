@@ -13,8 +13,15 @@ import { createApp, App as Application } from 'vue'
 // Plugins
 import { registerPlugins } from '@/plugins'
 
-const app: Application = createApp(App)
+// Firebase
+import { auth, onAuthStateChanged } from './plugins/firebase'
 
-registerPlugins(app)
+let app: Application
 
-app.mount('#app')
+onAuthStateChanged(auth, () => {
+  if (!app) {
+    app = createApp(App)
+    registerPlugins(app)
+    app.mount('#app')
+  }
+})
