@@ -1,9 +1,9 @@
 import 'vue-router'
 
 declare module 'vue-router' {
-  interface CustomRouteRecordRaw extends Omit<RouteRecordRaw, 'name' | 'meta'> {
-    name: RouteRecordName
+  type CustomRouteRecordRaw = RouteRecordRaw & {
     meta: RouteMeta
+    name: RouteRecordName
   }
   interface RouteMeta {
     requiresAuth: boolean
