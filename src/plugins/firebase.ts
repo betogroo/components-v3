@@ -1,6 +1,12 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp, FirebaseError } from 'firebase/app'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from 'firebase/auth'
 const firebaseConfig = {
   apiKey: 'AIzaSyDPh0c9Mf5LOn1-gFwu6_MFWTZ28aPQe58',
   authDomain: 'b3vibe.firebaseapp.com',
@@ -18,4 +24,11 @@ initializeApp(firebaseConfig)
 //init services
 const auth = getAuth()
 
-export { auth, createUserWithEmailAndPassword, FirebaseError }
+export {
+  auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  FirebaseError,
+}
