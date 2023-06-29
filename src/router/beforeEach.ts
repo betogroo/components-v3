@@ -1,31 +1,19 @@
 import { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
-import { auth } from '@/plugins/firebase'
+import useAuth from '@/modules/auth/composables/useAuth'
+const { user } = useAuth()
 
 export default (
   to: RouteLocationNormalized,
   from: RouteLocationNormalized,
   next: NavigationGuardNext,
 ) => {
-  const user = auth.currentUser
-  if (to.name === 'LoginView' || to.name === 'SignupView') {
-    console.log('to=>', to.name, ' from=>', from.name)
+  if (!to.meta.requiresAuth) {
     next()
   } else {
-    if (!user) {
+    if (to.meta.requiresAuth && !user.value) {
       next({ name: 'LoginView' })
     } else {
-      console.log('Logado')
       next()
     }
   }
 }
-
-/* export default (
-  to: RouteLocationNormalized,
-  from: RouteLocationNormalized,
-  next: NavigationGuardNext,
-) => {
-  console.log('to=>', to.name, ' from=>', from.name)
-  next()
-}
- */
