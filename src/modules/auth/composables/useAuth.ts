@@ -8,16 +8,20 @@ import {
   onAuthStateChanged,
 } from '@/plugins/firebase'
 
-const email = ref('')
-const password = ref('')
+const email = ref('beto@beto.com')
+const password = ref('123456')
 const error = ref<string | null>(null)
 const isPending = ref(false)
 const user = ref(auth.currentUser)
 
 onAuthStateChanged(auth, (_user) => {
-  console.log(`User state changed. Current user is ${JSON.stringify(_user)}`)
+  console.log(`User state changed`)
   user.value = _user
 })
+
+const logout = async () => {
+  await signOut(auth)
+}
 
 const login = async () => {
   error.value = null
@@ -64,6 +68,7 @@ const useAuth = () => {
     email,
     password,
     login,
+    logout,
     signup,
     signOut,
     error,

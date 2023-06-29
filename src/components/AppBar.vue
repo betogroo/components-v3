@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import useAuth from '@/modules/auth/composables/useAuth'
-const { auth, user, signOut } = useAuth()
+import { useRouter } from 'vue-router'
+const { user, logout } = useAuth()
+const router = useRouter()
 const handleClick = async () => {
-  await signOut(auth)
+  await logout()
+  router.push({ name: 'LoginView' })
 }
 </script>
 <template>
