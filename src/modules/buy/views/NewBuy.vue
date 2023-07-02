@@ -1,11 +1,27 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive } from 'vue'
+import useBuy from '../composables/useBuy'
+import type { Purchase } from '../model'
+const purchase = reactive<Purchase>({
+  innerProcess: Number(''),
+  date: new Date(),
+  type: '',
+  description: '',
+})
 
-const processNumber = ref<number>()
-const type = ref<string>('')
-const description = ref<string>('')
+/* const innerProcess = ref('')
+const type = ref('')
+const description = ref('')
+// const date = ref(new Date())
+const purchase = {
+  innerProcess: Number(innerProcess.value),
+  type: type.value,
+  description: description.value,
+  date: new Date(),
+} */
+const { addPurchase } = useBuy()
 const handleSubmit = () => {
-  console.log(processNumber.value, type.value, description.value)
+  addPurchase(purchase)
 }
 </script>
 
@@ -18,28 +34,28 @@ const handleSubmit = () => {
         @submit.prevent="handleSubmit"
       >
         <v-text-field
-          v-model="processNumber"
+          v-model="purchase.innerProcess"
           label="Processo Interno"
           suffix="/2023"
           type="number"
           variant="outlined"
         />
         <v-radio-group
-          v-model="type"
+          v-model="purchase.type"
           inline
           label="Tipo de Aquisição"
         >
           <v-radio
             label="Material Permanente"
-            value="P"
+            value="p"
           ></v-radio>
           <v-radio
             label="Material de Consumo"
-            value="C"
+            value="c"
           ></v-radio>
         </v-radio-group>
         <v-text-field
-          v-model="description"
+          v-model="purchase.description"
           label="Descrição"
           variant="outlined"
         />
