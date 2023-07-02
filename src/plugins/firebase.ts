@@ -7,6 +7,14 @@ import {
   onAuthStateChanged,
   signOut,
 } from 'firebase/auth'
+
+import {
+  getFirestore,
+  collection,
+  onSnapshot,
+  addDoc,
+  getDocs,
+} from 'firebase/firestore'
 const firebaseConfig = {
   apiKey: 'AIzaSyDPh0c9Mf5LOn1-gFwu6_MFWTZ28aPQe58',
   authDomain: 'b3vibe.firebaseapp.com',
@@ -23,12 +31,18 @@ initializeApp(firebaseConfig)
 
 //init services
 const auth = getAuth()
+const db = getFirestore()
 
 export {
   auth,
+  db,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  collection,
+  onSnapshot,
+  getDocs,
+  addDoc,
   FirebaseError,
 }
