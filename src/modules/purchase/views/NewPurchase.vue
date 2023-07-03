@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
-import useBuy from '../composables/useBuy'
+import usePurchase from '../composables/usePurchase'
 import type { Purchase } from '../model'
 const purchase = reactive<Purchase>({
   innerProcess: Number(''),
@@ -19,7 +19,7 @@ const purchase = {
   description: description.value,
   date: new Date(),
 } */
-const { addPurchase } = useBuy()
+const { addPurchase } = usePurchase()
 const handleSubmit = () => {
   addPurchase(purchase)
 }

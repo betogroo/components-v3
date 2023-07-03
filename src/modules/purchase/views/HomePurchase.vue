@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import useBuy from '../composables/useBuy'
+import usePurchase from '../composables/usePurchase'
 import getCollection from '../composables/getCollection'
-const { purchases } = useBuy()
+const { purchases } = usePurchase()
 const { documents: purchases2 } = getCollection('buy')
 </script>
 
@@ -15,6 +15,6 @@ const { documents: purchases2 } = getCollection('buy')
       {{ purchases2 }}
     </h6>
     <br />
-    <RouterLink :to="{ name: 'NewBuy' }">Nova Compra</RouterLink>
+    <RouterLink :to="{ name: 'NewPurchase' }">Nova Compra</RouterLink>
   </v-container>
 </template>

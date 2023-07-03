@@ -1,17 +1,17 @@
 import { CustomRouteRecordRaw } from 'vue-router'
 const routes: CustomRouteRecordRaw[] = [
   {
-    name: 'BuyHome',
-    path: '/buy',
-    component: () => import('../views/HomeBuy.vue'),
+    name: 'PurchaseHome',
+    path: '/purchase',
+    component: () => import('../views/HomePurchase.vue'),
     meta: {
       requiresAuth: true,
     },
   },
   {
-    name: 'NewBuy',
-    path: '/buy/add',
-    component: () => import('../views/NewBuy.vue'),
+    name: 'NewPurchase',
+    path: '/purchase/add',
+    component: () => import('../views/NewPurchase.vue'),
     meta: {
       requiresAuth: true,
     },
