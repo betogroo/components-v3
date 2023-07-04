@@ -1,14 +1,15 @@
 import { ref, watchEffect } from 'vue'
 import { db, collection, onSnapshot } from '@/plugins/firebase'
+import { DocumentData } from 'firebase/firestore'
 
-const getColletction = (_collection: string) => {
-  const documents = ref()
+const getCollection = <T>(_collection: string) => {
+  const documents = ref<T[]>()
 
   const collectionReference = collection(db, _collection)
 
   const unsub = onSnapshot(collectionReference, (snapshot) => {
-    const results: any[] | null = []
-    snapshot.docs.forEach((doc) => {
+    const results: T[] = []
+    snapshot.docs.forEach((doc: DocumentData) => {
       results.push({ ...doc.data(), id: doc.id })
     })
     documents.value = results
@@ -20,4 +21,4 @@ const getColletction = (_collection: string) => {
   return { documents }
 }
 
-export default getColletction
+export default getCollection
