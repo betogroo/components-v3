@@ -1,20 +1,37 @@
 <script setup lang="ts">
-import usePurchase from '../composables/usePurchase'
+import type { Purchase } from '../model'
 import getCollection from '../composables/getCollection'
-const { purchases } = usePurchase()
-const { documents: purchases2 } = getCollection('buy')
+const { documents: purchases } = getCollection<Purchase>('buy')
+const handleClick = (purchase: Purchase) => {
+  console.log(purchase)
+}
 </script>
 
 <template>
-  <v-container class="fill-height d-flex justify-center">
-    <h1>buy</h1>
-    <h6>
-      {{ purchases }}
-    </h6>
-    <h6>
-      {{ purchases2 }}
-    </h6>
-    <br />
-    <RouterLink :to="{ name: 'NewPurchase' }">Nova Compra</RouterLink>
+  <v-container class="d-flex flex-wrap justify-center">
+    <v-card
+      v-for="purchase in purchases"
+      :key="purchase.id"
+      class="ma-1"
+      variant="outlined"
+      width="400"
+    >
+      <v-card-item>
+        <v-card-title>Processo {{ purchase.innerProcess }}</v-card-title>
+        <v-card-subtitle>{{ purchase.description }}</v-card-subtitle>
+      </v-card-item>
+      <v-card-text> Detalhes </v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+          color="primary"
+          variant="outlined"
+          @click="handleClick(purchase)"
+          >Ver</v-btn
+        >
+      </v-card-actions>
+    </v-card>
   </v-container>
+  <RouterLink :to="{ name: 'NewPurchase' }">Nova Compra</RouterLink>
 </template>

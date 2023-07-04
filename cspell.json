@@ -7,8 +7,10 @@
   "words": [
     "composables",
     "Composables",
+    "firestore",
     "materialdesignicons",
     "Roboto",
+    "unsub",
     "vuetify",
     "webfontloader"
   ],
