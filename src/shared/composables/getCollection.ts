@@ -1,6 +1,6 @@
 import { ref, watchEffect } from 'vue'
-import { db, collection, onSnapshot } from '@/plugins/firebase'
-import { DocumentData } from 'firebase/firestore'
+import { db, collection, onSnapshot, DocumentData } from '@/plugins/firebase'
+// import { DocumentData } from 'firebase/firestore'
 
 const getCollection = <T>(_collection: string) => {
   const documents = ref<T[]>()

@@ -15,6 +15,9 @@ import {
   addDoc,
   getDocs,
 } from 'firebase/firestore'
+
+import type { DocumentData } from 'firebase/firestore'
+
 const firebaseConfig = {
   apiKey: 'AIzaSyDPh0c9Mf5LOn1-gFwu6_MFWTZ28aPQe58',
   authDomain: 'b3vibe.firebaseapp.com',
@@ -45,4 +48,5 @@ export {
   getDocs,
   addDoc,
   FirebaseError,
+  DocumentData,
 }

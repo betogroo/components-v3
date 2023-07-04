@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Purchase } from '../model'
-import getCollection from '../composables/getCollection'
+import getCollection from '@/shared/composables/getCollection'
 const { documents: purchases } = getCollection<Purchase>('buy')
 const handleClick = (purchase: Purchase) => {
   console.log(purchase)
