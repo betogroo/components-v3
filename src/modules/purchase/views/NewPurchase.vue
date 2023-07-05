@@ -7,6 +7,7 @@ const purchase = reactive<Purchase>({
   date: new Date(),
   type: '',
   description: '',
+  id: '',
 })
 
 /* const innerProcess = ref('')
