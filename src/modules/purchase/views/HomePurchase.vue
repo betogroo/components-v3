@@ -26,8 +26,11 @@ const handleClick = (purchase: Purchase) => {
         <v-spacer></v-spacer>
         <v-btn
           color="primary"
+          :to="{
+            name: 'DetailsPurchase',
+            params: { id: purchase.id.toString() },
+          }"
           variant="outlined"
-          @click="handleClick(purchase)"
           >Ver</v-btn
         >
       </v-card-actions>
