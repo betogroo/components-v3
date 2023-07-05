@@ -13,6 +13,8 @@ import {
   collection,
   onSnapshot,
   addDoc,
+  doc,
+  getDoc,
   getDocs,
 } from 'firebase/firestore'
 
@@ -47,6 +49,8 @@ export {
   onSnapshot,
   getDocs,
   addDoc,
+  doc,
+  getDoc,
   FirebaseError,
   DocumentData,
 }
