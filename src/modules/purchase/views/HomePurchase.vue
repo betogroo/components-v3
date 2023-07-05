@@ -2,9 +2,6 @@
 import type { Purchase } from '../model'
 import getCollection from '@/shared/composables/getCollection'
 const { documents: purchases } = getCollection<Purchase>('buy')
-const handleClick = (purchase: Purchase) => {
-  console.log(purchase)
-}
 </script>
 
 <template>
@@ -27,7 +24,7 @@ const handleClick = (purchase: Purchase) => {
         <v-btn
           color="primary"
           :to="{
-            name: 'DetailsPurchase',
+            name: 'PurchaseView',
             params: { id: purchase.id.toString() },
           }"
           variant="outlined"
