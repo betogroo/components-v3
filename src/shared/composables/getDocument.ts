@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { DocumentData, db, doc, getDoc, onSnapshot } from '@/plugins/firebase'
+import { DocumentData, db, doc, getDoc } from '@/plugins/firebase'
 //import { Purchase } from '@/modules/purchase/model'
 // import { DocumentData } from 'firebase/firestore'
 
