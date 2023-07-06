@@ -1,31 +1,38 @@
-import { ref } from 'vue'
-import { db, collection, DocumentData, getDocs } from '@/plugins/firebase'
-// import { DocumentData } from 'firebase/firestore'
+import { ref, watchEffect } from 'vue'
+import {
+  db,
+  collection,
+  DocumentData,
+  onSnapshot,
+  orderBy,
+  query,
+} from '@/plugins/firebase'
 
 const getCollection = async <T>(_collection: string) => {
   const documents = ref<T[]>()
 
   const collectionReference = collection(db, _collection)
+  const q = query(collectionReference, orderBy('innerProcess'))
 
-  /* const unsub = onSnapshot(collectionReference, (snapshot) => {
+  const unsub = onSnapshot(q, (snapshot) => {
     const results: T[] = []
     snapshot.docs.forEach((doc: DocumentData) => {
       results.push({ ...doc.data(), id: doc.id })
     })
     documents.value = results
-  }) */
+  })
 
-  await getDocs(collectionReference).then((snapshot) => {
+  /* await getDocs(q).then((snapshot) => {
     const docs: T[] = []
     snapshot.docs.forEach((doc: DocumentData) => {
       docs.push({ ...doc.data(), id: doc.id })
     })
     documents.value = docs
-  })
-
-  /* watchEffect((onInvalidate) => {
-    onInvalidate(() => unsub())
   }) */
+
+  watchEffect((onInvalidate) => {
+    onInvalidate(() => unsub())
+  })
   return { documents }
 }
 
