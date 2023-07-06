@@ -20,7 +20,7 @@ import {
   query,
 } from 'firebase/firestore'
 
-import type { DocumentData } from 'firebase/firestore'
+import type { DocumentData, Timestamp } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDPh0c9Mf5LOn1-gFwu6_MFWTZ28aPQe58',
@@ -57,4 +57,5 @@ export {
   getDoc,
   FirebaseError,
   DocumentData,
+  Timestamp,
 }
