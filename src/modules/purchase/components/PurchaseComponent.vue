@@ -1,31 +1,39 @@
 <script setup lang="ts">
 import getDocument from '@/shared/composables/getDocument'
 import type { Purchase } from '../model'
-import { Timestamp } from 'firebase/firestore'
+import useDate from '@/shared/composables/useDate'
 const props = defineProps<Props>()
 const { document: purchase, error } = await getDocument<Purchase>(
   'buy',
   props.id,
 )
+const { timestampToDate, timestampToYear } = useDate()
 interface Props {
   id: string
-}
-
-const timestampToYear = (date: Timestamp) => {
-  const seconds = date.seconds * 1000
-  const year = new Date(seconds).getFullYear()
-  return year
 }
 </script>
 
 <template>
-  <div>
+  <v-card class="mx-1 pa-1">
     <v-row v-if="purchase">
-      <v-col>Processo DSPSJB/{{ purchase.innerProcess }}</v-col>
-      <v-col>{{ purchase.description }}</v-col>
-      <v-col>{{ timestampToYear(purchase.date) }}</v-col>
+      <v-col cols="10"
+        ><div class="pa-2">
+          <span>
+            Processo DSPSJB {{ purchase.innerProcess }}/{{
+              timestampToYear(purchase.date)
+            }}
+          </span>
+          -
+          <span class="text-subtitle-2">{{ purchase.description }}</span>
+        </div>
+      </v-col>
+      <v-col
+        ><div class="text-subtitle-1 text-right">
+          {{ timestampToDate(purchase.date) }}
+        </div></v-col
+      >
     </v-row>
-  </div>
+  </v-card>
   <v-alert
     v-if="error"
     type="error"
