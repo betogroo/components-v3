@@ -16,6 +16,8 @@ import {
   doc,
   getDoc,
   getDocs,
+  orderBy,
+  query,
 } from 'firebase/firestore'
 
 import type { DocumentData } from 'firebase/firestore'
@@ -47,6 +49,8 @@ export {
   onAuthStateChanged,
   collection,
   onSnapshot,
+  orderBy,
+  query,
   getDocs,
   addDoc,
   doc,
