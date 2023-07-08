@@ -1,12 +1,6 @@
 import { ref, watchEffect } from 'vue'
-import {
-  db,
-  collection,
-  DocumentData,
-  onSnapshot,
-  orderBy,
-  query,
-} from '@/plugins/firebase'
+import { db, collection, onSnapshot, orderBy, query } from '@/plugins/firebase'
+import type { DocumentData } from '@/shared/model'
 
 const getCollection = async <T>(_collection: string) => {
   const documents = ref<T[]>()

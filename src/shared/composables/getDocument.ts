@@ -1,5 +1,6 @@
 import { ref, watchEffect } from 'vue'
-import { DocumentData, db, doc, onSnapshot } from '@/plugins/firebase'
+import { db, doc, onSnapshot } from '@/plugins/firebase'
+import type { DocumentData } from '@/shared/model'
 //import { Purchase } from '@/modules/purchase/model'
 // import { DocumentData } from 'firebase/firestore'
 

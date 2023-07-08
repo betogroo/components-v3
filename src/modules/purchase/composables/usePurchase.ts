@@ -1,10 +1,5 @@
-import {
-  db,
-  getDocs,
-  collection,
-  addDoc,
-  DocumentData,
-} from '@/plugins/firebase'
+import { db, getDocs, collection, addDoc } from '@/plugins/firebase'
+import { DocumentData } from '@/shared/model/'
 import { ref } from 'vue'
 import type { Purchase } from '../model'
 const purchases = ref<Purchase[] | null>([])
