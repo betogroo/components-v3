@@ -43,6 +43,11 @@ const handleSubmit = () => {
           type="number"
           variant="outlined"
         />
+        <v-text-field
+          v-model="purchase.outerProcess"
+          label="Processo SEI"
+          variant="outlined"
+        />
         <v-radio-group
           v-model="purchase.type"
           inline
