@@ -20,5 +20,11 @@
   "typescript.updateImportsOnFileMove.enabled": "never",
   "javascript.updateImportsOnFileMove.enabled": "never",
   "cSpell.languageSettings": [],
-  "auto-rename-tag.activationOnLanguage": ["*"]
+  "auto-rename-tag.activationOnLanguage": ["*"],
+  "codesnap.transparentBackground":true,
+  "codesnap.showWindowTitle": true,
+  "codesnap.showLineNumbers": false,
+  "codesnap.containerPadding": "0",
+  "codesnap.boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px"
+
 }
