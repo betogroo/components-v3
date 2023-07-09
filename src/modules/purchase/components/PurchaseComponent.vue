@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import getDocument from '@/shared/composables/getDocument'
-//#
-import { db } from '@/plugins/firebase'
-import { doc, updateDoc } from 'firebase/firestore'
-// #
+import UpdateSingleFieldVue from '@/shared/components/UpdateSingleField.vue'
 import type { Purchase } from '../model'
 import useDate from '@/shared/composables/useDate'
-import { ref } from 'vue'
 const props = defineProps<Props>()
 const { document: purchase, error } = await getDocument<Purchase>(
   'buy',
@@ -16,19 +12,14 @@ const { timestampToDate, timestampToYear } = useDate()
 interface Props {
   id: string
 }
-
-// ##
-const outerProcess = ref('')
-const documentReference = doc(db, 'buy', props.id)
-const handleClick = async () => {
-  console.log(outerProcess.value, documentReference)
-  await updateDoc(documentReference, { outerProcess: outerProcess.value })
-}
 </script>
 
 <template>
-  <v-card class="mx-1 pa-1">
-    <v-row v-if="purchase">
+  <v-card
+    v-if="purchase"
+    class="mx-1 pa-1"
+  >
+    <v-row>
       <v-col cols="10"
         ><div class="pa-2">
           <span>
@@ -47,15 +38,16 @@ const handleClick = async () => {
       >
     </v-row>
     <v-row>
-      <v-col v-if="purchase?.outerProcess">
-        <span>Processo SEI: {{ purchase?.outerProcess }}</span></v-col
+      <v-col v-if="purchase.outerProcess">
+        <span>Processo SEI: {{ purchase.outerProcess }}</span></v-col
       >
       <v-col v-else>
-        <v-text-field
-          v-model="outerProcess"
-          variant="outlined"
+        <UpdateSingleFieldVue
+          :id="$props.id"
+          collection="buy"
+          field="outerProcess"
+          label="Processo SEI"
         />
-        <v-btn @click="handleClick">Salvar</v-btn>
       </v-col>
     </v-row>
   </v-card>
