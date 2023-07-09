@@ -1,7 +1,7 @@
 import { Timestamp } from '@/shared/model'
 
 export interface Purchase {
-  id: string
+  id?: string
   innerProcess: number
   outerProcess?: string
   type: string
