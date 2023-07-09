@@ -8,7 +8,6 @@ const purchase = reactive<Purchase>({
   date: Timestamp.fromDate(new Date()),
   type: '',
   description: '',
-  id: '',
   outerProcess: '',
 })
 

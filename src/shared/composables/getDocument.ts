@@ -22,7 +22,7 @@ const getDocument = async <T>(_document: string, id: string) => {
   const unsub = onSnapshot(documentReference, (doc: DocumentData) => {
     isLoading.value = true
     if (doc.exists()) {
-      document.value = doc.data()
+      document.value = { ...doc.data(), id: doc.id }
       isLoading.value = false
     } else {
       error.value = true
