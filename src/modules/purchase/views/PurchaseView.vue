@@ -15,6 +15,9 @@ interface Props {
       <!-- loading state via #fallback slot -->
       <template #fallback> Loading... </template>
     </Suspense>
+    <RouterLink :to="{ name: 'PurchaseItems', params: { id: props.id } }"
+      >Ver Items</RouterLink
+    >
     <AppBackBtn />
   </v-container>
 </template>
