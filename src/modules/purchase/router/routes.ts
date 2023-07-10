@@ -3,7 +3,7 @@ const routes: CustomRouteRecordRaw[] = [
   {
     name: 'PurchaseHome',
     path: '/purchase',
-    component: () => import('../views/HomePurchase.vue'),
+    component: () => import('../views/PurchaseHome.vue'),
     meta: {
       requiresAuth: true,
     },
