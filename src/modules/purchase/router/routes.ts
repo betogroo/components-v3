@@ -18,7 +18,7 @@ const routes: CustomRouteRecordRaw[] = [
   },
   {
     name: 'PurchaseView',
-    path: '/purchase/details/:id',
+    path: '/purchase/:id',
     component: () => import('../views/PurchaseView.vue'),
     props: (route) => ({ id: route.params.id }),
     meta: {
