@@ -9,9 +9,9 @@ const routes: CustomRouteRecordRaw[] = [
     },
   },
   {
-    name: 'NewPurchase',
-    path: '/purchase/add',
-    component: () => import('../views/NewPurchase.vue'),
+    name: 'PurchaseNew',
+    path: '/purchase/new',
+    component: () => import('../views/PurchaseNew.vue'),
     meta: {
       requiresAuth: true,
     },

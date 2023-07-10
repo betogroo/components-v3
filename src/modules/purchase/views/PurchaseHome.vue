@@ -6,7 +6,7 @@ const { documents: purchases } = await getCollection<Purchase>('buy') */
 
 <template>
   <v-container>
-    <RouterLink :to="{ name: 'NewPurchase' }">Nova Compra</RouterLink>
+    <RouterLink :to="{ name: 'PurchaseNew' }">Nova Compra</RouterLink>
     <div class="d-flex flex-wrap justify-center">
       <Suspense class="">
         <PurchaseCard />
