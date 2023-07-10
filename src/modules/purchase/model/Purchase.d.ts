@@ -8,3 +8,13 @@ export interface Purchase {
   description: string
   date: Timestamp
 }
+export interface ItemPurchase {
+  id?: string
+  purchase_id: string
+  tittle: string
+  siafisico: string
+  expenseQuality: string
+  unity: string
+  quantity: number
+  price: number
+}
