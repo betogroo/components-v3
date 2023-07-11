@@ -32,14 +32,14 @@ const handleSubmit = async () => {
 
 <template>
   <v-form @submit.prevent="handleSubmit">
-    <v-row>
+    <v-row no-gutters>
       <v-col
         ><v-text-field
           v-model="formValues.tittle"
           density="compact"
+          :hide-details="true"
           hint="Digite o nome do material, de modo amigável"
           label="Material"
-          variant="outlined"
       /></v-col>
     </v-row>
     <v-row>
@@ -47,9 +47,9 @@ const handleSubmit = async () => {
         <v-text-field
           v-model="formValues.siafisico"
           density="compact"
+          :hide-details="true"
           hint="Digite o número do Item Siafísico"
           label="Item Siafísico"
-          variant="outlined"
         />
       </v-col>
       <v-col>
@@ -58,7 +58,6 @@ const handleSubmit = async () => {
           density="compact"
           hint="Digite o número da Natureza da Despesa"
           label="Natureza da Despesa"
-          variant="outlined"
         />
       </v-col>
     </v-row>
@@ -70,7 +69,6 @@ const handleSubmit = async () => {
           density="compact"
           :items="['1', '10', '408', '302', '187']"
           label="Unidade de Fornecimento"
-          variant="outlined"
         ></v-select>
       </v-col>
     </v-row>
@@ -81,7 +79,6 @@ const handleSubmit = async () => {
           density="compact"
           label="Quantidade"
           type="number"
-          variant="outlined"
         />
       </v-col>
       <v-col>
@@ -90,7 +87,6 @@ const handleSubmit = async () => {
           density="compact"
           label="Valor Unitário"
           type="number"
-          variant="outlined"
         />
       </v-col>
     </v-row>
