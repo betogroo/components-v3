@@ -1,12 +1,13 @@
 import { ref, watchEffect } from 'vue'
 import { db, collection, onSnapshot, orderBy, query } from '@/plugins/firebase'
 import type { DocumentData } from '@/shared/model'
+import { FieldPath } from 'firebase/firestore'
 
-const getCollection = async <T>(_collection: string) => {
+const getCollection = async <T>(_collection: string, order = 'date') => {
   const documents = ref<T[]>()
 
   const collectionReference = collection(db, _collection)
-  const q = query(collectionReference, orderBy('innerProcess'))
+  const q = query(collectionReference, orderBy(order ? order : 'innerProcess'))
 
   const unsub = onSnapshot(q, (snapshot) => {
     const results: T[] = []
