@@ -2,6 +2,7 @@
 import AppBackBtn from '@/shared/components/AppBackBtn.vue'
 import PurchaseItemForm from '../components/PurchaseItemForm.vue'
 import PurchaseItems from '../components/PurchaseItems.vue'
+import AppLoader from '@/shared/components/AppLoader.vue'
 
 interface Props {
   id: string
@@ -17,7 +18,9 @@ const props = defineProps<Props>()
       <template #default>
         <PurchaseItems />
       </template>
-      <template #fallback>Loading... </template>
+      <template #fallback>
+        <AppLoader />
+      </template>
     </Suspense>
   </v-container>
   <AppBackBtn />
