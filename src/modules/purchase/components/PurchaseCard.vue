@@ -2,7 +2,7 @@
 import type { Purchase } from '../model'
 import getCollection from '@/shared/composables/getCollection'
 //const props = defineProps<Props>()
-const { documents: purchases } = await getCollection<Purchase>('buy')
+const { documents: purchases } = await getCollection<Purchase>('purchase')
 /* interface Props {
   purchases: Purchase[]
 } */
@@ -28,7 +28,7 @@ const { documents: purchases } = await getCollection<Purchase>('buy')
         color="primary"
         :to="{
           name: 'PurchaseView',
-          params: { id: purchase.id.toString() },
+          params: { id: purchase.id!.toString() },
         }"
         variant="outlined"
         >Ver</v-btn

@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import type { Purchase } from '../model'
 const purchases = ref<Purchase[] | null>([])
 
-const collectionReference = collection(db, 'buy')
+const collectionReference = collection(db, 'purchase')
 getDocs(collectionReference).then((snapshot) => {
   const docs: Purchase[] = []
   snapshot.docs.forEach((doc: DocumentData) => {
@@ -14,13 +14,13 @@ getDocs(collectionReference).then((snapshot) => {
 })
 
 const addPurchase = async (purchase: Purchase) => {
-  const collectionReference = collection(db, 'buy')
+  const collectionReference = collection(db, 'purchase')
   await addDoc(collectionReference, purchase)
   console.log(purchase)
 }
 
-const useBuy = () => {
+const usePurchase = () => {
   return { purchases, addPurchase }
 }
 
-export default useBuy
+export default usePurchase

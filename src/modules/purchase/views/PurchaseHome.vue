@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import PurchaseCard from '../components/PurchaseCard.vue'
 /* import getCollection from '@/shared/composables/getCollection'
-const { documents: purchases } = await getCollection<Purchase>('buy') */
+const { documents: purchases } = await getCollection<Purchase>('purchase') */
 </script>
 
 <template>
