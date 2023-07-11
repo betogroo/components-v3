@@ -5,7 +5,7 @@ import type { Purchase } from '../model'
 import useDate from '@/shared/composables/useDate'
 const props = defineProps<Props>()
 const { document: purchase, error } = await getDocument<Purchase>(
-  'buy',
+  'purchase',
   props.id,
 )
 const { timestampToDate, timestampToYear } = useDate()
@@ -44,7 +44,7 @@ interface Props {
       <v-col v-else>
         <UpdateSingleFieldVue
           :id="$props.id"
-          collection="buy"
+          collection="purchase"
           field="outerProcess"
           label="Processo SEI"
         />
