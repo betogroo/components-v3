@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { ItemPurchase } from '../model'
+import addDocument from '@/shared/composables/addDocument'
 interface Props {
   purchase_id: string
 }
@@ -15,7 +16,13 @@ const formValues = ref<ItemPurchase>({
   price: 0,
 })
 
-const handleSubmit = () => {
+const { addDocument: addPurchaseItem } = addDocument(
+  'purchase_item',
+  formValues.value,
+)
+
+const handleSubmit = async () => {
+  await addPurchaseItem()
   console.log(
     formValues.value,
     formValues.value.price * formValues.value.quantity,
@@ -70,7 +77,7 @@ const handleSubmit = () => {
     <v-row>
       <v-col>
         <v-text-field
-          v-model="formValues.quantity"
+          v-model.number="formValues.quantity"
           density="compact"
           label="Quantidade"
           type="number"
@@ -79,7 +86,7 @@ const handleSubmit = () => {
       </v-col>
       <v-col>
         <v-text-field
-          v-model="formValues.price"
+          v-model.number="formValues.price"
           density="compact"
           label="Valor Unitário"
           type="number"
