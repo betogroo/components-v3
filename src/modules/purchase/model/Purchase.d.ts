@@ -17,4 +17,11 @@ export interface ItemPurchase {
   unity: string
   quantity: number
   price: number
+  budget?: Budget[]
+}
+
+export interface Budget {
+  link?: string
+  print?: string
+  price?: number
 }
