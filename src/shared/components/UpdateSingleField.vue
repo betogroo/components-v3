@@ -10,11 +10,10 @@ interface Props {
 
 const { updateField, formValue: field } = useUpdateField(
   props.collection,
-  props.id,
   props.field,
 )
 const handleClick = async () => {
-  await updateField(field.value)
+  await updateField(field.value, props.id)
 }
 </script>
 

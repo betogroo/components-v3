@@ -10,20 +10,15 @@ const { documents } = await getCollection<ItemPurchase>(
   'price',
 )
 
-const { updateMap } = useUpdateField(
-  'purchase_item',
-  'dZux7HNFZMxD5c8DKnFj',
-  'budget',
-)
+const { updateMap } = useUpdateField('purchase_item', 'budget')
 
-/* const budget: Budget = {
+const _budget: Budget = {
   link: 'link para a parada da parada',
   price: 25.65,
   print: 'aqui é um print para a parada a parada feita pela coisa',
-} */
+}
 const handleClick = (id: string) => {
-  updateMap(budget)
-  console.log(budget, id)
+  updateMap(_budget, id)
 }
 </script>
 
