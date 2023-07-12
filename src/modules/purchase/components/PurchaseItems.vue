@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ItemPurchase, Purchase } from '../model'
+import type { ItemPurchase } from '../model'
 import getCollection from '@/shared/composables/getCollection'
 // import useDate from '@/shared/composables/useDate'
 
@@ -9,9 +9,6 @@ const { documents } = await getCollection<ItemPurchase>(
   'price',
 )
 console.log(documents.value)
-/* interface Props {
-  id?: string
-} */
 </script>
 
 <template>

@@ -1,7 +1,6 @@
 import { ref, watchEffect } from 'vue'
 import { db, collection, onSnapshot, orderBy, query } from '@/plugins/firebase'
 import type { DocumentData } from '@/shared/model'
-import { FieldPath } from 'firebase/firestore'
 
 const getCollection = async <T>(_collection: string, order = 'date') => {
   const documents = ref<T[]>()
