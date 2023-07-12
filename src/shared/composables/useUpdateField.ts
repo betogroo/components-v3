@@ -7,7 +7,11 @@ const useUpdateField = (collection: string, id: string, field: string) => {
     const documentReference = doc(db, collection, id)
     await updateDoc(documentReference, { [field]: value })
   }
-  return { updateField, formValue }
+  const updateMap = async <T>(value: T) => {
+    const documentReference = doc(db, collection, id)
+    await updateDoc(documentReference, { [field]: value })
+  }
+  return { updateField, updateMap, formValue }
 }
 
 export default useUpdateField
