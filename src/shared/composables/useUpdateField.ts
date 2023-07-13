@@ -1,33 +1,49 @@
 import { db, doc, getDoc, updateDoc } from '@/plugins/firebase'
 import { ref } from 'vue'
 
+const delay = (amount = 2000, msg = false): Promise<void> => {
+  if (msg) {
+    console.log(`Delay de ${amount / 1000} segundos para testes!`)
+  }
+  return new Promise((resolve) => setTimeout(resolve, amount))
+}
+
 const formValue = ref('')
-const useUpdateField = (collection: string, field: string) => {
-  const updateField = async (value: string, id: string) => {
+const error = ref('')
+const isLoading = ref(false)
+const useUpdateField = <T>(collection: string, field: string) => {
+  const updateField = async (value: T, id: string) => {
     const documentReference = doc(db, collection, id)
     await updateDoc(documentReference, { [field]: value })
   }
-  const updateMap = async <T>(value: T, id: string) => {
+
+  const updateArray = async (value: T, id: string) => {
+    isLoading.value = true
+    await delay(3000, true)
     const documentReference = doc(db, collection, id)
     const documentSnapshot = await getDoc(documentReference)
-    let newBudget: T[] = []
+    let newData: T[] = []
     if (documentSnapshot.exists()) {
-      const existingMap: T[] = documentSnapshot.data().budget
+      const existingData: T[] = documentSnapshot.data()[field]
 
-      if (existingMap) {
-        console.log('tem budiget')
-        newBudget = [...existingMap, value]
-        await updateDoc(documentReference, { budget: newBudget })
+      if (existingData) {
+        newData = [...existingData, value]
       } else {
-        console.log('nao tem budiget')
-        newBudget = [value]
-        await updateDoc(documentReference, { budget: newBudget })
+        newData = [value]
       }
+      await updateDoc(documentReference, { [field]: newData })
+        .then(() => {
+          isLoading.value = false
+        })
+        .catch((err) => {
+          error.value = err
+          isLoading.value = false
+        })
     } else {
-      console.log('aqui se nao existe')
+      error.value = 'Algo deu errado'
     }
   }
-  return { updateField, updateMap, formValue }
+  return { updateField, updateArray, formValue, error, isLoading }
 }
 
 export default useUpdateField

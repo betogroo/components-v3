@@ -10,7 +10,7 @@ const { documents } = await getCollection<ItemPurchase>(
   'price',
 )
 
-const { updateMap } = useUpdateField('purchase_item', 'budget')
+const { updateArray, isLoading } = useUpdateField('purchase_item', 'budget')
 
 const _budget: Budget = {
   link: 'link para a parada da parada',
@@ -18,7 +18,7 @@ const _budget: Budget = {
   print: 'aqui é um print para a parada a parada feita pela coisa',
 }
 const handleClick = (id: string) => {
-  updateMap(_budget, id)
+  updateArray(_budget, id)
 }
 </script>
 
@@ -33,20 +33,29 @@ const handleClick = (id: string) => {
       <v-card-title>{{ item.tittle }}</v-card-title>
       <div v-if="!item.budget">
         <div>Ainda não tem orçamentos</div>
-        <div><v-btn>Adicionar</v-btn></div>
       </div>
       <div v-else>
         <div>
           Produto {{ item.id }} produto tem {{ item.budget.length }} orçamentos
         </div>
-        <div
-          v-for="budget in item.budget"
-          :key="budget.link"
+        <v-list
+          density="compact"
+          lines="one"
         >
-          {{ budget.link }} - {{ budget.price }} {{ budget.print }}
-        </div>
+          <v-list-item
+            v-for="budget in item.budget"
+            :key="budget.link"
+            density="compact"
+          >
+            {{ budget.link }} - {{ budget.price }} {{ budget.print }}
+          </v-list-item>
+        </v-list>
       </div>
-      <v-btn @click="handleClick(item.id!)">Add</v-btn>
+      <v-btn
+        v-bind:loading="isLoading"
+        @click="handleClick(item.id!)"
+        >Add</v-btn
+      >
     </v-card>
   </v-card>
 </template>
