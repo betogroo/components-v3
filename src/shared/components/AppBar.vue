@@ -14,9 +14,9 @@ const handleClick = async () => {
     <div>
       <template v-if="user">
         <v-btn :to="{ name: 'HomeView' }">Home</v-btn>
-        <v-btn :to="{ name: 'CounterView' }">Counter</v-btn>
+        <v-btn :to="{ name: 'PurchaseHome' }">Purchase</v-btn>
         <v-btn :to="{ name: 'AboutView' }">About</v-btn>
-        {{ user.email }}
+
         <v-btn @click="handleClick">Logout</v-btn>
       </template>
       <template v-if="!user">
