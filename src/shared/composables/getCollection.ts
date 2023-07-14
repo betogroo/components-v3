@@ -1,16 +1,24 @@
 import { ref, watchEffect } from 'vue'
 import { db, collection, onSnapshot, orderBy, query } from '@/plugins/firebase'
 import type { DocumentData, Query } from '@/shared/model'
+import { where } from 'firebase/firestore'
 
-const getCollection = async <T>(_collection: string, order?: string) => {
+const getCollection = async <T>(
+  _collection: string,
+  order?: string,
+  filterField?: string,
+  filterValue?: string,
+) => {
   const documents = ref<T[]>()
 
   const collectionReference = collection(db, _collection)
-  let q: Query
+  let q: Query = query(collectionReference)
   if (order) {
     q = query(collectionReference, orderBy(order))
-  } else {
-    q = query(collectionReference)
+  }
+
+  if (filterField && filterValue) {
+    q = query(q, where(filterField, '==', filterValue))
   }
 
   const unsub = onSnapshot(q, (snapshot) => {

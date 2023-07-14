@@ -4,10 +4,16 @@ import useUpdateField from '@/shared/composables/useUpdateField'
 import getCollection from '@/shared/composables/getCollection'
 // import useDate from '@/shared/composables/useDate'
 
-//const props = defineProps<Props>()
+interface Props {
+  purchase_id: string
+}
+const props = defineProps<Props>()
+
 const { documents } = await getCollection<ItemPurchase>(
   'purchase_item',
   'price',
+  'purchase_id',
+  props.purchase_id,
 )
 
 const { updateArray, isLoading } = useUpdateField('purchase_item', 'budget')

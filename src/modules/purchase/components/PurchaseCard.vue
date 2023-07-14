@@ -4,7 +4,7 @@ import getCollection from '@/shared/composables/getCollection'
 //const props = defineProps<Props>()
 const { documents: purchases } = await getCollection<Purchase>(
   'purchase',
-  'createdAt',
+  'innerProcess',
 )
 /* interface Props {
   purchases: Purchase[]

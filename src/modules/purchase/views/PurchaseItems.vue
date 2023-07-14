@@ -5,7 +5,7 @@ import PurchaseItems from '../components/PurchaseItems.vue'
 import AppLoader from '@/shared/components/AppLoader.vue'
 
 interface Props {
-  id: string
+  purchase_id: string
 }
 
 const props = defineProps<Props>()
@@ -13,10 +13,10 @@ const props = defineProps<Props>()
 
 <template>
   <v-container>
-    <PurchaseItemForm :purchase_id="props.id" />
+    <PurchaseItemForm :purchase_id="props.purchase_id" />
     <Suspense>
       <template #default>
-        <PurchaseItems />
+        <PurchaseItems :purchase_id="props.purchase_id" />
       </template>
       <template #fallback>
         <AppLoader />
