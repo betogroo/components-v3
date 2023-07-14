@@ -1,4 +1,4 @@
 import type { DocumentData } from 'firebase/firestore'
-import { Timestamp } from 'firebase/firestore'
+import { Timestamp, Query } from 'firebase/firestore'
 
-export { DocumentData, Timestamp }
+export { DocumentData, Timestamp, Query }
