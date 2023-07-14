@@ -2,7 +2,10 @@
 import type { Purchase } from '../model'
 import getCollection from '@/shared/composables/getCollection'
 //const props = defineProps<Props>()
-const { documents: purchases } = await getCollection<Purchase>('purchase')
+const { documents: purchases } = await getCollection<Purchase>(
+  'purchase',
+  'createdAt',
+)
 /* interface Props {
   purchases: Purchase[]
 } */

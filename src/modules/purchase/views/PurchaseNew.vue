@@ -5,7 +5,7 @@ import type { Purchase } from '../model'
 import { Timestamp } from '@/shared/model'
 const purchase = reactive<Purchase>({
   innerProcess: Number(''),
-  date: Timestamp.fromDate(new Date()),
+  createdAt: Timestamp.fromDate(new Date()),
   type: '',
   description: '',
   outerProcess: '',

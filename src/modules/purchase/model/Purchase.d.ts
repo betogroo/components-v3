@@ -6,7 +6,7 @@ export interface Purchase {
   outerProcess?: string
   type: string
   description: string
-  date: Timestamp
+  createdAt: Timestamp
 }
 export interface ItemPurchase {
   id?: string

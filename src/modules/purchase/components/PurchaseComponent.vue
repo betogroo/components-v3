@@ -24,7 +24,7 @@ interface Props {
         ><div class="pa-2">
           <span>
             Processo DSPSJB {{ purchase.innerProcess }}/{{
-              timestampToYear(purchase.date)
+              timestampToYear(purchase.createdAt)
             }}
           </span>
           -
@@ -33,7 +33,7 @@ interface Props {
       </v-col>
       <v-col
         ><div class="text-subtitle-1 text-right">
-          {{ timestampToDate(purchase.date) }}
+          {{ timestampToDate(purchase.createdAt) }}
         </div></v-col
       >
     </v-row>
