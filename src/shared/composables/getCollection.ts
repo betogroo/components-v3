@@ -2,7 +2,6 @@ import { ref } from 'vue'
 import { db, collection, onSnapshot, orderBy, query } from '@/plugins/firebase'
 import type { DocumentData, Query } from '@/shared/model'
 import { where } from 'firebase/firestore'
-import { error } from 'console'
 
 // temp
 const delay = (amount = 2000, msg = false): Promise<void> => {
@@ -44,7 +43,7 @@ const getCollection = <T>(
       isLoading.value = false
     },
     (error) => {
-      console.log(error)
+      console.log(error.cause)
     },
   )
 
