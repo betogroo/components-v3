@@ -2,6 +2,7 @@ import { ref } from 'vue'
 import { db, collection, onSnapshot, orderBy, query } from '@/plugins/firebase'
 import type { DocumentData, Query } from '@/shared/model'
 import { where } from 'firebase/firestore'
+import { error } from 'console'
 
 // temp
 const delay = (amount = 2000, msg = false): Promise<void> => {
@@ -30,16 +31,22 @@ const getCollection = <T>(
     q = query(q, where(filterField, '==', filterValue))
   }
 
-  onSnapshot(q, async (snapshot) => {
-    isLoading.value = true
-    const results: T[] = []
-    snapshot.docs.forEach((doc: DocumentData) => {
-      results.push({ ...doc.data(), id: doc.id })
-    })
-    await delay(2000, true)
-    documents.value = results
-    isLoading.value = false
-  })
+  onSnapshot(
+    q,
+    async (snapshot) => {
+      isLoading.value = true
+      const results: T[] = []
+      snapshot.docs.forEach((doc: DocumentData) => {
+        results.push({ ...doc.data(), id: doc.id })
+      })
+      await delay(2000, true)
+      documents.value = results
+      isLoading.value = false
+    },
+    (error) => {
+      console.log(error)
+    },
+  )
 
   return { documents, isLoading }
 }
