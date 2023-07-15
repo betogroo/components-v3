@@ -15,16 +15,11 @@ const { documents: purchases, isLoading } = getCollection<Purchase>(
     <RouterLink :to="{ name: 'PurchaseNew' }">Nova Compra</RouterLink>
     <AppLoader v-if="isLoading" />
     <div class="d-flex flex-wrap justify-center">
-      <Suspense>
-        <template #default>
-          <PurchaseCard
-            v-for="purchase in purchases"
-            :key="purchase.id"
-            :purchase="purchase"
-          />
-        </template>
-        <template #fallback> Loading ... </template>
-      </Suspense>
+      <PurchaseCard
+        v-for="purchase in purchases"
+        :key="purchase.id"
+        :purchase="purchase"
+      />
     </div>
   </v-container>
 </template>
