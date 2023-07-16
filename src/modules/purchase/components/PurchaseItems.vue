@@ -8,8 +8,11 @@ interface Props {
   purchase_id: string
 }
 const props = defineProps<Props>()
-
-const { documents } = await getCollection<ItemPurchase>(
+const emit = defineEmits(['show-form'])
+const showForm = () => {
+  emit('show-form')
+}
+const { documents } = getCollection<ItemPurchase>(
   'purchase_item',
   'price',
   'purchase_id',
@@ -29,6 +32,8 @@ const handleClick = (id: string) => {
 </script>
 
 <template>
+  <v-card-title>Items desta compra</v-card-title>
+  <v-btn @click="showForm">Adicionar Produto</v-btn>
   <v-card>
     <v-card
       v-for="item in documents"

@@ -6,6 +6,7 @@ interface Props {
   purchase_id: string
 }
 const props = defineProps<Props>()
+const emit = defineEmits(['show-form'])
 const formValues = ref<ItemPurchase>({
   purchase_id: props.purchase_id,
   tittle: '',
@@ -22,11 +23,9 @@ const { addDocument: addPurchaseItem } = addDocument(
 )
 
 const handleSubmit = async () => {
-  await addPurchaseItem()
-  console.log(
-    formValues.value,
-    formValues.value.price * formValues.value.quantity,
-  )
+  await addPurchaseItem().then(() => {
+    emit('show-form')
+  })
 }
 </script>
 

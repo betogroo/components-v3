@@ -25,7 +25,7 @@ const routes: CustomRouteRecordRaw[] = [
       requiresAuth: true,
     },
   },
-  {
+  /* {
     name: 'PurchaseItems',
     path: '/purchase/:id/items',
     component: () => import('../views/PurchaseItems.vue'),
@@ -33,7 +33,7 @@ const routes: CustomRouteRecordRaw[] = [
     meta: {
       requiresAuth: true,
     },
-  },
+  }, */
 ]
 
 export default routes

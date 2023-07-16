@@ -19,6 +19,7 @@ interface Props {
     v-if="purchase"
     class="mx-1 pa-1"
   >
+    <v-card-title>Detalhes da compra</v-card-title>
     <v-row>
       <v-col cols="10"
         ><div class="pa-2">
