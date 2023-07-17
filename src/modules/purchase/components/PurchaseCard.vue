@@ -1,20 +1,13 @@
 <script setup lang="ts">
 import type { Purchase } from '../model'
-import getCollection from '@/shared/composables/getCollection'
-//const props = defineProps<Props>()
-const { documents: purchases } = await getCollection<Purchase>(
-  'purchase',
-  'createdAt',
-)
-/* interface Props {
-  purchases: Purchase[]
-} */
+defineProps<Props>()
+interface Props {
+  purchase: Purchase
+}
 </script>
 
 <template>
   <v-card
-    v-for="purchase in purchases"
-    :key="purchase.id"
     class="ma-1"
     variant="outlined"
     width="400"

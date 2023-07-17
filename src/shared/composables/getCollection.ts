@@ -1,38 +1,44 @@
-import { ref, watchEffect } from 'vue'
+import { ref } from 'vue'
 import { db, collection, onSnapshot, orderBy, query } from '@/plugins/firebase'
 import type { DocumentData, Query } from '@/shared/model'
+import { where } from 'firebase/firestore'
 
-const getCollection = async <T>(_collection: string, order?: string) => {
+const getCollection = <T>(
+  _collection: string,
+  order?: string,
+  filterField?: string,
+  filterValue?: string,
+) => {
   const documents = ref<T[]>()
+  const isLoading = ref(false)
 
   const collectionReference = collection(db, _collection)
-  let q: Query
+  let q: Query = query(collectionReference)
   if (order) {
     q = query(collectionReference, orderBy(order))
-  } else {
-    q = query(collectionReference)
   }
 
-  const unsub = onSnapshot(q, (snapshot) => {
-    const results: T[] = []
-    snapshot.docs.forEach((doc: DocumentData) => {
-      results.push({ ...doc.data(), id: doc.id })
-    })
-    documents.value = results
-  })
+  if (filterField && filterValue) {
+    q = query(q, where(filterField, '==', filterValue))
+  }
 
-  /* await getDocs(q).then((snapshot) => {
-    const docs: T[] = []
-    snapshot.docs.forEach((doc: DocumentData) => {
-      docs.push({ ...doc.data(), id: doc.id })
-    })
-    documents.value = docs
-  }) */
+  onSnapshot(
+    q,
+    async (snapshot) => {
+      isLoading.value = true
+      const results: T[] = []
+      snapshot.docs.forEach((doc: DocumentData) => {
+        results.push({ ...doc.data(), id: doc.id })
+      })
+      documents.value = results
+      isLoading.value = false
+    },
+    (error) => {
+      console.log(error.cause)
+    },
+  )
 
-  watchEffect((onInvalidate) => {
-    onInvalidate(() => unsub())
-  })
-  return { documents }
+  return { documents, isLoading }
 }
 
 export default getCollection

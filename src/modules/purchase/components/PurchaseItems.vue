@@ -4,10 +4,19 @@ import useUpdateField from '@/shared/composables/useUpdateField'
 import getCollection from '@/shared/composables/getCollection'
 // import useDate from '@/shared/composables/useDate'
 
-//const props = defineProps<Props>()
-const { documents } = await getCollection<ItemPurchase>(
+interface Props {
+  purchase_id: string
+}
+const props = defineProps<Props>()
+const emit = defineEmits(['show-form'])
+const showForm = () => {
+  emit('show-form')
+}
+const { documents } = getCollection<ItemPurchase>(
   'purchase_item',
   'price',
+  'purchase_id',
+  props.purchase_id,
 )
 
 const { updateArray, isLoading } = useUpdateField('purchase_item', 'budget')
@@ -23,6 +32,8 @@ const handleClick = (id: string) => {
 </script>
 
 <template>
+  <v-card-title>Items desta compra</v-card-title>
+  <v-btn @click="showForm">Adicionar Produto</v-btn>
   <v-card>
     <v-card
       v-for="item in documents"
