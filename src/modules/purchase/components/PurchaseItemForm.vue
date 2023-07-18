@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { ItemPurchase } from '../model'
-import addDocument from '@/shared/composables/addDocument'
+//import addDocument from '@/shared/composables/addDocument'
 interface Props {
   purchase_id: string
 }
 const props = defineProps<Props>()
-const emit = defineEmits(['show-form'])
+const emit = defineEmits(['submit-form'])
 const formValues = ref<ItemPurchase>({
   purchase_id: props.purchase_id,
   tittle: '',
@@ -17,15 +17,13 @@ const formValues = ref<ItemPurchase>({
   price: 0,
 })
 
-const { addDocument: addPurchaseItem } = addDocument(
-  'purchase_item',
-  formValues.value,
-)
+// const { addDocument: addPurchaseItem } = addDocument('purchase_item')
 
 const handleSubmit = async () => {
-  await addPurchaseItem().then(() => {
+  /* await addPurchaseItem(formValues.value).then(() => {
     emit('show-form')
-  })
+  }) */
+  emit('submit-form', formValues.value)
 }
 </script>
 
