@@ -7,7 +7,7 @@ import {
   query,
   FirebaseError,
 } from '@/plugins/firebase'
-import type { DocumentData, Query, FirestoreError } from '@/shared/model'
+import type { DocumentData, Query } from '@/shared/model'
 import { where } from 'firebase/firestore'
 interface PurchaseError {
   code: string
