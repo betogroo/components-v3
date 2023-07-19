@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { ItemPurchase } from '../model'
-//import addDocument from '@/shared/composables/addDocument'
+import { Timestamp } from '@/shared/model/Firebase.interfaces'
 interface Props {
   purchase_id: string
 }
@@ -15,6 +15,7 @@ const formValues = ref<ItemPurchase>({
   unity: '',
   quantity: 0,
   price: 0,
+  createdAt: Timestamp.fromDate(new Date()),
 })
 
 // const { addDocument: addPurchaseItem } = addDocument('purchase_item')

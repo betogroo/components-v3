@@ -17,6 +17,7 @@ export interface ItemPurchase {
   unity: string
   quantity: number
   price: number
+  createdAt: Timestamp
   budget?: Budget[]
 }
 
