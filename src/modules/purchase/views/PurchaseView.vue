@@ -1,12 +1,21 @@
 <script setup lang="ts">
-import PurchaseComponent from '../components/PurchaseComponent.vue'
-import PurchaseItems from '../components/PurchaseItems.vue'
-import PurchaseItemForm from '../components/PurchaseItemForm.vue'
-import AppBackBtn from '@/shared/components/AppBackBtn.vue'
-import addDocument from '@/shared/composables/addDocument'
 import { ref } from 'vue'
-import { ItemPurchase } from '../model'
+import type { ItemPurchase } from '../model'
+import {
+  PurchaseComponent,
+  PurchaseItemForm,
+  PurchaseItems,
+} from '../components'
+import { addDocument, getCollection } from '@/shared/composables'
+import AppBackBtn from '@/shared/components/AppBackBtn.vue'
+
 const props = defineProps<Props>()
+const { documents: purchaseItems } = getCollection<ItemPurchase>(
+  'purchase_item',
+  'price',
+  'purchase_id',
+  props.id,
+)
 interface Props {
   id: string
 }
@@ -40,8 +49,12 @@ const submitForm = (purchaseItem: ItemPurchase) => {
       :purchase_id="id"
       @submit-form="submitForm"
     />
+    <v-card-title>Items desta compra</v-card-title>
+    <v-btn @click="showForm">Adicionar Produto</v-btn>
     <PurchaseItems
-      :purchase_id="id"
+      v-for="item in purchaseItems"
+      :key="item.id"
+      :item="item"
       @show-form="showForm"
     />
     <AppBackBtn />

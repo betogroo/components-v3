@@ -1,26 +1,15 @@
 <script setup lang="ts">
 import type { Budget, ItemPurchase } from '../model'
-import useUpdateField from '@/shared/composables/useUpdateField'
-import getCollection from '@/shared/composables/getCollection'
-// import useDate from '@/shared/composables/useDate'
+import { useUpdateField } from '@/shared/composables/'
 
 interface Props {
-  purchase_id: string
+  item: ItemPurchase
 }
-const props = defineProps<Props>()
-const emit = defineEmits(['show-form'])
-const showForm = () => {
-  emit('show-form')
-}
-const { documents } = getCollection<ItemPurchase>(
-  'purchase_item',
-  'price',
-  'purchase_id',
-  props.purchase_id,
-)
+defineProps<Props>()
 
 const { updateArray, isLoading } = useUpdateField('purchase_item', 'budget')
 
+//temp
 const _budget: Budget = {
   link: 'link para a parada da parada',
   price: 25.65,
@@ -32,12 +21,8 @@ const handleClick = (id: string) => {
 </script>
 
 <template>
-  <v-card-title>Items desta compra</v-card-title>
-  <v-btn @click="showForm">Adicionar Produto</v-btn>
   <v-card>
     <v-card
-      v-for="item in documents"
-      :key="item.id"
       class="pa-1 ma-1"
       variant="outlined"
     >

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PurchaseForm from '../components/PurchaseForm.vue'
-import addDocument from '@/shared/composables/addDocument'
+import { addDocument } from '@/shared/composables/'
 import type { Purchase } from '../model'
 
 const { addDocument: addPurchase } = addDocument('purchase')

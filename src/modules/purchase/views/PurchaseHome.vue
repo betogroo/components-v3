@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import PurchaseCard from '../components/PurchaseCard.vue'
 import AppLoader from '@/shared/components/AppLoader.vue'
-import getCollection from '@/shared/composables/getCollection'
+import { getCollection } from '@/shared/composables/'
 import { Purchase } from '../model/Purchase'
 
 const {
