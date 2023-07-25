@@ -23,6 +23,7 @@ const getCollection = <T>(
   const documents = ref<T[]>()
   const isLoading = ref(false)
   const error = ref<PurchaseError | false>(false)
+  const countRecords = ref<number>(0)
 
   const collectionReference = collection(db, _collection)
   let q: Query = query(collectionReference)
@@ -37,6 +38,7 @@ const getCollection = <T>(
   onSnapshot(q, async (snapshot) => {
     isLoading.value = true
     error.value = false
+    countRecords.value = snapshot.size
     const results: T[] = []
     try {
       snapshot.docs.forEach((doc: DocumentData) => {
@@ -54,7 +56,7 @@ const getCollection = <T>(
     }
   })
 
-  return { documents, isLoading, error }
+  return { documents, countRecords, isLoading, error }
 }
 
 export default getCollection

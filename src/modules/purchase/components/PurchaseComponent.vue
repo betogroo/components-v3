@@ -11,6 +11,7 @@ const { document: purchase, error } = await getDocument<Purchase>(
 const { timestampToDate, timestampToYear } = useDate()
 interface Props {
   id: string
+  countRecords: number
 }
 </script>
 
@@ -37,6 +38,9 @@ interface Props {
           {{ timestampToDate(purchase.createdAt) }}
         </div></v-col
       >
+    </v-row>
+    <v-row>
+      <v-col v-if="countRecords">{{ countRecords }} produtos cadastrados</v-col>
     </v-row>
     <v-row>
       <v-col v-if="purchase.outerProcess">

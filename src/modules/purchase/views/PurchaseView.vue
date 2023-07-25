@@ -10,7 +10,7 @@ import { addDocument, getCollection } from '@/shared/composables'
 import AppBackBtn from '@/shared/components/AppBackBtn.vue'
 
 const props = defineProps<Props>()
-const { documents: purchaseItems } = getCollection<ItemPurchase>(
+const { documents: purchaseItems, countRecords } = getCollection<ItemPurchase>(
   'purchase_item',
   'price',
   'purchase_id',
@@ -39,7 +39,10 @@ const submitForm = (purchaseItem: ItemPurchase) => {
     <Suspense>
       <!-- component with nested async dependencies -->
       <template #default>
-        <PurchaseComponent :id="props.id" />
+        <PurchaseComponent
+          :id="props.id"
+          :count-records="countRecords"
+        />
       </template>
       <!-- loading state via #fallback slot -->
       <template #fallback> Loading... </template>
