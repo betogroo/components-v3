@@ -18,10 +18,11 @@ const handleClick = async () => {
 </script>
 
 <template>
-  <v-row>
+  <v-row align="center">
     <v-col>
       <v-text-field
         v-model="field"
+        hide-details
         :label="label"
         variant="outlined"
       />
