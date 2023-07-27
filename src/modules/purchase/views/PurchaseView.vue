@@ -52,7 +52,7 @@ const submitForm = (purchaseItem: ItemPurchase) => {
       :purchase_id="id"
       @submit-form="submitForm"
     />
-    <v-card-title>Items desta compra</v-card-title>
+
     <v-btn @click="showForm">Adicionar Produto</v-btn>
     <PurchaseItems
       v-for="item in purchaseItems"
