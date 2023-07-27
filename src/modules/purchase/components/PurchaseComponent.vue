@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import getDocument from '@/shared/composables/getDocument'
-import UpdateSingleField from '@/shared/components/UpdateSingleField.vue'
 import type { Purchase } from '../model'
 import { PurchaseHead, PurchaseDetails } from '../components'
 const props = defineProps<Props>()

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { usePurchase } from '../composable'
-import { UpdateSingleField } from '@/shared/components'
 import type { Purchase } from '../model'
 defineProps<Props>()
 interface Props {
