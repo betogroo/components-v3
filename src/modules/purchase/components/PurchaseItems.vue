@@ -1,57 +1,55 @@
 <script setup lang="ts">
-import type { Budget, ItemPurchase } from '../model'
-import { useUpdateField } from '@/shared/composables/'
+import { ItemPurchase } from '../model'
 
 interface Props {
   item: ItemPurchase
 }
 defineProps<Props>()
 
-const { updateArray, isLoading } = useUpdateField('purchase_item', 'budget')
-
-//temp
-const _budget: Budget = {
-  link: 'link para a parada da parada',
-  price: 25.65,
-  print: 'aqui é um print para a parada a parada feita pela coisa',
-}
-const handleClick = (id: string) => {
-  updateArray(_budget, id)
+const handleClick = () => {
+  console.log('handle-click')
 }
 </script>
 
 <template>
-  <v-card>
-    <v-card
-      class="pa-1 ma-1"
-      variant="outlined"
-    >
-      <v-card-title>{{ item.tittle }}</v-card-title>
-      <div v-if="!item.budget">
-        <div>Ainda não tem orçamentos</div>
-      </div>
-      <div v-else>
-        <div>
-          Produto {{ item.id }} produto tem {{ item.budget.length }} orçamentos
-        </div>
-        <v-list
-          density="compact"
-          lines="one"
-        >
-          <v-list-item
-            v-for="budget in item.budget"
-            :key="budget.link"
-            density="compact"
-          >
-            {{ budget.link }} - {{ budget.price }} {{ budget.print }}
-          </v-list-item>
-        </v-list>
-      </div>
-      <v-btn
-        v-bind:loading="isLoading"
-        @click="handleClick(item.id!)"
-        >Add</v-btn
+  <v-list-item
+    class="px-0"
+    density="compact"
+  >
+    <v-list-item-title>{{ item.tittle }}</v-list-item-title>
+    <v-list-item-subtitle>
+      <v-row
+        align="center"
+        no-gutters
       >
-    </v-card>
-  </v-card>
+        <v-col>Quantidade</v-col>
+        <v-col>2 unidades</v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col>Valor Unitário</v-col>
+        <v-col>R$20,55</v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col>Valor Total</v-col>
+        <v-col>R$41,10</v-col>
+      </v-row>
+    </v-list-item-subtitle>
+    <template v-slot:prepend>
+      <v-icon class="mr-1">mdi-folder</v-icon>
+    </template>
+
+    <template v-slot:append>
+      <v-btn
+        color="grey-lighten-1"
+        icon="mdi-information"
+        variant="text"
+      ></v-btn>
+    </template>
+  </v-list-item>
 </template>
+
+<style lang="scss" scoped>
+.v-list-item__prepend {
+  align-self: center;
+}
+</style>

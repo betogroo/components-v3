@@ -24,5 +24,15 @@ defineProps<Props>()
         label="Processo SEI"
       />
     </div>
+    <div>
+      <v-row>
+        <v-col>
+          <h5 class="font-weight-regular">Produtos Cadastrados: [3]</h5>
+        </v-col>
+        <v-col>
+          <h5 class="font-weight-regular">Valor total: [R$56,25]</h5>
+        </v-col>
+      </v-row>
+    </div>
   </div>
 </template>

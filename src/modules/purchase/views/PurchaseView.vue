@@ -24,6 +24,7 @@ const itemFormVisible = ref(false)
 const { addDocument: addPurchaseItem } = addDocument('purchase_item')
 const showForm = () => {
   itemFormVisible.value = !itemFormVisible.value
+  console.log('showform')
 }
 const submitForm = (purchaseItem: ItemPurchase) => {
   console.log('submit')
@@ -41,25 +42,28 @@ const submitForm = (purchaseItem: ItemPurchase) => {
         <PurchaseComponent
           :id="props.id"
           :count-records="countRecords"
-          @toggle-form="showForm"
         />
       </template>
       <!-- loading state via #fallback slot -->
       <template #fallback> Loading... </template>
     </Suspense>
     <PurchaseItemForm
-      v-show="itemFormVisible"
+      v-if="itemFormVisible"
       :purchase_id="id"
       @submit-form="submitForm"
     />
 
-    <PurchaseItems
-      v-for="item in purchaseItems"
-      v-show="!itemFormVisible"
-      :key="item.id"
-      :item="item"
-      @show-form="showForm"
-    />
+    <v-list
+      density="compact"
+      lines="three"
+    >
+      <PurchaseItems
+        v-for="item in purchaseItems"
+        :key="item.id"
+        :item="item"
+        @show-form="showForm"
+      />
+    </v-list>
     <AppBackBtn />
   </v-container>
 </template>
