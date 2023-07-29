@@ -1,3 +1,5 @@
 <template>
-  <h1 class="text-center">Home</h1>
+  <div>
+    <h1 class="tw-text-3xl tw-font-bold tw-underline bg-red">Home</h1>
+  </div>
 </template>
