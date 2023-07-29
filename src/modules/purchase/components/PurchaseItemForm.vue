@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useDisplay } from 'vuetify'
 import { ref } from 'vue'
 import type { ItemPurchase } from '../model'
 import { Timestamp } from '@/shared/model/Firebase.interfaces'
@@ -7,6 +8,7 @@ interface Props {
 }
 const props = defineProps<Props>()
 const emit = defineEmits(['submit-form'])
+const { mobile } = useDisplay()
 const formValues = ref<ItemPurchase>({
   purchase_id: props.purchase_id,
   tittle: '',
@@ -30,6 +32,7 @@ const handleSubmit = async () => {
 
 <template>
   <v-sheet max-width="600">
+    {{ mobile }}
     <v-form @submit.prevent="handleSubmit">
       <v-row>
         <v-col class="ma-0"
@@ -80,7 +83,14 @@ const handleSubmit = async () => {
         </v-col>
       </v-row>
       <v-row>
-        <v-col><v-btn type="submit">Adicionar</v-btn></v-col>
+        <v-col class="text-right"
+          ><v-btn
+            :block="mobile"
+            color="success"
+            type="submit"
+            >Adicionar</v-btn
+          ></v-col
+        >
       </v-row>
     </v-form>
   </v-sheet>
