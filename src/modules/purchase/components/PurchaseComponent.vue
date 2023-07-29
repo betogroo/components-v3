@@ -28,7 +28,6 @@ const toggleForm = async () => {
       class="mb-2"
       :thickness="2"
     ></v-divider>
-    <h2 class="text-subtitle-1 ml-3">Detalhes do Processo</h2>
     <PurchaseDetails
       inner-process-title="Processo SEI"
       :purchase="purchase"

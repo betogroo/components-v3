@@ -10,6 +10,7 @@ defineProps<Props>()
 </script>
 
 <template>
+  <h2 class="text-subtitle-1 ml-3">Detalhes do Processo</h2>
   <div class="my-2">
     <div v-if="purchase.outerProcess">
       <h5 class="font-weight-regular">
