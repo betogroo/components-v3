@@ -42,6 +42,7 @@ const submitForm = (purchaseItem: ItemPurchase) => {
         <PurchaseComponent
           :id="props.id"
           :count-records="countRecords"
+          @toggle-form="showForm"
         />
       </template>
       <!-- loading state via #fallback slot -->
