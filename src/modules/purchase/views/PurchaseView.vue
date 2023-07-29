@@ -56,6 +56,7 @@ const submitForm = (purchaseItem: ItemPurchase) => {
     <v-list
       density="compact"
       lines="three"
+      max-width="600"
     >
       <PurchaseItems
         v-for="item in purchaseItems"
