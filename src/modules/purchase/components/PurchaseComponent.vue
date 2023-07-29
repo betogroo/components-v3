@@ -2,6 +2,7 @@
 import getDocument from '@/shared/composables/getDocument'
 import type { Purchase } from '../model'
 import { PurchaseHead, PurchaseDetails } from '../components'
+import { AppIconBtn } from '@/shared/components'
 import { ref } from 'vue'
 const props = defineProps<Props>()
 const emit = defineEmits(['toggleForm'])
@@ -34,16 +35,14 @@ const toggleForm = async () => {
     />
     <v-divider></v-divider>
     <h1 class="text-subtitle-1 ml-3">Produtos</h1>
-    <v-row align="center">
-      <v-col v-if="countRecords">{{ countRecords }} produtos cadastrados</v-col>
-      <v-col
-        ><v-btn
-          :icon="!toggleBtn ? 'mdi-plus-thick' : 'mdi-minus-thick'"
-          variant="text"
-          @click="toggleForm"
-        ></v-btn
-      ></v-col>
-    </v-row>
+    <div class="d-flex align-center">
+      <div>{{ countRecords }} produtos cadastrados</div>
+      <AppIconBtn
+        :toggle-btn="toggleBtn"
+        tooltip-title="Adicionar produto"
+        @handle-click="toggleForm"
+      />
+    </div>
   </div>
   <v-alert
     v-if="error"
