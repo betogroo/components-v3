@@ -23,9 +23,10 @@ const handleClick = () => {
     <v-icon :icon="!toggleBtn ? 'mdi-plus-thick' : 'mdi-minus-thick'" />
     <v-tooltip
       activator="parent"
-      location="top"
+      location="bottom"
+      offset="1"
       open-delay="200"
-      >{{ tooltipTitle }}</v-tooltip
-    >
+      :text="tooltipTitle"
+    />
   </v-btn>
 </template>
