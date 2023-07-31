@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { AppBar } from '@/shared/components/'
+import { AppBar, AppNavDrawer } from '@/shared/components/'
 
 const drawer = ref(false)
 const toggleDrawer = () => {
@@ -13,7 +13,8 @@ const toggleDrawer = () => {
       :drawer="drawer"
       @toggle-drawer="toggleDrawer"
     />
-    <v-navigation-drawer v-model="drawer"></v-navigation-drawer>
+    <AppNavDrawer :drawer="drawer" />
+
     <v-main>
       <RouterView />
     </v-main>
