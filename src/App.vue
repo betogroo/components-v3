@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import AppBar from '@/shared/components/app/AppBar.vue'
+import { AppBar } from '@/shared/components/'
 
 const drawer = ref(false)
 const toggleDrawer = () => {
