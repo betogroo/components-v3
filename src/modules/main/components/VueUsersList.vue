@@ -20,7 +20,10 @@ const myAge = computed({
 </script>
 
 <template>
-  <v-text-field v-model="myAge" />
+  <v-text-field
+    v-model.number="myAge"
+    type="number"
+  />
   <v-list>
     <v-list-item
       v-for="user in users"

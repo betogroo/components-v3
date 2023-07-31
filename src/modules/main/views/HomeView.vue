@@ -22,23 +22,30 @@ const users = reactive<User[]>([
     age: 60,
   },
 ])
-const age = ref(32)
+const age = ref<number>(0)
+const changeAge = (newValue: number) => {
+  age.value = Number(newValue)
+}
 </script>
 <template>
   <h1 class="text-center">Home</h1>
   <v-card class="ma-2 pa-2">
-    <v-card-title>Fomunário 01</v-card-title>
+    <v-card-title>Formulário 01</v-card-title>
     <VueFormOne />
   </v-card>
   <v-card class="ma-2 pa-2">
-    <v-card-title>Fomunário 02</v-card-title>
-    <VueFormTwo />
+    <v-card-title>Formulário 02</v-card-title>
+    <v-text-field
+      v-model.number="age"
+      type="number"
+    />
   </v-card>
   <v-card>
     <v-card-title> Usuários </v-card-title>
     <VueUsersList
-      :age="age"
+      :age="Number(age)"
       :users="users"
+      @get-age="changeAge"
     />
   </v-card>
 </template>
