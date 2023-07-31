@@ -2,7 +2,7 @@
 import type { User } from '../model/UserInterface'
 import VueFormOne from '../components/VueFormOne.vue'
 import VueFormTwo from '../components/VueFormTwo.vue'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import VueUsersList from '../components/VueUsersList.vue'
 
 const users = reactive<User[]>([
@@ -22,6 +22,7 @@ const users = reactive<User[]>([
     age: 60,
   },
 ])
+const age = ref(32)
 </script>
 <template>
   <h1 class="text-center">Home</h1>
@@ -35,6 +36,9 @@ const users = reactive<User[]>([
   </v-card>
   <v-card>
     <v-card-title> Usuários </v-card-title>
-    <VueUsersList v-bind:users="users" />
+    <VueUsersList
+      :age="age"
+      :users="users"
+    />
   </v-card>
 </template>
