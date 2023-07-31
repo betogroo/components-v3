@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue'
+/* import { ref, watchEffect } from 'vue'
 interface Props {
   drawer: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
   drawer: false,
-})
+}) */
 
-const drawer = ref(props.drawer)
+/* const drawer = ref(props.drawer)
 watchEffect(() => {
   drawer.value = props.drawer
-})
+}) */
+const drawer = defineModel<boolean>()
 </script>
 
 <template>

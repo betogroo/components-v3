@@ -9,11 +9,8 @@ const toggleDrawer = () => {
 </script>
 <template>
   <v-app>
-    <AppBar
-      :drawer="drawer"
-      @toggle-drawer="toggleDrawer"
-    />
-    <AppNavDrawer :drawer="drawer" />
+    <AppBar @toggle-drawer="toggleDrawer" />
+    <AppNavDrawer v-model="drawer" />
 
     <v-main>
       <RouterView />

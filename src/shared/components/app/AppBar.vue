@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import useAuth from '@/modules/auth/composables/useAuth'
 import { useRouter } from 'vue-router'
-interface Props {
+/* interface Props {
   drawer: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
   drawer: false,
-})
+}) */
 const emit = defineEmits(['toggleDrawer'])
 const { user, logout } = useAuth()
 const router = useRouter()
