@@ -3,18 +3,18 @@ import getDocument from '@/shared/composables/getDocument'
 import type { Purchase } from '../model'
 import { PurchaseHead, PurchaseDetails } from '../components'
 import { AppIconBtn } from '@/shared/components'
-import { ref } from 'vue'
+import { ref, toRefs } from 'vue'
 const props = defineProps<Props>()
 const emit = defineEmits(['toggleForm'])
-const { document: purchase, error } = await getDocument<Purchase>(
-  'purchase',
-  props.id,
-)
 interface Props {
   id: string
   countRecords: number
 }
-
+const { id, countRecords } = toRefs(props)
+const { document: purchase, error } = await getDocument<Purchase>(
+  'purchase',
+  id.value,
+)
 const toggleBtn = ref(false)
 const toggleForm = async () => {
   toggleBtn.value = !toggleBtn.value
