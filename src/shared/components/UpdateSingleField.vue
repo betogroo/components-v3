@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import useUpdateField from '@/shared/composables/useUpdateField'
+import { toRefs } from 'vue'
 const props = defineProps<Props>()
 interface Props {
   id: string
@@ -7,13 +8,12 @@ interface Props {
   field: string
   label: string
 }
-
-const { updateField, formValue: field } = useUpdateField(
-  props.collection,
-  props.field,
-)
+const { collection, field, id, label } = toRefs(props)
+const { updateField, formValue } = useUpdateField(collection.value, field.value)
 const handleClick = async () => {
-  await updateField(field.value, props.id)
+  await updateField(formValue.value, id.value).then(() => {
+    formValue.value = ''
+  })
 }
 </script>
 
@@ -21,7 +21,7 @@ const handleClick = async () => {
   <v-row align="center">
     <v-col>
       <v-text-field
-        v-model="field"
+        v-model="formValue"
         hide-details
         :label="label"
         variant="outlined"
