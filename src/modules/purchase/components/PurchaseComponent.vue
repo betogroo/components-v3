@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import getDocument from '@/shared/composables/getDocument'
+// import getDocument from '@/shared/composables/getDocument'
 import type { Purchase } from '../model'
 import { PurchaseHead, PurchaseDetails } from '../components'
 import { AppIconBtn } from '@/shared/components'
@@ -7,11 +7,11 @@ import { ref, toRefs } from 'vue'
 const props = defineProps<Props>()
 const emit = defineEmits(['toggleForm'])
 interface Props {
-  id: string
-  countRecords: number
+  purchase: Purchase
 }
-const { id, countRecords } = toRefs(props)
-
+const { purchase } = toRefs(props)
+const countRecords = 3
+const error = false
 const itemsCounts = (count: number): string => {
   let text: string
   switch (count) {
@@ -27,10 +27,10 @@ const itemsCounts = (count: number): string => {
   }
   return text
 }
-const { document: purchase, error } = await getDocument<Purchase>(
+/* const { document: purchase, error } = await getDocument<Purchase>(
   'purchase',
   id.value,
-)
+) */
 const toggleBtn = ref(false)
 const toggleForm = async () => {
   toggleBtn.value = !toggleBtn.value

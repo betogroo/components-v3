@@ -1,71 +1,33 @@
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
-import type { ItemPurchase } from '../model'
-import {
-  PurchaseComponent,
-  PurchaseItemForm,
-  PurchaseItems,
-} from '../components'
-import { addDocument, getCollection } from '@/shared/composables'
-import AppBackBtn from '@/shared/components/AppBackBtn.vue'
+import { toRefs } from 'vue'
+import { getDocument } from '@/shared/composables'
+import { PurchaseHead, PurchaseDetails } from '../components'
+
+// types
+import type { Purchase } from '../model'
+
 interface Props {
-  id: string
+  idPurchase: string
 }
-
 const props = defineProps<Props>()
-const { id } = toRefs(props)
-const { documents: purchaseItems, countRecords } = getCollection<ItemPurchase>(
-  'purchase_item',
-  'price',
-  'purchase_id',
-  id.value,
-)
+const { idPurchase } = toRefs(props)
 
-const itemFormVisible = ref(false)
-const { addDocument: addPurchaseItem } = addDocument('purchase_item')
-const showForm = () => {
-  itemFormVisible.value = !itemFormVisible.value
-}
-const submitForm = (purchaseItem: ItemPurchase) => {
-  console.log('submit')
-  addPurchaseItem(purchaseItem).then(() => {
-    showForm()
-  })
-}
+const { document: purchase } = getDocument<Purchase>(
+  'purchase',
+  idPurchase.value,
+)
 </script>
 
 <template>
-  <v-container>
-    <Suspense>
-      <!-- component with nested async dependencies -->
-      <template #default>
-        <PurchaseComponent
-          :id="props.id"
-          :count-records="countRecords"
-          @toggle-form="showForm"
-        />
-      </template>
-      <!-- loading state via #fallback slot -->
-      <template #fallback> Loading... </template>
-    </Suspense>
-    <PurchaseItemForm
-      v-if="itemFormVisible"
-      :purchase_id="id"
-      @submit-form="submitForm"
+  <div>MOCH: Purchase View</div>
+  <div>{{ idPurchase }}</div>
+  <div>{{ purchase }}</div>
+  <div v-if="purchase">
+    <PurchaseHead :purchase="purchase" />
+    <v-divider></v-divider>
+    <PurchaseDetails
+      inner-process-title="Processo SEI"
+      :purchase="purchase"
     />
-
-    <v-list
-      density="compact"
-      lines="three"
-      max-width="600"
-    >
-      <PurchaseItems
-        v-for="item in purchaseItems"
-        :key="item.id"
-        :item="item"
-        @show-form="showForm"
-      />
-    </v-list>
-    <AppBackBtn />
-  </v-container>
+  </div>
 </template>
