@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import useCounter from '@/modules/counter/composables/useCounter'
+import { toRefs } from 'vue'
 
 interface Props {
   initialValue?: number | string
@@ -9,9 +10,9 @@ const props = withDefaults(defineProps<Props>(), {
   initialValue: 0,
   title: '',
 })
-
+const { initialValue, title } = toRefs(props)
 const { counter, increaseValue, decreaseValue, resetCounter } = useCounter(
-  Number(props.initialValue),
+  Number(initialValue.value),
 )
 </script>
 
