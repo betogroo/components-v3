@@ -3,7 +3,7 @@ interface Props {
   tooltipTitle?: string
   toggleBtn?: boolean
 }
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   tooltipTitle: 'Tooltip',
   toggleBtn: false,
 })

@@ -5,10 +5,6 @@ interface Props {
   item: ItemPurchase
 }
 defineProps<Props>()
-
-const handleClick = () => {
-  console.log('handle-click')
-}
 </script>
 
 <template>
