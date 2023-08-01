@@ -27,8 +27,8 @@ const handleSubmit = async () => {
 </script>
 
 <template>
+  <h1 class="text-h1">PurchaseItemForm</h1>
   <v-sheet max-width="600">
-    {{ mobile }}
     <v-form @submit.prevent="handleSubmit">
       <v-row>
         <v-col class="ma-0"
