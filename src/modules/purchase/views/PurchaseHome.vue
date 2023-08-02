@@ -14,7 +14,13 @@ const {
 <template>
   <AppLoader v-if="isLoading" />
   <v-container>
-    <RouterLink :to="{ name: 'PurchaseNew' }">Nova Compra</RouterLink>
+    <v-btn
+      block
+      color="primary"
+      :to="{ name: 'PurchaseNew' }"
+      variant="elevated"
+      >Nova Compra</v-btn
+    >
     <div class="d-flex flex-wrap justify-center">
       <v-alert
         v-if="error"
