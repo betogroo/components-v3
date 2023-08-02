@@ -1,17 +1,18 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
+//composables
 import { useDisplay } from 'vuetify'
-import { ref, toRefs } from 'vue'
-import type { PurchaseItem } from '../model'
+
+//types
 import { Timestamp } from '@/shared/model/Firebase.interfaces'
-interface Props {
-  purchase_id: string
-}
-const props = defineProps<Props>()
-const emit = defineEmits(['submit-form'])
-const { purchase_id } = toRefs(props)
+import type { PurchaseItem } from '../model'
+
+const emit = defineEmits<{
+  'submit-form': [data: PurchaseItem]
+}>()
 const { mobile } = useDisplay()
 const formValues = ref<PurchaseItem>({
-  purchase_id: purchase_id.value,
   tittle: '',
   siafisico: '',
   expenseQuality: '',

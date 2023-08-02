@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import { toRefs } from 'vue'
-import { getDocument } from '@/shared/composables'
-import { PurchaseHead, PurchaseDetails } from '../components'
-
+import { ref, toRefs } from 'vue'
+import {
+  PurchaseHead,
+  PurchaseDetails,
+  PurchaseItemForm,
+  PurchaseItems,
+} from '../components'
+import { AppIconBtn } from '@/shared/components'
+// composables
+import { usePurchase } from '../composable'
+import { getDocument, useUpdateField } from '@/shared/composables'
 // types
-import type { Purchase } from '../model'
+import type { Purchase, PurchaseItem } from '../model'
 
 interface Props {
   idPurchase: string
@@ -16,12 +23,27 @@ const { document: purchase } = getDocument<Purchase>(
   'purchase',
   idPurchase.value,
 )
+
+const { updateArray } = useUpdateField<PurchaseItem>(
+  'purchase',
+  'purchaseItems',
+)
+
+const { itemsCount } = usePurchase()
+
+const addPurchaseItem = (formValues: PurchaseItem) => {
+  console.log(formValues)
+  updateArray(formValues, idPurchase.value)
+}
+
+const formActive = ref(false)
+const toggleForm = () => {
+  formActive.value = !formActive.value
+}
 </script>
 
 <template>
   <div>MOCH: Purchase View</div>
-  <div>{{ idPurchase }}</div>
-  <div>{{ purchase }}</div>
   <div v-if="purchase">
     <PurchaseHead :purchase="purchase" />
     <v-divider></v-divider>
@@ -29,5 +51,26 @@ const { document: purchase } = getDocument<Purchase>(
       inner-process-title="Processo SEI"
       :purchase="purchase"
     />
+    {{ itemsCount(purchase.purchaseItems?.length || 0) }}
+    <AppIconBtn
+      :toggle-btn="formActive"
+      tooltip-title="Adicionar produto"
+      @handle-click="toggleForm"
+    />
+    <PurchaseItemForm
+      v-if="formActive"
+      @submit-form="addPurchaseItem"
+    />
+    <PurchaseItems
+      v-for="item in purchase.purchaseItems"
+      :key="item.id"
+      :item="item"
+    />
+  </div>
+  <div v-show="!purchase">
+    <v-alert
+      text="Não há items cadastrados"
+      type="error"
+    ></v-alert>
   </div>
 </template>

@@ -11,7 +11,6 @@ export interface Purchase {
 }
 export interface PurchaseItem {
   id?: string
-  purchase_id?: string
   tittle: string
   siafisico: string
   expenseQuality: string
