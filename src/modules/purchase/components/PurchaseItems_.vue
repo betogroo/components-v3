@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { Budget, ItemPurchase } from '../model'
+import type { Budget, PurchaseItem } from '../model'
 import { useUpdateField } from '@/shared/composables/'
 
 interface Props {
-  item: ItemPurchase
+  item: PurchaseItem
 }
 defineProps<Props>()
 

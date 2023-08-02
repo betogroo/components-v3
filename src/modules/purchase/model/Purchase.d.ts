@@ -8,7 +8,7 @@ export interface Purchase {
   description: string
   createdAt: Timestamp
 }
-export interface ItemPurchase {
+export interface PurchaseItem {
   id?: string
   purchase_id: string
   tittle: string

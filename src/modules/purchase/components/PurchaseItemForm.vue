@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify'
 import { ref, toRefs } from 'vue'
-import type { ItemPurchase } from '../model'
+import type { PurchaseItem } from '../model'
 import { Timestamp } from '@/shared/model/Firebase.interfaces'
 interface Props {
   purchase_id: string
@@ -10,7 +10,7 @@ const props = defineProps<Props>()
 const emit = defineEmits(['submit-form'])
 const { purchase_id } = toRefs(props)
 const { mobile } = useDisplay()
-const formValues = ref<ItemPurchase>({
+const formValues = ref<PurchaseItem>({
   purchase_id: purchase_id.value,
   tittle: '',
   siafisico: '',
