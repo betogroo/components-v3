@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ItemPurchase } from '../model'
+import { PurchaseItem } from '../model'
 
 interface Props {
-  item: ItemPurchase
+  item: PurchaseItem
 }
 defineProps<Props>()
 </script>

@@ -4,7 +4,7 @@ import type { DocumentData } from '@/shared/model'
 //import { Purchase } from '@/modules/purchase/model'
 // import { DocumentData } from 'firebase/firestore'
 
-const getDocument = async <T>(_document: string, id: string) => {
+const getDocument = <T>(_document: string, id: string) => {
   const document = ref<T>()
   const error = ref(false)
   const isLoading = ref(false)

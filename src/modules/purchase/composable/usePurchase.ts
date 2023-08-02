@@ -12,7 +12,26 @@ const usePurchase = () => {
   const dateFormat = (date: Timestamp) => {
     return timestampToDate(date)
   }
-  return { innerProcessFormatName, dateFormat }
+  const itemsCount = (
+    count: number,
+    singularWord = 'produto',
+    pluralWord = 'produtos',
+  ): string => {
+    let text: string
+    switch (count) {
+      case 0:
+        text = `Não há ${pluralWord} cadastrados`
+        break
+      case 1:
+        text = `Há 1 ${singularWord} cadastrado`
+        break
+      default:
+        text = `Há ${count} ${pluralWord} cadastrados`
+        break
+    }
+    return text
+  }
+  return { innerProcessFormatName, dateFormat, itemsCount }
 }
 
 export default usePurchase

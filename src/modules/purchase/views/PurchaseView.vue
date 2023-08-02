@@ -1,71 +1,78 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
-import type { ItemPurchase } from '../model'
 import {
-  PurchaseComponent,
+  PurchaseHead,
+  PurchaseDetails,
   PurchaseItemForm,
   PurchaseItems,
 } from '../components'
-import { addDocument, getCollection } from '@/shared/composables'
-import AppBackBtn from '@/shared/components/AppBackBtn.vue'
-interface Props {
-  id: string
-}
+import { AppIconBtn } from '@/shared/components'
+// composables
+import { usePurchase } from '../composable'
+import { getDocument, useUpdateField } from '@/shared/composables'
+// types
+import type { Purchase, PurchaseItem } from '../model'
 
 const props = defineProps<Props>()
-const { id } = toRefs(props)
-const { documents: purchaseItems, countRecords } = getCollection<ItemPurchase>(
-  'purchase_item',
-  'price',
-  'purchase_id',
-  id.value,
+interface Props {
+  idPurchase: string
+}
+const { idPurchase } = toRefs(props)
+const formActive = ref(false)
+
+const { document: purchase } = getDocument<Purchase>(
+  'purchase',
+  idPurchase.value,
 )
 
-const itemFormVisible = ref(false)
-const { addDocument: addPurchaseItem } = addDocument('purchase_item')
-const showForm = () => {
-  itemFormVisible.value = !itemFormVisible.value
-}
-const submitForm = (purchaseItem: ItemPurchase) => {
-  console.log('submit')
-  addPurchaseItem(purchaseItem).then(() => {
-    showForm()
+const { updateArray } = useUpdateField<PurchaseItem>(
+  'purchase',
+  'purchaseItems',
+)
+
+const { itemsCount } = usePurchase()
+
+const addPurchaseItem = (formValues: PurchaseItem) => {
+  updateArray(formValues, idPurchase.value).then(() => {
+    formActive.value = false
+    console.log(formValues)
   })
+}
+
+const toggleForm = () => {
+  formActive.value = !formActive.value
 }
 </script>
 
 <template>
-  <v-container>
-    <Suspense>
-      <!-- component with nested async dependencies -->
-      <template #default>
-        <PurchaseComponent
-          :id="props.id"
-          :count-records="countRecords"
-          @toggle-form="showForm"
-        />
-      </template>
-      <!-- loading state via #fallback slot -->
-      <template #fallback> Loading... </template>
-    </Suspense>
-    <PurchaseItemForm
-      v-if="itemFormVisible"
-      :purchase_id="id"
-      @submit-form="submitForm"
+  <div>MOCH: Purchase View</div>
+  <div v-if="purchase">
+    <PurchaseHead :purchase="purchase" />
+    <v-divider></v-divider>
+    <PurchaseDetails
+      inner-process-title="Processo SEI"
+      :purchase="purchase"
     />
-
-    <v-list
-      density="compact"
-      lines="three"
-      max-width="600"
-    >
-      <PurchaseItems
-        v-for="item in purchaseItems"
-        :key="item.id"
-        :item="item"
-        @show-form="showForm"
-      />
-    </v-list>
-    <AppBackBtn />
-  </v-container>
+    {{ itemsCount(purchase.purchaseItems?.length || 0) }}
+    <AppIconBtn
+      :toggle-btn="formActive"
+      tooltip-title="Adicionar produto"
+      @handle-click="toggleForm"
+    />
+    <PurchaseItemForm
+      v-if="formActive"
+      @submit-form="addPurchaseItem"
+    />
+    <PurchaseItems
+      v-for="item in purchase.purchaseItems"
+      :key="item.id"
+      :item="item"
+    />
+  </div>
+  <div v-show="!purchase">
+    <v-alert
+      text="Não há items cadastrados"
+      type="error"
+    ></v-alert>
+  </div>
 </template>
