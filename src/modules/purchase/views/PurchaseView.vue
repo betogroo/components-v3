@@ -13,11 +13,12 @@ import { getDocument, useUpdateField } from '@/shared/composables'
 // types
 import type { Purchase, PurchaseItem } from '../model'
 
+const props = defineProps<Props>()
 interface Props {
   idPurchase: string
 }
-const props = defineProps<Props>()
 const { idPurchase } = toRefs(props)
+const formActive = ref(false)
 
 const { document: purchase } = getDocument<Purchase>(
   'purchase',
@@ -32,11 +33,12 @@ const { updateArray } = useUpdateField<PurchaseItem>(
 const { itemsCount } = usePurchase()
 
 const addPurchaseItem = (formValues: PurchaseItem) => {
-  console.log(formValues)
-  updateArray(formValues, idPurchase.value)
+  updateArray(formValues, idPurchase.value).then(() => {
+    formActive.value = false
+    console.log(formValues)
+  })
 }
 
-const formActive = ref(false)
 const toggleForm = () => {
   formActive.value = !formActive.value
 }
