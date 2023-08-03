@@ -6,10 +6,13 @@ import {
   PurchaseItemForm,
   PurchaseItems,
 } from '../components'
+
 import { AppIconBtn } from '@/shared/components'
+
 // composables
 import { usePurchase } from '../composable'
 import { getDocument, useUpdateField } from '@/shared/composables'
+
 // types
 import type { Purchase, PurchaseItem } from '../model'
 
