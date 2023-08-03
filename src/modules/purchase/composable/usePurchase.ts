@@ -1,6 +1,9 @@
+// composables
 import useDate from '@/shared/composables/useDate'
+
+//types
 import type { Purchase } from '../model/'
-import { Timestamp } from 'firebase/firestore'
+import { Timestamp } from '@/shared/model'
 const { timestampToDate, timestampToYear } = useDate()
 const usePurchase = () => {
   const innerProcessFormatName = (purchase: Purchase, prefix = 'DSP SJB') => {

@@ -1,8 +1,13 @@
 <script setup lang="ts">
-import PurchaseForm from '../components/PurchaseForm.vue'
-import { addDocument } from '@/shared/composables/'
-import type { Purchase } from '../model'
+// components
+import { PurchaseForm } from '../components'
+
+// composables
+import { addDocument } from '../composable'
 import { useRouter } from 'vue-router'
+
+// types
+import type { Purchase } from '../model'
 const router = useRouter()
 
 const { addDocument: addPurchase, recordId } = addDocument('purchase')

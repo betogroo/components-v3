@@ -1,5 +1,8 @@
 <script setup lang="ts">
+// components
 import { PurchaseHead } from '.'
+
+// types
 import type { Purchase } from '../model'
 
 defineProps<Props>()

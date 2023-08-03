@@ -1,4 +1,4 @@
-import type { Timestamp } from '@/shared/model'
+import { Timestamp } from '@/shared/model'
 
 const timestampToYear = (date: Timestamp) => {
   const seconds = date.seconds * 1000

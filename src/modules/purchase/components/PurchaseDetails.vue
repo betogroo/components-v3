@@ -1,5 +1,8 @@
 <script setup lang="ts">
+// types
 import { Purchase } from '../model'
+
+//components
 import { UpdateSingleField } from '@/shared/components'
 
 interface Props {

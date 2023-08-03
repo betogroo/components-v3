@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
+
+// components
 import {
   PurchaseHead,
   PurchaseDetails,
   PurchaseItemForm,
   PurchaseItems,
 } from '../components'
-
 import { AppIconBtn } from '@/shared/components'
 
 // composables
-import { usePurchase } from '../composable'
-import { getDocument, useUpdateField } from '@/shared/composables'
+import { usePurchase, getDocument, useUpdateField } from '../composable'
 
 // types
 import type { Purchase, PurchaseItem } from '../model'

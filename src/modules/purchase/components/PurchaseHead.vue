@@ -1,5 +1,8 @@
 <script setup lang="ts">
+// composables
 import { usePurchase } from '../composable'
+
+//types
 import type { Purchase } from '../model'
 defineProps<Props>()
 interface Props {

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+//types
 import { PurchaseItem } from '../model'
 
 interface Props {
