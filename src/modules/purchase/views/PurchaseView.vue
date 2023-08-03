@@ -48,34 +48,35 @@ const toggleForm = () => {
 </script>
 
 <template>
-  <div>MOCH: Purchase View</div>
-  <div v-if="purchase">
-    <PurchaseHead :purchase="purchase" />
-    <v-divider></v-divider>
-    <PurchaseDetails
-      inner-process-title="Processo SEI"
-      :purchase="purchase"
-    />
-    {{ itemsCount(purchase.purchaseItems?.length || 0) }}
-    <AppIconBtn
-      :toggle-btn="formActive"
-      tooltip-title="Adicionar produto"
-      @handle-click="toggleForm"
-    />
-    <PurchaseItemForm
-      v-if="formActive"
-      @submit-form="addPurchaseItem"
-    />
-    <PurchaseItems
-      v-for="item in purchase.purchaseItems"
-      :key="item.id"
-      :item="item"
-    />
-  </div>
-  <div v-show="!purchase">
-    <v-alert
-      text="Não há items cadastrados"
-      type="error"
-    ></v-alert>
-  </div>
+  <v-container>
+    <div v-if="purchase">
+      <PurchaseHead :purchase="purchase" />
+      <v-divider></v-divider>
+      <PurchaseDetails
+        inner-process-title="Processo SEI"
+        :purchase="purchase"
+      />
+      {{ itemsCount(purchase.purchaseItems?.length || 0) }}
+      <AppIconBtn
+        :toggle-btn="formActive"
+        tooltip-title="Adicionar produto"
+        @handle-click="toggleForm"
+      />
+      <PurchaseItemForm
+        v-if="formActive"
+        @submit-form="addPurchaseItem"
+      />
+      <PurchaseItems
+        v-for="item in purchase.purchaseItems"
+        :key="item.id"
+        :item="item"
+      />
+    </div>
+    <div v-show="!purchase">
+      <v-alert
+        text="Não há items cadastrados"
+        type="error"
+      ></v-alert>
+    </div>
+  </v-container>
 </template>
