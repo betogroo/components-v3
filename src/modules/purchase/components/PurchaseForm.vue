@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Purchase } from '../model'
-import { Timestamp } from '@/shared/model/Firebase.interfaces'
 
-const emit = defineEmits(['submit-form'])
+//composables
+import { useDisplay } from 'vuetify'
+
+//types
+import { Timestamp } from '@/shared/model/Firebase.interfaces'
+import type { Purchase } from '../model'
+const emit = defineEmits<{
+  'submit-form': [data: Purchase]
+}>()
 
 const purchase = ref<Purchase>({
   innerProcess: Number(''),
@@ -13,6 +19,7 @@ const purchase = ref<Purchase>({
   outerProcess: '',
 })
 
+const { mobile } = useDisplay()
 const handleSubmit = () => {
   emit('submit-form', purchase.value)
 }
@@ -23,38 +30,65 @@ const handleSubmit = () => {
     class="pa-1 ma-1"
     @submit.prevent="handleSubmit"
   >
-    <v-text-field
-      v-model.number="purchase.innerProcess"
-      label="Processo Interno"
-      suffix="/2023"
-      type="number"
-      variant="outlined"
-    />
-    <v-text-field
-      v-model="purchase.outerProcess"
-      label="Processo SEI"
-      variant="outlined"
-    />
+    <v-row>
+      <v-col>
+        <v-text-field
+          v-model.number="purchase.innerProcess"
+          label="Processo Interno"
+          suffix="/2023"
+          type="number"
+          variant="outlined"
+        />
+      </v-col>
+      <v-col>
+        <v-text-field
+          v-model="purchase.outerProcess"
+          label="Processo SEI"
+          variant="outlined"
+        />
+      </v-col>
+    </v-row>
     <v-radio-group
       v-model="purchase.type"
-      inline
-      label="Tipo de Aquisição"
+      class="my-2 border"
+      density="comfortable"
+      hide-details
+      label="Tipo de Material"
     >
-      <v-radio
-        label="Material Permanente"
-        value="p"
-      ></v-radio>
-      <v-radio
-        label="Material de Consumo"
-        value="c"
-      ></v-radio>
+      <v-row>
+        <v-col>
+          <v-radio
+            class="text-center"
+            label="Permanente"
+            value="p"
+          ></v-radio>
+        </v-col>
+        <v-col>
+          <v-radio
+            class="text-center"
+            label="Consumo"
+            value="c"
+          ></v-radio>
+        </v-col>
+      </v-row>
     </v-radio-group>
-    <v-text-field
-      v-model="purchase.description"
-      label="Descrição"
-      variant="outlined"
-    />
-
-    <v-btn type="submit">Gravar</v-btn>
+    <v-row>
+      <v-col>
+        <v-text-field
+          v-model="purchase.description"
+          label="Descrição"
+        />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col class="text-right">
+        <v-btn
+          :block="mobile"
+          color="success"
+          type="submit"
+          >Gravar</v-btn
+        >
+      </v-col>
+    </v-row>
   </v-form>
 </template>
