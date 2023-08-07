@@ -7,6 +7,7 @@ import {
   PurchaseDetails,
   PurchaseItemForm,
   PurchaseItems,
+  AppLoader,
 } from '../components'
 import { AppIconBtn } from '@/shared/components'
 
@@ -54,7 +55,7 @@ const toggleForm = () => {
 
 <template>
   <v-container>
-    {{ isLoading }}
+    <AppLoader v-if="isLoading" />
     <v-alert
       v-show="error"
       :text="error?.message"

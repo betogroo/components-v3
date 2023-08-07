@@ -5,6 +5,9 @@ import PurchaseDetails from './PurchaseDetails.vue'
 import PurchaseForm from './PurchaseForm.vue'
 import PurchaseCard from './PurchaseCard.vue'
 
+// shared
+import { AppLoader } from '@/shared/components'
+
 export {
   PurchaseItemForm,
   PurchaseItems,
@@ -12,4 +15,5 @@ export {
   PurchaseDetails,
   PurchaseForm,
   PurchaseCard,
+  AppLoader,
 }
