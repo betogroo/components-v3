@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
+import { computed, ref, toRefs } from 'vue'
 
 // components
 import {
@@ -42,6 +42,10 @@ const addPurchaseItem = (formValues: PurchaseItem) => {
   })
 }
 
+const purchaseItems = computed(() => {
+  return purchase.value?.purchaseItems
+})
+
 const toggleForm = () => {
   formActive.value = !formActive.value
 }
@@ -67,7 +71,7 @@ const toggleForm = () => {
         @submit-form="addPurchaseItem"
       />
       <PurchaseItems
-        v-for="item in purchase.purchaseItems"
+        v-for="item in purchaseItems"
         :key="item.id"
         :item="item"
       />
