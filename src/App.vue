@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { AppBar, AppNavDrawer } from '@/shared/components/'
+import { AppBar, AppNavDrawer, AppLoader } from '@/shared/components/'
 
 const drawer = ref(false)
 const toggleDrawer = () => {
@@ -15,7 +15,9 @@ const toggleDrawer = () => {
     <v-main>
       <Suspense>
         <RouterView />
-        <template #fallback> Loading ... </template>
+        <template #fallback>
+          <AppLoader />
+        </template>
       </Suspense>
     </v-main>
   </v-app>
