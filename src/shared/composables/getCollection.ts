@@ -22,7 +22,7 @@ const getCollection = <T>(
 ) => {
   const documents = ref<T[]>()
   const isLoading = ref(false)
-  const error = ref<PurchaseError | false>(false)
+  const error = ref<FirebaseError | false>(false)
   const countRecords = ref<number>(0)
 
   const collectionReference = collection(db, _collection)

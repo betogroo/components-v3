@@ -23,10 +23,11 @@ interface Props {
 const { idPurchase } = toRefs(props)
 const formActive = ref(false)
 
-const { document: purchase } = getDocument<Purchase>(
-  'purchase',
-  idPurchase.value,
-)
+const {
+  document: purchase,
+  error,
+  isLoading,
+} = await getDocument<Purchase>('purchase', idPurchase.value)
 
 const { updateArray } = useUpdateField<PurchaseItem>(
   'purchase',
@@ -53,6 +54,12 @@ const toggleForm = () => {
 
 <template>
   <v-container>
+    {{ isLoading }}
+    <v-alert
+      v-show="error"
+      :text="error?.message"
+      type="error"
+    ></v-alert>
     <div v-if="purchase">
       <PurchaseHead :purchase="purchase" />
       <v-divider></v-divider>
@@ -75,12 +82,6 @@ const toggleForm = () => {
         :key="item.id"
         :item="item"
       />
-    </div>
-    <div v-show="!purchase">
-      <v-alert
-        text="Não há items cadastrados"
-        type="error"
-      ></v-alert>
     </div>
   </v-container>
 </template>
