@@ -51,6 +51,10 @@ const purchaseItems = computed(() => {
 const toggleForm = () => {
   formActive.value = !formActive.value
 }
+
+const iconClick = () => {
+  console.log('Valor')
+}
 </script>
 
 <template>
@@ -82,6 +86,7 @@ const toggleForm = () => {
         v-for="item in purchaseItems"
         :key="item.id"
         :item="item"
+        @icon-click="iconClick"
       />
     </div>
   </v-container>

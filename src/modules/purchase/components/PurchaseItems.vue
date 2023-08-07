@@ -6,6 +6,11 @@ interface Props {
   item: PurchaseItem
 }
 defineProps<Props>()
+const emit = defineEmits(['icon-click'])
+
+const handleClick = () => {
+  emit('icon-click')
+}
 </script>
 
 <template>
@@ -40,6 +45,7 @@ defineProps<Props>()
         color="grey-lighten-1"
         icon="mdi-information"
         variant="text"
+        @click="handleClick"
       ></v-btn>
     </template>
   </v-list-item>
