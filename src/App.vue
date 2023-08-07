@@ -13,7 +13,10 @@ const toggleDrawer = () => {
     <AppNavDrawer v-model="drawer" />
 
     <v-main>
-      <RouterView />
+      <Suspense>
+        <RouterView />
+        <template #fallback> Loading ... </template>
+      </Suspense>
     </v-main>
   </v-app>
 </template>
