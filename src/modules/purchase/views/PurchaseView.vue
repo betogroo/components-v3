@@ -54,8 +54,8 @@ const toggleForm = () => {
 </script>
 
 <template>
+  <AppLoader v-if="isLoading" />
   <v-container>
-    <AppLoader v-if="isLoading" />
     <v-alert
       v-show="error"
       :text="error?.message"

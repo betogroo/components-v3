@@ -9,19 +9,15 @@ import {
 } from '@/plugins/firebase'
 import type { DocumentData, Query } from '@/shared/model'
 import { where } from 'firebase/firestore'
-interface PurchaseError {
-  code: string
-  message: string
-}
 
-const getCollection = <T>(
+const getCollection = async <T>(
   _collection: string,
   order?: string,
   filterField?: string,
   filterValue?: string,
 ) => {
   const documents = ref<T[]>()
-  const isLoading = ref(false)
+  const isLoading = ref(true)
   const error = ref<FirebaseError | false>(false)
   const countRecords = ref<number>(0)
 

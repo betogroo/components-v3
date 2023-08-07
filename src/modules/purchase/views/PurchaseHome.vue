@@ -13,7 +13,7 @@ const {
   documents: purchases,
   isLoading,
   error,
-} = getCollection<Purchase>('purchase', 'innerProcess')
+} = await getCollection<Purchase>('purchase', 'innerProcess')
 </script>
 
 <template>
