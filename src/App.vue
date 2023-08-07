@@ -11,9 +11,11 @@ const toggleDrawer = () => {
   <v-app>
     <AppBar @toggle-drawer="toggleDrawer" />
     <AppNavDrawer v-model="drawer" />
-
-    <v-main>
-      <RouterView />
-    </v-main>
+    <Suspense>
+      <v-main>
+        <RouterView />
+      </v-main>
+      <template #fallback> Loading... </template>
+    </Suspense>
   </v-app>
 </template>
