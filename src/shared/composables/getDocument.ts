@@ -1,39 +1,33 @@
-import { ref, watchEffect } from 'vue'
-import { db, doc, onSnapshot } from '@/plugins/firebase'
-import type { DocumentData } from '@/shared/model'
-//import { Purchase } from '@/modules/purchase/model'
-// import { DocumentData } from 'firebase/firestore'
+import { ref } from 'vue'
+import { db, doc, getDoc } from '@/plugins/firebase'
 
-const getDocument = <T>(_document: string, id: string) => {
-  const document = ref<T>()
-  const error = ref(false)
+//types
+import { DocumentData, FirebaseError } from '../model'
+import { DocumentSnapshot } from 'firebase/firestore'
+
+const getDocument = async (_collection: string, idCollection: string) => {
+  const documentReference = doc(db, _collection, idCollection)
+  const error = ref<FirebaseError>()
+  const document = ref<any>()
   const isLoading = ref(false)
-  const documentReference = doc(db, _document, id)
 
-  /* await getDoc(documentReference).then((doc: DocumentData) => {
-    if (doc.exists()) {
-      document.value = doc.data()
-    } else {
-      error.value = true
-      console.log('Erroroororor')
-    }
-  }) */
-
-  const unsub = onSnapshot(documentReference, (doc: DocumentData) => {
+  try {
     isLoading.value = true
-    if (doc.exists()) {
-      document.value = { ...doc.data(), id: doc.id }
+    const documentSnapshot: DocumentSnapshot<DocumentData> = await getDoc(
+      documentReference,
+    )
+    if (!documentSnapshot.exists()) {
       isLoading.value = false
-    } else {
-      error.value = true
-      isLoading.value = false
-      console.log('Erroroororor')
+      throw new FirebaseError('1', 'Não encontrado')
     }
-  })
+    document.value = documentSnapshot.data()
+    isLoading.value = false
+  } catch (err: unknown) {
+    isLoading.value = false
+    const e = err as FirebaseError
+    error.value = e
+  }
 
-  watchEffect((onInvalidate) => {
-    onInvalidate(() => unsub())
-  })
   return { document, error, isLoading }
 }
 

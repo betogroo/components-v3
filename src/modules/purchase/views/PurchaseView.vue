@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
+import { computed, ref, toRefs } from 'vue'
 
 // components
 import {
@@ -15,6 +15,7 @@ import { usePurchase, getDocument, useUpdateField } from '../composable'
 
 // types
 import type { Purchase, PurchaseItem } from '../model'
+import { toRef } from 'vue'
 
 const props = defineProps<Props>()
 interface Props {
@@ -23,10 +24,16 @@ interface Props {
 const { idPurchase } = toRefs(props)
 const formActive = ref(false)
 
-const { document: purchase } = getDocument<Purchase>(
-  'purchase',
-  idPurchase.value,
-)
+const {
+  document: purchase,
+  error,
+  isLoading,
+} = await getDocument('purchase', idPurchase.value)
+
+const purchaseItems = computed(() => {
+  return purchase.value?.purchaseItems
+})
+console.log(purchaseItems.value, error)
 
 const { updateArray } = useUpdateField<PurchaseItem>(
   'purchase',
@@ -38,7 +45,6 @@ const { itemsCount } = usePurchase()
 const addPurchaseItem = (formValues: PurchaseItem) => {
   updateArray(formValues, idPurchase.value).then(() => {
     formActive.value = false
-    console.log(formValues)
   })
 }
 
@@ -74,7 +80,7 @@ const toggleForm = () => {
     </div>
     <div v-show="!purchase">
       <v-alert
-        text="Não há items cadastrados"
+        :text="error?.message"
         type="error"
       ></v-alert>
     </div>
