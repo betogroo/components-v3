@@ -2,11 +2,11 @@ import { ref } from 'vue'
 import { FirebaseError, db, doc, onSnapshot } from '@/plugins/firebase'
 import type { DocumentData } from '@/shared/model'
 
-const getDocument = async <T>(_document: string, id: string) => {
+const getDocument = async <T>(collection: string, id: string) => {
   const document = ref<T>()
   const error = ref<FirebaseError>()
   const isLoading = ref(true)
-  const documentReference = doc(db, _document, id)
+  const documentReference = doc(db, collection, id)
 
   onSnapshot(documentReference, (doc: DocumentData) => {
     //isLoading.value = true
