@@ -1,15 +1,16 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 interface Props {
   text?: string
 }
 const props = withDefaults(defineProps<Props>(), {
   text: 'Carregando',
 })
-const overlay = true
+//const overlay = true
 </script>
 
 <template>
-  <v-overlay v-model="overlay"></v-overlay>
   <v-row
     align-content="center"
     class="fill-height"
