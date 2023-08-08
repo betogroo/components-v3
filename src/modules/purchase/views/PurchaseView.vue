@@ -53,7 +53,10 @@ const toggleForm = () => {
 }
 
 const iconClick = (index: number) => {
-  console.log(purchaseItems.value![index].tittle)
+  const title: string = purchaseItems.value
+    ? purchaseItems.value[index].tittle
+    : ''
+  console.log(title)
 }
 </script>
 
