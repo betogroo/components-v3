@@ -52,8 +52,8 @@ const toggleForm = () => {
   formActive.value = !formActive.value
 }
 
-const iconClick = () => {
-  console.log('Valor')
+const iconClick = (index: number) => {
+  console.log(purchaseItems.value![index].tittle)
 }
 </script>
 
@@ -83,10 +83,10 @@ const iconClick = () => {
         @submit-form="addPurchaseItem"
       />
       <PurchaseItems
-        v-for="item in purchaseItems"
+        v-for="(item, index) in purchaseItems"
         :key="item.id"
         :item="item"
-        @icon-click="iconClick"
+        @icon-click="iconClick(index)"
       />
     </div>
   </v-container>
