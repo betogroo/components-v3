@@ -1,9 +1,9 @@
 <script setup lang="ts">
 // components
 import { PurchaseCard } from '../components'
+import { AppLoader } from '../components/'
 
 // composables
-import AppLoader from '@/shared/components/AppLoader.vue'
 import { getCollection } from '@/shared/composables/'
 
 // types
