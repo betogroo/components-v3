@@ -18,7 +18,7 @@ export interface PurchaseItem {
   quantity: number
   price: number
   createdAt: Timestamp
-  budget?: Budget[]
+  budgets?: Budget[]
 }
 
 export interface Budget {
