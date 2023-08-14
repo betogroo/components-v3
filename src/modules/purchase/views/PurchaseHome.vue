@@ -6,8 +6,8 @@ import { AppLoader } from '../components/'
 // composables
 import { usePurchase } from '../composable'
 
-const { getData, isLoading, purchases, error } = usePurchase()
-getData()
+const { getPurchases, isLoading, purchases, error } = usePurchase()
+getPurchases()
 </script>
 
 <template>

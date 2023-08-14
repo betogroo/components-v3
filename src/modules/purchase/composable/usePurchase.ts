@@ -14,7 +14,7 @@ const error = ref()
 const purchaseCount = ref<number | null>(0)
 
 const usePurchase = () => {
-  const getData = async () => {
+  const getPurchases = async () => {
     isLoading.value = true
     try {
       const {
@@ -69,7 +69,7 @@ const usePurchase = () => {
     innerProcessFormatName,
     dateFormat,
     itemsCount,
-    getData,
+    getPurchases,
     purchases,
     purchaseCount,
     error,
