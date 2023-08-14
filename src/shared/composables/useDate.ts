@@ -5,9 +5,8 @@ const timestampToYear = (date: Timestamp) => {
   return new Date(seconds).getFullYear()
 }
 
-const timestampToDate = (date: Timestamp) => {
-  const seconds = date.seconds * 1000
-  return new Date(seconds).toLocaleDateString('pt-BR')
+const timestampToDate = (date: string | Date) => {
+  return new Date(date).toLocaleDateString('pt-BR')
 }
 
 const useDate = () => {
