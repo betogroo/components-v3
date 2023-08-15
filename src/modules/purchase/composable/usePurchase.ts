@@ -15,6 +15,32 @@ const error = ref()
 const purchaseCount = ref<number | null>(0)
 
 const usePurchase = () => {
+  const addPurchase = async (data: Purchase) => {
+    isLoading.value = true
+    const { description, innerProcess, outerProcess, purchaseTypeId } = data
+    try {
+      const { error: err, data } = await supabase
+        .from('purchase')
+        .insert({
+          description,
+          innerProcess,
+          outerProcess,
+          purchaseTypeId,
+        })
+        .select()
+        .single()
+      if (err) {
+        isLoading.value = false
+        throw new Error(err.message)
+      }
+      isLoading.value = false
+      return data
+    } catch (err) {
+      isLoading.value = false
+      console.log(err)
+    }
+  }
+
   const getPurchase = async (id: string) => {
     error.value = null
     isLoading.value = true
@@ -94,6 +120,7 @@ const usePurchase = () => {
     itemsCount,
     getPurchases,
     getPurchase,
+    addPurchase,
     purchases,
     purchase,
     purchaseCount,

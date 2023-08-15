@@ -19,7 +19,7 @@ export interface Database {
           purchaseTypeId: string | null
         }
         Insert: {
-          createdAt: string
+          createdAt?: string
           description?: string | null
           id?: string
           innerProcess?: number | null
@@ -49,6 +49,7 @@ export interface Database {
           expenseQuality: string | null
           id: string
           price: number | null
+          purchase_id: string | null
           quantity: number | null
           siafisico: string | null
           title: string | null
@@ -58,6 +59,7 @@ export interface Database {
           expenseQuality?: string | null
           id?: string
           price?: number | null
+          purchase_id?: string | null
           quantity?: number | null
           siafisico?: string | null
           title?: string | null
@@ -67,42 +69,16 @@ export interface Database {
           expenseQuality?: string | null
           id?: string
           price?: number | null
+          purchase_id?: string | null
           quantity?: number | null
           siafisico?: string | null
           title?: string | null
         }
-        Relationships: []
-      }
-      purchase_purchase_item: {
-        Row: {
-          amount: number | null
-          created_at: string
-          purchaseId: string
-          PurchaseItemId: string
-        }
-        Insert: {
-          amount?: number | null
-          created_at?: string
-          purchaseId: string
-          PurchaseItemId: string
-        }
-        Update: {
-          amount?: number | null
-          created_at?: string
-          purchaseId?: string
-          PurchaseItemId?: string
-        }
         Relationships: [
           {
-            foreignKeyName: 'purchase_purchase_item_purchaseId_fkey'
-            columns: ['purchaseId']
+            foreignKeyName: 'purchase_item_purchase_id_fkey'
+            columns: ['purchase_id']
             referencedRelation: 'purchase'
-            referencedColumns: ['id']
-          },
-          {
-            foreignKeyName: 'purchase_purchase_item_PurchaseItemId_fkey'
-            columns: ['PurchaseItemId']
-            referencedRelation: 'purchase_item'
             referencedColumns: ['id']
           },
         ]
