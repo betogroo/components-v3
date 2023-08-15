@@ -19,16 +19,19 @@ import type { Purchase, PurchaseItem } from '../model'
 
 const props = defineProps<Props>()
 interface Props {
-  idPurchase: string
+  id: string
 }
-const { idPurchase } = toRefs(props)
+const { id } = toRefs(props)
 const formActive = ref(false)
 
-const {
+/* const {
   document: purchase,
   error,
   isLoading,
-} = await getDocument<Purchase>('purchase', idPurchase.value)
+} = await getDocument<Purchase>('purchase', idPurchase.value) */
+
+const { getPurchase, purchase, isLoading, error } = usePurchase()
+getPurchase(id.value)
 
 const { updateArray } = useUpdateField<PurchaseItem>(
   'purchase',
@@ -38,26 +41,26 @@ const { updateArray } = useUpdateField<PurchaseItem>(
 const { itemsCount } = usePurchase()
 
 const addPurchaseItem = (formValues: PurchaseItem) => {
-  updateArray(formValues, idPurchase.value).then(() => {
+  updateArray(formValues, id.value).then(() => {
     formActive.value = false
     console.log(formValues)
   })
 }
 
 const purchaseItems = computed(() => {
-  return purchase.value?.purchaseItems
+  return 0
 })
 
 const toggleForm = () => {
   formActive.value = !formActive.value
 }
 
-const iconClick = (index: number) => {
+/* const iconClick = (index: number) => {
   const title: string = purchaseItems.value
     ? purchaseItems.value[index].tittle
     : ''
   console.log(title)
-}
+} */
 </script>
 
 <template>
@@ -75,7 +78,10 @@ const iconClick = (index: number) => {
         inner-process-title="Processo SEI"
         :purchase="purchase"
       />
-      {{ itemsCount(purchase.purchaseItems?.length || 0) }}
+      {{
+        //itemsCount(purchase.purchaseItems?.length || 0)
+        0
+      }}
       <AppIconBtn
         :toggle-btn="formActive"
         tooltip-title="Adicionar produto"
@@ -85,12 +91,12 @@ const iconClick = (index: number) => {
         v-if="formActive"
         @submit-form="addPurchaseItem"
       />
-      <PurchaseItems
+      <!-- <PurchaseItems
         v-for="(item, index) in purchaseItems"
         :key="item.id"
         :item="item"
         @icon-click="iconClick(index)"
-      />
+      /> -->
     </div>
   </v-container>
 </template>

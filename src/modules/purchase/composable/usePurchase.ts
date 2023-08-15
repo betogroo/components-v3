@@ -9,12 +9,35 @@ import type { Purchase } from '../model/'
 
 const { timestampToDate, timestampToYear } = useDate()
 const purchases = ref<Purchase[]>([])
+const purchase = ref<Purchase | null>()
 const isLoading = ref(false)
 const error = ref()
 const purchaseCount = ref<number | null>(0)
 
 const usePurchase = () => {
+  const getPurchase = async (id: string) => {
+    error.value = null
+    isLoading.value = true
+    try {
+      const { error: err, data } = await supabase
+        .from('purchase')
+        .select('*')
+        .eq('id', id)
+        .single()
+      if (!data) {
+        isLoading.value = false
+        console.log(err)
+        throw new Error('Sem dados cadastrados')
+      }
+      isLoading.value = false
+      purchase.value = data
+    } catch (err) {
+      isLoading.value = false
+      error.value = err
+    }
+  }
   const getPurchases = async () => {
+    error.value = null
     isLoading.value = true
     try {
       const {
@@ -70,7 +93,9 @@ const usePurchase = () => {
     dateFormat,
     itemsCount,
     getPurchases,
+    getPurchase,
     purchases,
+    purchase,
     purchaseCount,
     error,
     isLoading,
