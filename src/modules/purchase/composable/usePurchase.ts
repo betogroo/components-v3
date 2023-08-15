@@ -5,9 +5,9 @@ import { useDate } from '@/shared/composables'
 import { supabase } from '@/plugins/supabase'
 
 //types
-import type { Purchase } from '../model/'
+import type { PurchaseInsert, Purchase } from '../model/'
 
-const { timestampToDate, timestampToYear } = useDate()
+const { timestampToDate } = useDate()
 const purchases = ref<Purchase[]>([])
 const purchase = ref<Purchase | null>()
 const isLoading = ref(false)
@@ -15,17 +15,17 @@ const error = ref()
 const purchaseCount = ref<number | null>(0)
 
 const usePurchase = () => {
-  const addPurchase = async (data: Purchase) => {
+  const addPurchase = async (formData: PurchaseInsert) => {
     isLoading.value = true
-    const { description, innerProcess, outerProcess, purchaseTypeId } = data
+    const dados = formData
+    delete dados.createdAt
+    delete dados.id
+    //const { description, innerProcess, outerProcess, purchaseTypeId } = data
     try {
       const { error: err, data } = await supabase
         .from('purchase')
         .insert({
-          description,
-          innerProcess,
-          outerProcess,
-          purchaseTypeId,
+          ...dados,
         })
         .select()
         .single()

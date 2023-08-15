@@ -7,11 +7,11 @@ import { usePurchase } from '../composable'
 import { useRouter } from 'vue-router'
 
 // types
-import type { Purchase } from '../model'
+import type { PurchaseInsert } from '../model'
 const router = useRouter()
 
 const { addPurchase, isLoading } = usePurchase()
-const handleSubmit = (purchase: Purchase) => {
+const handleSubmit = (purchase: PurchaseInsert) => {
   addPurchase(purchase).then((data) => {
     //router.push({ name: 'PurchaseView', params: { id: data.id } })
     console.log(data?.id)

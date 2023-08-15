@@ -6,14 +6,14 @@ import { useDisplay } from 'vuetify'
 
 //types
 import { Timestamp } from '@/shared/model/Firebase.interfaces'
-import type { Purchase } from '../model'
+import type { PurchaseInsert } from '../model'
 const emit = defineEmits<{
-  'submit-form': [data: Purchase]
+  'submit-form': [data: PurchaseInsert]
 }>()
 
-const purchase = ref<Purchase>({
-  id: '',
-  innerProcess: Number(''),
+const purchase = ref<PurchaseInsert>({
+  //id: null,
+  //innerProcess: Number(''),
   createdAt: '',
   description: '',
   outerProcess: '',

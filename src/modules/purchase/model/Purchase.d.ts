@@ -10,11 +10,11 @@ import type { Database } from '@/shared/model'
   purchaseTypeId: PurchaseType.id
 } */
 
-type Purchase = Database['public']['Tables']['purchase']['Row']
+type PURCHASE_DB = Database['public']['Tables']['purchase']
+type Purchase = PURCHASE_DB['Row']
+type PurchaseInsert = PURCHASE_DB['Insert']
 type PurchaseType = Database['public']['Tables']['purchase_type']['Row']
 type PurchaseItem = Database['public']['Tables']['purchase_item']['Row']
-type PurchaseHasItem =
-  Database['public']['Tables']['purchase_purchase_item']['Row']
 
 /* export interface PurchaseType {
   id: string
