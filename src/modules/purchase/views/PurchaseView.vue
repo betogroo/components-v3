@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { computed, ref, toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 
 // components
 import {
   PurchaseHead,
   PurchaseDetails,
   PurchaseItemForm,
-  PurchaseItems,
+  //PurchaseItems,
   AppLoader,
 } from '../components'
 import { AppIconBtn } from '@/shared/components'
 
 // composables
-import { usePurchase, getDocument, useUpdateField } from '../composable'
+import { usePurchase, useUpdateField } from '../composable'
 
 // types
-import type { Purchase, PurchaseItem } from '../model'
+import type { PurchaseItem } from '../model'
 
 const props = defineProps<Props>()
 interface Props {
@@ -23,12 +23,6 @@ interface Props {
 }
 const { id } = toRefs(props)
 const formActive = ref(false)
-
-/* const {
-  document: purchase,
-  error,
-  isLoading,
-} = await getDocument<Purchase>('purchase', idPurchase.value) */
 
 const { getPurchase, purchase, isLoading, error } = usePurchase()
 getPurchase(id.value)
@@ -38,7 +32,7 @@ const { updateArray } = useUpdateField<PurchaseItem>(
   'purchaseItems',
 )
 
-const { itemsCount } = usePurchase()
+// const { itemsCount } = usePurchase()
 
 const addPurchaseItem = (formValues: PurchaseItem) => {
   updateArray(formValues, id.value).then(() => {
@@ -47,9 +41,9 @@ const addPurchaseItem = (formValues: PurchaseItem) => {
   })
 }
 
-const purchaseItems = computed(() => {
+/* const purchaseItems = computed(() => {
   return 0
-})
+}) */
 
 const toggleForm = () => {
   formActive.value = !formActive.value

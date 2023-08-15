@@ -31,9 +31,7 @@ defineProps<Props>()
     <div>
       <v-row>
         <v-col>
-          <h5 class="font-weight-regular">
-            Produtos Cadastrados: {{ purchase.purchaseItems?.length }}
-          </h5>
+          <h5 class="font-weight-regular">Produtos Cadastrados: [0]</h5>
         </v-col>
         <v-col>
           <h5 class="font-weight-regular">Valor total: [R$56,25]</h5>

@@ -5,7 +5,6 @@ import { ref } from 'vue'
 import { useDisplay } from 'vuetify'
 
 //types
-import { Timestamp } from '@/shared/model/Firebase.interfaces'
 import type { PurchaseInsert } from '../model'
 const emit = defineEmits<{
   'submit-form': [data: PurchaseInsert]

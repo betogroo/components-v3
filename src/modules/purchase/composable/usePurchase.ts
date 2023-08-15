@@ -20,7 +20,6 @@ const usePurchase = () => {
     const dados = formData
     delete dados.createdAt
     delete dados.id
-    //const { description, innerProcess, outerProcess, purchaseTypeId } = data
     try {
       const { error: err, data } = await supabase
         .from('purchase')

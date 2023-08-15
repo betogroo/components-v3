@@ -13,7 +13,7 @@ const router = useRouter()
 const { addPurchase, isLoading } = usePurchase()
 const handleSubmit = (purchase: PurchaseInsert) => {
   addPurchase(purchase).then((data) => {
-    //router.push({ name: 'PurchaseView', params: { id: data.id } })
+    router.push({ name: 'PurchaseView', params: { id: data?.id } })
     console.log(data?.id)
   })
 }
