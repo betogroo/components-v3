@@ -5,16 +5,42 @@ import { useDate } from '@/shared/composables'
 import { supabase } from '@/plugins/supabase'
 
 //types
-import type { PurchaseInsert, Purchase, PurchaseItemInsert } from '../model/'
+import type {
+  PurchaseInsert,
+  Purchase,
+  PurchaseItemInsert,
+  PurchaseItem,
+} from '../model/'
 
 const { timestampToDate } = useDate()
 const purchases = ref<Purchase[]>([])
 const purchase = ref<Purchase | null>()
+const purchaseItems = ref<PurchaseItem[] | null>()
 const isLoading = ref(false)
 const error = ref()
 const purchaseCount = ref<number | null>(0)
 
 const usePurchase = () => {
+  const getPurchaseItems = async (id: string) => {
+    error.value = null
+    isLoading.value = true
+    try {
+      const { error: err, data } = await supabase
+        .from('purchase_item')
+        .select()
+        .eq('purchase_id', id)
+      if (err) {
+        throw new Error(err.message)
+      }
+      isLoading.value = false
+      purchaseItems.value = data
+    } catch (err) {
+      isLoading.value = false
+      console.log(err)
+    }
+
+    console.log(id)
+  }
   const addPurchaseItem = async (newData: PurchaseItemInsert) => {
     console.log('Vai add um ou mais item, começando com 1', newData)
     isLoading.value = true
@@ -137,10 +163,12 @@ const usePurchase = () => {
     itemsCount,
     getPurchases,
     getPurchase,
+    getPurchaseItems,
     addPurchase,
     addPurchaseItem,
     purchases,
     purchase,
+    purchaseItems,
     purchaseCount,
     error,
     isLoading,

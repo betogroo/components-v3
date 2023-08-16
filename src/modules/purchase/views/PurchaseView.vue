@@ -8,6 +8,7 @@ import {
   PurchaseItemForm,
   //PurchaseItems,
   AppLoader,
+  PurchaseItems,
 } from '../components'
 import { AppIconBtn } from '@/shared/components'
 
@@ -24,8 +25,16 @@ interface Props {
 const { id } = toRefs(props)
 const formActive = ref(false)
 
-const { getPurchase, purchase, isLoading, error } = usePurchase()
-getPurchase(id.value)
+const {
+  getPurchase,
+  getPurchaseItems,
+  purchase,
+  purchaseItems,
+  isLoading,
+  error,
+} = usePurchase()
+await getPurchase(id.value)
+await getPurchaseItems(id.value)
 
 const { updateArray } = useUpdateField<PurchaseItem>(
   'purchase',
@@ -34,11 +43,11 @@ const { updateArray } = useUpdateField<PurchaseItem>(
 
 // const { itemsCount } = usePurchase()
 const { addPurchaseItem: _addPurchaseItem } = usePurchase()
-const addPurchaseItem = (formValues: PurchaseItemInsert) => {
+const addPurchaseItem = async (formValues: PurchaseItemInsert) => {
   const newData = { ...formValues, purchase_id: id.value }
-  _addPurchaseItem(newData).then((data) => {
+  await _addPurchaseItem(newData).then((data) => {
     formActive.value = false
-    console.log(data?.purchase_id, 'foi gravado em ', data?.id)
+    getPurchaseItems(id.value)
   })
 }
 
@@ -50,14 +59,11 @@ const toggleForm = () => {
   formActive.value = !formActive.value
 }
 
-/* const iconClick = (index: number) => {
-  const title: string = purchaseItems.value
-    ? purchaseItems.value[index].tittle
-    : ''
+const iconClick = (index: number) => {
+  const title = purchaseItems.value ? purchaseItems.value[index].title : ''
   console.log(title)
-} */
+}
 </script>
-
 <template>
   <AppLoader v-if="isLoading" />
   <v-container>
@@ -86,12 +92,12 @@ const toggleForm = () => {
         v-if="formActive"
         @submit-form="addPurchaseItem"
       />
-      <!-- <PurchaseItems
+      <PurchaseItems
         v-for="(item, index) in purchaseItems"
         :key="item.id"
         :item="item"
         @icon-click="iconClick(index)"
-      /> -->
+      />
     </div>
   </v-container>
 </template>
