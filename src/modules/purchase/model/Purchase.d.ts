@@ -19,7 +19,7 @@ type PurchaseInsert = PURCHASE_DB['Insert']
 
 type PurchaseType = PURCHASE_TYPE_DB['Row']
 
-type PurchaseItem = PURCHASE_DB['Row']
+type PurchaseItem = PURCHASE_ITEM_DB['Row']
 type PurchaseItemInsert = PURCHASE_ITEM_DB['Insert']
 
 /* export interface PurchaseType {
