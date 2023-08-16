@@ -11,10 +11,16 @@ import type { Database } from '@/shared/model'
 } */
 
 type PURCHASE_DB = Database['public']['Tables']['purchase']
+type PURCHASE_ITEM_DB = Database['public']['Tables']['purchase_item']
+type PURCHASE_TYPE_DB = Database['public']['Tables']['purchase_type']
+
 type Purchase = PURCHASE_DB['Row']
 type PurchaseInsert = PURCHASE_DB['Insert']
-type PurchaseType = Database['public']['Tables']['purchase_type']['Row']
-type PurchaseItem = Database['public']['Tables']['purchase_item']['Row']
+
+type PurchaseType = PURCHASE_TYPE_DB['Row']
+
+type PurchaseItem = PURCHASE_DB['Row']
+type PurchaseItemInsert = PURCHASE_ITEM_DB['Insert']
 
 /* export interface PurchaseType {
   id: string

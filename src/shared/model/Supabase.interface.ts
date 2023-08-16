@@ -53,6 +53,7 @@ export interface Database {
           quantity: number | null
           siafisico: string | null
           title: string | null
+          unity: number | null
         }
         Insert: {
           created_at?: string
@@ -63,6 +64,7 @@ export interface Database {
           quantity?: number | null
           siafisico?: string | null
           title?: string | null
+          unity?: number | null
         }
         Update: {
           created_at?: string
@@ -73,6 +75,7 @@ export interface Database {
           quantity?: number | null
           siafisico?: string | null
           title?: string | null
+          unity?: number | null
         }
         Relationships: [
           {

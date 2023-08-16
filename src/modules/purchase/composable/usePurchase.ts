@@ -5,7 +5,7 @@ import { useDate } from '@/shared/composables'
 import { supabase } from '@/plugins/supabase'
 
 //types
-import type { PurchaseInsert, Purchase } from '../model/'
+import type { PurchaseInsert, Purchase, PurchaseItemInsert } from '../model/'
 
 const { timestampToDate } = useDate()
 const purchases = ref<Purchase[]>([])
@@ -15,6 +15,27 @@ const error = ref()
 const purchaseCount = ref<number | null>(0)
 
 const usePurchase = () => {
+  const addPurchaseItem = async (newData: PurchaseItemInsert) => {
+    console.log('Vai add um ou mais item, começando com 1', newData)
+    isLoading.value = true
+    try {
+      const { error: err, data } = await supabase
+        .from('purchase_item')
+        .insert({ ...newData })
+        .select()
+        .single()
+      if (err) {
+        isLoading.value = false
+        throw new Error(err.message)
+      }
+      isLoading.value = false
+      return data
+    } catch (err) {
+      isLoading.value = false
+      console.log(err)
+    }
+  }
+
   const addPurchase = async (formData: PurchaseInsert) => {
     isLoading.value = true
     try {
@@ -117,6 +138,7 @@ const usePurchase = () => {
     getPurchases,
     getPurchase,
     addPurchase,
+    addPurchaseItem,
     purchases,
     purchase,
     purchaseCount,

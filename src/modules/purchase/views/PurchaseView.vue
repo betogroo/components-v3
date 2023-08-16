@@ -15,7 +15,7 @@ import { AppIconBtn } from '@/shared/components'
 import { usePurchase, useUpdateField } from '../composable'
 
 // types
-import type { PurchaseItem } from '../model'
+import type { PurchaseItemInsert, PurchaseItem } from '../model'
 
 const props = defineProps<Props>()
 interface Props {
@@ -33,11 +33,12 @@ const { updateArray } = useUpdateField<PurchaseItem>(
 )
 
 // const { itemsCount } = usePurchase()
-
-const addPurchaseItem = (formValues: PurchaseItem) => {
-  updateArray(formValues, id.value).then(() => {
+const { addPurchaseItem: _addPurchaseItem } = usePurchase()
+const addPurchaseItem = (formValues: PurchaseItemInsert) => {
+  const newData = { ...formValues, purchase_id: id.value }
+  _addPurchaseItem(newData).then((data) => {
     formActive.value = false
-    console.log(formValues)
+    console.log(data?.purchase_id, 'foi gravado em ', data?.id)
   })
 }
 
