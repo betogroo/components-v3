@@ -18,22 +18,22 @@ const handleClick = () => {
     class="px-0"
     density="compact"
   >
-    <v-list-item-title>{{ item.tittle }}</v-list-item-title>
+    <v-list-item-title>{{ item.title }}</v-list-item-title>
     <v-list-item-subtitle>
       <v-row
         align="center"
         no-gutters
       >
         <v-col>Quantidade</v-col>
-        <v-col>2 unidades</v-col>
+        <v-col>{{ item.quantity }} unidades</v-col>
       </v-row>
       <v-row no-gutters>
         <v-col>Valor Unitário</v-col>
-        <v-col>R$20,55</v-col>
+        <v-col>R${{ item.price }}</v-col>
       </v-row>
       <v-row no-gutters>
         <v-col>Valor Total</v-col>
-        <v-col>R$41,10</v-col>
+        <v-col>R${{ item.quantity! * item.price! }}</v-col>
       </v-row>
     </v-list-item-subtitle>
     <template v-slot:prepend>
