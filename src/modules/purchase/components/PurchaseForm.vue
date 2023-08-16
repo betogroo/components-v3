@@ -10,14 +10,7 @@ const emit = defineEmits<{
   'submit-form': [data: PurchaseInsert]
 }>()
 
-const purchase = ref<PurchaseInsert>({
-  //id: null,
-  //innerProcess: Number(''),
-  createdAt: '',
-  description: '',
-  outerProcess: '',
-  purchaseTypeId: '',
-})
+const purchase = ref<PurchaseInsert>({})
 
 const { mobile } = useDisplay()
 const handleSubmit = () => {

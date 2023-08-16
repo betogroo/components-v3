@@ -17,14 +17,11 @@ const purchaseCount = ref<number | null>(0)
 const usePurchase = () => {
   const addPurchase = async (formData: PurchaseInsert) => {
     isLoading.value = true
-    const dados = formData
-    delete dados.createdAt
-    delete dados.id
     try {
       const { error: err, data } = await supabase
         .from('purchase')
         .insert({
-          ...dados,
+          ...formData,
         })
         .select()
         .single()
