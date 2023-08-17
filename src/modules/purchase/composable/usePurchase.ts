@@ -19,20 +19,26 @@ const purchaseItems = ref<PurchaseItem[] | null>()
 const isLoading = ref(false)
 const error = ref()
 const purchaseCount = ref<number | null>(0)
+const purchaseItemsCount = ref<number | null>(0)
 
 const usePurchase = () => {
   const getPurchaseItems = async (id: string) => {
     error.value = null
     isLoading.value = true
     try {
-      const { error: err, data } = await supabase
+      const {
+        error: err,
+        data,
+        count,
+      } = await supabase
         .from('purchase_item')
-        .select()
+        .select('*', { count: 'estimated' })
         .eq('purchase_id', id)
       if (err) {
         throw new Error(err.message)
       }
       isLoading.value = false
+      purchaseItemsCount.value = count
       purchaseItems.value = data
     } catch (err) {
       isLoading.value = false
@@ -169,6 +175,7 @@ const usePurchase = () => {
     purchases,
     purchase,
     purchaseItems,
+    purchaseItemsCount,
     purchaseCount,
     error,
     isLoading,

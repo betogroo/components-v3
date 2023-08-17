@@ -28,8 +28,10 @@ const formActive = ref(false)
 const {
   getPurchase,
   getPurchaseItems,
+  itemsCount,
   purchase,
   purchaseItems,
+  purchaseItemsCount,
   isLoading,
   error,
 } = usePurchase()
@@ -41,7 +43,6 @@ const { updateArray } = useUpdateField<PurchaseItem>(
   'purchaseItems',
 )
 
-// const { itemsCount } = usePurchase()
 const { addPurchaseItem: _addPurchaseItem } = usePurchase()
 const addPurchaseItem = async (formValues: PurchaseItemInsert) => {
   const newData = { ...formValues, purchase_id: id.value }
@@ -50,10 +51,6 @@ const addPurchaseItem = async (formValues: PurchaseItemInsert) => {
     getPurchaseItems(id.value)
   })
 }
-
-/* const purchaseItems = computed(() => {
-  return 0
-}) */
 
 const toggleForm = () => {
   formActive.value = !formActive.value
@@ -79,10 +76,7 @@ const iconClick = (index: number) => {
         inner-process-title="Processo SEI"
         :purchase="purchase"
       />
-      {{
-        //itemsCount(purchase.purchaseItems?.length || 0)
-        0
-      }}
+      {{ itemsCount(purchaseItemsCount ? purchaseItemsCount : 0) }}
       <AppIconBtn
         :toggle-btn="formActive"
         tooltip-title="Adicionar produto"
