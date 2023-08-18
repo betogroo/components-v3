@@ -12,7 +12,7 @@ import {
 import { AppIconBtn } from '@/shared/components'
 
 // composables
-import { usePurchase, usePurchaseItem } from '../composable'
+import { usePurchase, usePurchaseItem, useUtils } from '../composable'
 
 // types
 import type { PurchaseItemInsert } from '../model'
@@ -24,7 +24,8 @@ interface Props {
 const { id } = toRefs(props)
 const formActive = ref(false)
 
-const { getPurchase, itemsCount, purchase, isLoading, error } = usePurchase()
+const { getPurchase, purchase, isLoading, error } = usePurchase()
+const { itemsCount } = useUtils()
 await getPurchase(id.value)
 
 const {
