@@ -1,40 +1,95 @@
+// vue
+import { ref } from 'vue'
 // composables
-import useDate from '@/shared/composables/useDate'
+
+import { supabase } from '@/plugins/supabase'
 
 //types
-import type { Purchase } from '../model/'
-import { Timestamp } from '@/shared/model'
-const { timestampToDate, timestampToYear } = useDate()
+import type { PurchaseInsert, Purchase } from '../model/'
+
+const purchases = ref<Purchase[]>([])
+const purchase = ref<Purchase | null>()
+const purchaseCount = ref<number | null>(0)
+
+const isLoading = ref(false)
+const error = ref()
+
 const usePurchase = () => {
-  const innerProcessFormatName = (purchase: Purchase, prefix = 'DSP SJB') => {
-    const innerProcess = purchase.innerProcess.toString().padStart(3, '0')
-    const year = timestampToYear(purchase.createdAt)
-    return `Processo: ${prefix}/${innerProcess}/${year}`
+  const addData = async (formData: PurchaseInsert) => {
+    isLoading.value = true
+    try {
+      const { error: err, data } = await supabase
+        .from('purchase')
+        .insert({
+          ...formData,
+        })
+        .select()
+        .single()
+      if (err) {
+        isLoading.value = false
+        throw new Error(err.message)
+      }
+      isLoading.value = false
+      return data
+    } catch (err) {
+      isLoading.value = false
+      console.log(err)
+    }
+  }
+  const getPurchase = async (id: string) => {
+    error.value = null
+    isLoading.value = true
+    try {
+      const { error: err, data } = await supabase
+        .from('purchase')
+        .select('*')
+        .eq('id', id)
+        .single()
+      if (!data) {
+        console.log(err.message)
+        isLoading.value = false
+        throw new Error('Não foi encontrada a compra especificada')
+      }
+      isLoading.value = false
+      purchase.value = data
+    } catch (err) {
+      isLoading.value = false
+      error.value = err
+    }
+  }
+  const getPurchases = async () => {
+    error.value = null
+    isLoading.value = true
+    try {
+      const {
+        data,
+        error: err,
+        count,
+      } = await supabase.from('purchase').select('*').order('innerProcess')
+      if (data) {
+        isLoading.value = false
+        purchases.value = data
+        purchaseCount.value = count
+      } else {
+        isLoading.value = false
+        error.value = err
+      }
+    } catch (err) {
+      isLoading.value = false
+      error.value = err
+    }
   }
 
-  const dateFormat = (date: Timestamp) => {
-    return timestampToDate(date)
+  return {
+    getPurchases,
+    getPurchase,
+    addData,
+    purchases,
+    purchase,
+    purchaseCount,
+    error,
+    isLoading,
   }
-  const itemsCount = (
-    count: number,
-    singularWord = 'produto',
-    pluralWord = 'produtos',
-  ): string => {
-    let text: string
-    switch (count) {
-      case 0:
-        text = `Não há ${pluralWord} cadastrados`
-        break
-      case 1:
-        text = `Há 1 ${singularWord} cadastrado`
-        break
-      default:
-        text = `Há ${count} ${pluralWord} cadastrados`
-        break
-    }
-    return text
-  }
-  return { innerProcessFormatName, dateFormat, itemsCount }
 }
 
 export default usePurchase

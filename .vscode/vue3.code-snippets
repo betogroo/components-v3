@@ -139,6 +139,20 @@
       "export default $1"
     ]
   },
+  "Vue 3 Composable with basic refs ": {
+    "scope": "javascript,typescript",
+    "prefix": "v3-composable-refs",
+    "body": [
+      "import { ref } from 'vue'\n",
+      "const $1 = () => {",
+      "\tconst isLoading = ref(false)",
+      "\tconst error = ref(null)",
+      "\treturn { isLoading, error  }",
+      "}",
+      "",
+      "export default $1"
+    ]
+  },
   "HANDLE CLICK": {
     "scope": "javascript,typescript",
     "prefix": "v3-handle-click",

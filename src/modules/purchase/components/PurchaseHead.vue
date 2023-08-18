@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // composables
-import { usePurchase } from '../composable'
+import { useUtils } from '../composable'
 
 //types
 import type { Purchase } from '../model'
@@ -8,7 +8,7 @@ defineProps<Props>()
 interface Props {
   purchase: Purchase
 }
-const { innerProcessFormatName, dateFormat } = usePurchase()
+const { innerProcessFormatName, dateFormat } = useUtils()
 </script>
 
 <template>

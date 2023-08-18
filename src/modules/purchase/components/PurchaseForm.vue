@@ -5,19 +5,12 @@ import { ref } from 'vue'
 import { useDisplay } from 'vuetify'
 
 //types
-import { Timestamp } from '@/shared/model/Firebase.interfaces'
-import type { Purchase } from '../model'
+import type { PurchaseInsert } from '../model'
 const emit = defineEmits<{
-  'submit-form': [data: Purchase]
+  'submit-form': [data: PurchaseInsert]
 }>()
 
-const purchase = ref<Purchase>({
-  innerProcess: Number(''),
-  createdAt: Timestamp.fromDate(new Date()),
-  type: '',
-  description: '',
-  outerProcess: '',
-})
+const purchase = ref<PurchaseInsert>({})
 
 const { mobile } = useDisplay()
 const handleSubmit = () => {
@@ -49,7 +42,7 @@ const handleSubmit = () => {
       </v-col>
     </v-row>
     <v-radio-group
-      v-model="purchase.type"
+      v-model="purchase.purchaseTypeId"
       class="my-2 border"
       density="comfortable"
       hide-details
@@ -60,14 +53,14 @@ const handleSubmit = () => {
           <v-radio
             class="text-center"
             label="Permanente"
-            value="p"
+            value="d65c7bfb-ffb4-47b5-8fe2-1c6d05214e8c"
           ></v-radio>
         </v-col>
         <v-col>
           <v-radio
             class="text-center"
             label="Consumo"
-            value="c"
+            value="46f1c5b2-8438-4a87-8c34-cce54e2e67cf"
           ></v-radio>
         </v-col>
       </v-row>

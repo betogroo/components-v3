@@ -4,16 +4,10 @@ import { PurchaseCard } from '../components'
 import { AppLoader } from '../components/'
 
 // composables
-import { getCollection } from '@/shared/composables/'
+import { usePurchase } from '../composable'
 
-// types
-import { Purchase } from '../model/Purchase'
-
-const {
-  documents: purchases,
-  isLoading,
-  error,
-} = await getCollection<Purchase>('purchase', 'innerProcess')
+const { getPurchases, isLoading, purchases, error } = usePurchase()
+getPurchases()
 </script>
 
 <template>

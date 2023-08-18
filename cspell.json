@@ -12,7 +12,8 @@
     "Roboto",
     "unsub",
     "vuetify",
-    "webfontloader"
+    "webfontloader",
+    "supabase"
   ],
   "ignoreWords": [],
   "import": []

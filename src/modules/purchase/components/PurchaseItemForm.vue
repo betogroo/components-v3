@@ -5,22 +5,14 @@ import { ref } from 'vue'
 import { useDisplay } from 'vuetify'
 
 //types
-import { Timestamp } from '@/shared/model/Firebase.interfaces'
-import type { PurchaseItem } from '../model'
+// import { Timestamp } from '@/shared/model/Firebase.interfaces'
+import type { PurchaseItemInsert } from '../model'
 
 const emit = defineEmits<{
-  'submit-form': [data: PurchaseItem]
+  'submit-form': [data: PurchaseItemInsert]
 }>()
 const { mobile } = useDisplay()
-const formValues = ref<PurchaseItem>({
-  tittle: '',
-  siafisico: '',
-  expenseQuality: '',
-  unity: '',
-  quantity: 0,
-  price: 0,
-  createdAt: Timestamp.fromDate(new Date()),
-})
+const formValues = ref<PurchaseItemInsert>({})
 
 const handleSubmit = async () => {
   emit('submit-form', formValues.value)
@@ -33,7 +25,7 @@ const handleSubmit = async () => {
       <v-row>
         <v-col class="ma-0"
           ><v-text-field
-            v-model="formValues.tittle"
+            v-model="formValues.title"
             label="Material"
         /></v-col>
       </v-row>
@@ -57,9 +49,9 @@ const handleSubmit = async () => {
           md="4"
         >
           <v-select
-            v-model="formValues.unity"
+            v-model.number="formValues.unity"
             clearable
-            :items="['1', '10', '408', '302', '187']"
+            :items="[1, 10, 408, 302, 187]"
             label="Unidade de Fornecimento"
           ></v-select>
         </v-col>

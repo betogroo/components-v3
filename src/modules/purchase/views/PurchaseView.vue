@@ -1,65 +1,58 @@
 <script setup lang="ts">
-import { computed, ref, toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 
 // components
 import {
   PurchaseHead,
   PurchaseDetails,
   PurchaseItemForm,
-  PurchaseItems,
   AppLoader,
+  PurchaseItems,
 } from '../components'
 import { AppIconBtn } from '@/shared/components'
 
 // composables
-import { usePurchase, getDocument, useUpdateField } from '../composable'
+import { usePurchase, usePurchaseItem, useUtils } from '../composable'
 
 // types
-import type { Purchase, PurchaseItem } from '../model'
+import type { PurchaseItemInsert } from '../model'
 
 const props = defineProps<Props>()
 interface Props {
-  idPurchase: string
+  id: string
 }
-const { idPurchase } = toRefs(props)
+const { id } = toRefs(props)
 const formActive = ref(false)
 
+const { getPurchase, purchase, isLoading, error } = usePurchase()
+const { itemsCount } = useUtils()
+await getPurchase(id.value)
+
 const {
-  document: purchase,
-  error,
-  isLoading,
-} = await getDocument<Purchase>('purchase', idPurchase.value)
+  getPurchaseItems,
+  purchaseItems,
+  itemsCount: purchaseItemsCount,
+} = usePurchaseItem()
+await getPurchaseItems(id.value)
 
-const { updateArray } = useUpdateField<PurchaseItem>(
-  'purchase',
-  'purchaseItems',
-)
-
-const { itemsCount } = usePurchase()
-
-const addPurchaseItem = (formValues: PurchaseItem) => {
-  updateArray(formValues, idPurchase.value).then(() => {
+const { addData: _addPurchaseItem } = usePurchaseItem()
+const addPurchaseItem = async (formValues: PurchaseItemInsert) => {
+  const newData = { ...formValues, purchase_id: id.value }
+  await _addPurchaseItem(newData).then(() => {
     formActive.value = false
-    console.log(formValues)
+    getPurchaseItems(id.value)
   })
 }
-
-const purchaseItems = computed(() => {
-  return purchase.value?.purchaseItems
-})
 
 const toggleForm = () => {
   formActive.value = !formActive.value
 }
 
 const iconClick = (index: number) => {
-  const title: string = purchaseItems.value
-    ? purchaseItems.value[index].tittle
-    : ''
+  const title = purchaseItems.value ? purchaseItems.value[index].title : ''
   console.log(title)
 }
 </script>
-
 <template>
   <AppLoader v-if="isLoading" />
   <v-container>
@@ -75,7 +68,7 @@ const iconClick = (index: number) => {
         inner-process-title="Processo SEI"
         :purchase="purchase"
       />
-      {{ itemsCount(purchase.purchaseItems?.length || 0) }}
+      {{ itemsCount(purchaseItemsCount ? purchaseItemsCount : 0) }}
       <AppIconBtn
         :toggle-btn="formActive"
         tooltip-title="Adicionar produto"
