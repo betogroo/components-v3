@@ -5,70 +5,18 @@ import { useDate } from '@/shared/composables'
 import { supabase } from '@/plugins/supabase'
 
 //types
-import type {
-  PurchaseInsert,
-  Purchase,
-  PurchaseItemInsert,
-  PurchaseItem,
-} from '../model/'
+import type { PurchaseInsert, Purchase } from '../model/'
 
 const { timestampToDate } = useDate()
 const purchases = ref<Purchase[]>([])
 const purchase = ref<Purchase | null>()
-const purchaseItems = ref<PurchaseItem[] | null>()
+const purchaseCount = ref<number | null>(0)
+
 const isLoading = ref(false)
 const error = ref()
-const purchaseCount = ref<number | null>(0)
-const purchaseItemsCount = ref<number | null>(0)
 
 const usePurchase = () => {
-  const getPurchaseItems = async (id: string) => {
-    error.value = null
-    isLoading.value = true
-    try {
-      const {
-        error: err,
-        data,
-        count,
-      } = await supabase
-        .from('purchase_item')
-        .select('*', { count: 'estimated' })
-        .eq('purchase_id', id)
-      if (err) {
-        throw new Error(err.message)
-      }
-      isLoading.value = false
-      purchaseItemsCount.value = count
-      purchaseItems.value = data
-    } catch (err) {
-      isLoading.value = false
-      console.log(err)
-    }
-
-    console.log(id)
-  }
-  const addPurchaseItem = async (newData: PurchaseItemInsert) => {
-    console.log('Vai add um ou mais item, começando com 1', newData)
-    isLoading.value = true
-    try {
-      const { error: err, data } = await supabase
-        .from('purchase_item')
-        .insert({ ...newData })
-        .select()
-        .single()
-      if (err) {
-        isLoading.value = false
-        throw new Error(err.message)
-      }
-      isLoading.value = false
-      return data
-    } catch (err) {
-      isLoading.value = false
-      console.log(err)
-    }
-  }
-
-  const addPurchase = async (formData: PurchaseInsert) => {
+  const addData = async (formData: PurchaseInsert) => {
     isLoading.value = true
     try {
       const { error: err, data } = await supabase
@@ -89,7 +37,6 @@ const usePurchase = () => {
       console.log(err)
     }
   }
-
   const getPurchase = async (id: string) => {
     error.value = null
     isLoading.value = true
@@ -100,9 +47,9 @@ const usePurchase = () => {
         .eq('id', id)
         .single()
       if (!data) {
+        console.log(err.message)
         isLoading.value = false
-        console.log(err)
-        throw new Error('Sem dados cadastrados')
+        throw new Error('Não foi encontrada a compra especificada')
       }
       isLoading.value = false
       purchase.value = data
@@ -169,13 +116,9 @@ const usePurchase = () => {
     itemsCount,
     getPurchases,
     getPurchase,
-    getPurchaseItems,
-    addPurchase,
-    addPurchaseItem,
+    addData,
     purchases,
     purchase,
-    purchaseItems,
-    purchaseItemsCount,
     purchaseCount,
     error,
     isLoading,

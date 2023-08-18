@@ -1,5 +1,6 @@
 // module composables
 import usePurchase from './usePurchase'
+import usePurchaseItem from './usePurchaseItem'
 
 // shared composables
 import {
@@ -12,6 +13,7 @@ import {
 
 export {
   usePurchase,
+  usePurchaseItem,
   getDocument,
   useUpdateField,
   addDocument,

@@ -10,9 +10,9 @@ import { useRouter } from 'vue-router'
 import type { PurchaseInsert } from '../model'
 const router = useRouter()
 
-const { addPurchase, isLoading } = usePurchase()
+const { addData, isLoading } = usePurchase()
 const handleSubmit = (purchase: PurchaseInsert) => {
-  addPurchase(purchase).then((data) => {
+  addData(purchase).then((data) => {
     router.push({ name: 'PurchaseView', params: { id: data?.id } })
     console.log(data?.id)
   })

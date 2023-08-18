@@ -5,7 +5,7 @@ import { ref } from 'vue'
 import { useDisplay } from 'vuetify'
 
 //types
-import { Timestamp } from '@/shared/model/Firebase.interfaces'
+// import { Timestamp } from '@/shared/model/Firebase.interfaces'
 import type { PurchaseItemInsert } from '../model'
 
 const emit = defineEmits<{

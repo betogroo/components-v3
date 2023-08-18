@@ -6,17 +6,16 @@ import {
   PurchaseHead,
   PurchaseDetails,
   PurchaseItemForm,
-  //PurchaseItems,
   AppLoader,
   PurchaseItems,
 } from '../components'
 import { AppIconBtn } from '@/shared/components'
 
 // composables
-import { usePurchase, useUpdateField } from '../composable'
+import { usePurchase, usePurchaseItem } from '../composable'
 
 // types
-import type { PurchaseItemInsert, PurchaseItem } from '../model'
+import type { PurchaseItemInsert } from '../model'
 
 const props = defineProps<Props>()
 interface Props {
@@ -25,28 +24,20 @@ interface Props {
 const { id } = toRefs(props)
 const formActive = ref(false)
 
-const {
-  getPurchase,
-  getPurchaseItems,
-  itemsCount,
-  purchase,
-  purchaseItems,
-  purchaseItemsCount,
-  isLoading,
-  error,
-} = usePurchase()
+const { getPurchase, itemsCount, purchase, isLoading, error } = usePurchase()
 await getPurchase(id.value)
+
+const {
+  getPurchaseItems,
+  purchaseItems,
+  itemsCount: purchaseItemsCount,
+} = usePurchaseItem()
 await getPurchaseItems(id.value)
 
-const { updateArray } = useUpdateField<PurchaseItem>(
-  'purchase',
-  'purchaseItems',
-)
-
-const { addPurchaseItem: _addPurchaseItem } = usePurchase()
+const { addData: _addPurchaseItem } = usePurchaseItem()
 const addPurchaseItem = async (formValues: PurchaseItemInsert) => {
   const newData = { ...formValues, purchase_id: id.value }
-  await _addPurchaseItem(newData).then((data) => {
+  await _addPurchaseItem(newData).then(() => {
     formActive.value = false
     getPurchaseItems(id.value)
   })
