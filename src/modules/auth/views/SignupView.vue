@@ -8,6 +8,8 @@ const password = ref('')
 const { signup, isPending, error } = useAuth()
 const router = useRouter()
 const handleClick = async () => {
+  /* await signup(email.value, password.value) */
+  console.log(email.value, password.value)
   await signup(email.value, password.value)
   if (!error.value) {
     router.push({ name: 'HomeView' })

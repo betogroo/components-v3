@@ -8,6 +8,8 @@ import {
   onAuthStateChanged,
 } from '@/plugins/firebase'
 
+import { supabase } from '@/plugins/supabase'
+
 const email = ref('beto@beto.com')
 const password = ref('123456')
 const error = ref<string | null>(null)
@@ -49,15 +51,21 @@ const signup = async (email: string, password: string) => {
   error.value = null
   isPending.value = true
   try {
-    const res = await createUserWithEmailAndPassword(auth, email, password)
+    // const res = await createUserWithEmailAndPassword(auth, email, password)
+
+    const { data: res, error: err } = await supabase.auth.signUp({
+      email,
+      password,
+    })
     if (!res) {
-      throw new FirebaseError('auth/default-error', 'Erro ao cadastrar')
+      //throw new FirebaseError('auth/default-error', 'Erro ao cadastrar')
+      throw new Error(err?.message)
     }
-    error.value = null
+    //error.value = null
     isPending.value = false
   } catch (err) {
-    const e = err as FirebaseError
-    console.log(e.code)
+    const e = err as Error
+    console.log(e.message)
     error.value = e.message
     isPending.value = false
   }
