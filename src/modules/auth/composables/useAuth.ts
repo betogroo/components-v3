@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import {
   auth,
-  createUserWithEmailAndPassword,
+  //createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   FirebaseError,
@@ -57,12 +57,13 @@ const signup = async (email: string, password: string) => {
       email,
       password,
     })
-    if (!res) {
+    if (err) {
       //throw new FirebaseError('auth/default-error', 'Erro ao cadastrar')
-      throw new Error(err?.message)
+      error.value = err.message
+      throw new Error(err.message)
     }
-    //error.value = null
     isPending.value = false
+    return res
   } catch (err) {
     const e = err as Error
     console.log(e.message)

@@ -11,9 +11,12 @@ const handleClick = async () => {
   /* await signup(email.value, password.value) */
   console.log(email.value, password.value)
   await signup(email.value, password.value)
-  if (!error.value) {
-    router.push({ name: 'HomeView' })
-  }
+    .then((data) => {
+      console.log(data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 </script>
 
