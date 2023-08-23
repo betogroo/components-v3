@@ -16,6 +16,7 @@ const router = useRouter()
 
 const handleLogin = async () => {
   await login()
+  if (!error.value) router.push({ name: 'HomeView' })
 }
 
 const handleSession = async () => {

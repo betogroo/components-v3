@@ -2,9 +2,6 @@
 // types
 import { Purchase } from '../model'
 
-//components
-import { UpdateSingleField } from '@/shared/components'
-
 interface Props {
   purchase: Purchase
   innerProcessTitle: string
@@ -19,14 +16,6 @@ defineProps<Props>()
       <h5 class="font-weight-regular">
         {{ innerProcessTitle }}: {{ purchase.outerProcess }}
       </h5>
-    </div>
-    <div v-else>
-      <UpdateSingleField
-        :id="purchase.id!"
-        collection="purchase"
-        field="outerProcess"
-        label="Processo SEI"
-      />
     </div>
     <div>
       <v-row>

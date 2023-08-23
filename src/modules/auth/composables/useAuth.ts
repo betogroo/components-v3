@@ -55,12 +55,11 @@ const signup = async () => {
     error.value = null
     isPending.value = true
     await delay()
-    const { data, error: err } = await supabase.auth.signUp({
+    const { error: err } = await supabase.auth.signUp({
       email: email.value,
       password: password.value,
     })
     if (err) throw err
-    //getUser()
   } catch (err) {
     const e = err as Error
     error.value = e.message
@@ -75,7 +74,7 @@ const getSession = async () => {
   console.log(data, err)
 }
 const getUser = async () => {
-  const { data, error: err } = await supabase.auth.getUser()
+  const { data } = await supabase.auth.getUser()
   if (data.user) user.value = data.user
   // console.log(err?.message)
 }
