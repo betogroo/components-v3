@@ -1,76 +1,94 @@
 import { ref } from 'vue'
-import {
-  auth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  FirebaseError,
-  onAuthStateChanged,
-} from '@/plugins/firebase'
+import { supabase } from '@/plugins/supabase'
 
 const email = ref('beto@beto.com')
 const password = ref('123456')
-const error = ref<string | null>(null)
+const error = ref<Error | null | string>(null)
 const isPending = ref(false)
-const user = ref(auth.currentUser)
+const user = ref()
 
-onAuthStateChanged(auth, (_user) => {
-  console.log(`User state changed`)
-  user.value = _user
-})
+const delay = (amount = 2000, msg = false): Promise<void> => {
+  if (msg) {
+    console.log(`Delay de ${amount / 1000} segundos para testes!`)
+  }
+  return new Promise((resolve) => setTimeout(resolve, amount))
+}
 
 const logout = async () => {
-  await signOut(auth)
+  try {
+    error.value = null
+    isPending.value = true
+    await delay()
+    const { error: err } = await supabase.auth.signOut()
+    user.value = null
+    if (err) throw err
+  } catch (err) {
+    const e = err as Error
+    error.value = e.message
+    console.log(e)
+  } finally {
+    isPending.value = false
+  }
 }
 
 const login = async () => {
-  error.value = null
-  isPending.value = true
   try {
-    const res = await signInWithEmailAndPassword(
-      auth,
-      email.value,
-      password.value,
-    )
-    if (!res) {
-      throw new FirebaseError('auth/default-error', 'Erro ao entrar')
-    }
     error.value = null
-    isPending.value = false
+    isPending.value = true
+    await delay()
+    const { data, error: err } = await supabase.auth.signInWithPassword({
+      email: email.value,
+      password: password.value,
+    })
+    if (err) throw err
+    user.value = data.user
   } catch (err) {
-    const e = err as FirebaseError
-    console.log(e.code)
+    const e = err as Error
     error.value = e.message
+  } finally {
     isPending.value = false
   }
 }
 
-const signup = async (email: string, password: string) => {
-  error.value = null
-  isPending.value = true
+const signup = async () => {
   try {
-    const res = await createUserWithEmailAndPassword(auth, email, password)
-    if (!res) {
-      throw new FirebaseError('auth/default-error', 'Erro ao cadastrar')
-    }
     error.value = null
-    isPending.value = false
+    isPending.value = true
+    await delay()
+    const { data, error: err } = await supabase.auth.signUp({
+      email: email.value,
+      password: password.value,
+    })
+    if (err) throw err
+    //getUser()
   } catch (err) {
-    const e = err as FirebaseError
-    console.log(e.code)
+    const e = err as Error
     error.value = e.message
+    console.log(e)
+  } finally {
     isPending.value = false
   }
 }
+
+const getSession = async () => {
+  const { data, error: err } = await supabase.auth.getSession()
+  console.log(data, err)
+}
+const getUser = async () => {
+  const { data, error: err } = await supabase.auth.getUser()
+  if (data.user) user.value = data.user
+  // console.log(err?.message)
+}
+
 const useAuth = () => {
   return {
-    auth,
     email,
     password,
     login,
     logout,
     signup,
-    signOut,
+    getSession,
+    getUser,
     error,
     isPending,
     user,

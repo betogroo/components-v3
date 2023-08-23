@@ -1,13 +1,31 @@
 <script setup lang="ts">
 import useAuth from '@/modules/auth/composables/useAuth'
 import { useRouter } from 'vue-router'
-const { email, password, isPending, error, login, user } = useAuth()
+const {
+  email,
+  password,
+  isPending,
+  error,
+  user,
+  login,
+  getSession,
+  getUser,
+  logout,
+} = useAuth()
 const router = useRouter()
-const handleClick = async () => {
+
+const handleLogin = async () => {
   await login()
-  if (!error.value) {
-    router.push({ name: 'HomeView' })
-  }
+}
+
+const handleSession = async () => {
+  await getSession()
+}
+const handleUser = async () => {
+  await getUser()
+}
+const handleLogout = async () => {
+  await logout()
 }
 </script>
 
@@ -17,7 +35,7 @@ const handleClick = async () => {
       v-if="user"
       class="text-h6"
     >
-      {{ user.email }}
+      {{ user.email || 'username' }}
     </div>
     <v-card
       class="pa-4 rounded"
@@ -41,11 +59,31 @@ const handleClick = async () => {
           type="password"
           variant="outlined"
         />
+
         <v-btn
           block
           color="primary"
-          @click="handleClick"
+          @click="handleLogin"
           >Login</v-btn
+        >
+
+        <v-btn
+          block
+          color="warning"
+          @click="handleUser"
+          >Get User</v-btn
+        >
+        <v-btn
+          block
+          color="purple"
+          @click="handleSession"
+          >Get Session</v-btn
+        >
+        <v-btn
+          block
+          color="error"
+          @click="handleLogout"
+          >Logout</v-btn
         >
       </v-form>
       <p class="mt-3 text-subtitle text-body-1">

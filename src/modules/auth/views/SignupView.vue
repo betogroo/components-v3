@@ -3,12 +3,10 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import useAuth from '@/modules/auth/composables/useAuth'
 
-const email = ref('')
-const password = ref('')
-const { signup, isPending, error } = useAuth()
+const { signup, isPending, error, email, password } = useAuth()
 const router = useRouter()
-const handleClick = async () => {
-  await signup(email.value, password.value)
+const handleSignup = async () => {
+  await signup()
   if (!error.value) {
     router.push({ name: 'HomeView' })
   }
@@ -42,7 +40,7 @@ const handleClick = async () => {
         <v-btn
           block
           color="primary"
-          @click="handleClick"
+          @click="handleSignup"
           >Gravar</v-btn
         >
         <v-alert
