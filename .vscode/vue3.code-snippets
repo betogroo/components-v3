@@ -193,5 +193,23 @@
       "\t</v-responsive>",
       "</v-container>"
     ]
+  },
+  //TS / JS BASICS
+  "Try/Catch/Finaly": {
+    "scope": "javascript, typescript",
+    "prefix": "v3-try-catch-finaly",
+    "body": [
+      "try {",
+      "\terror.value = null",
+      "\tisPending.value = true",
+      "\n",
+      "} catch (err) {",
+      "\tconst e = err as Error",
+      "\terror.value = e.message",
+      "\tconsole.log(e)",
+      "} finally {",
+      "\tisPending.value = false",
+      "}"
+    ]
   }
 }
