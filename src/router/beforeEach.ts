@@ -1,6 +1,6 @@
 import { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 import useAuth from '@/modules/auth/composables/useAuth'
-const { user } = useAuth()
+const { getUser, user } = useAuth()
 
 export default (
   to: RouteLocationNormalized,
@@ -10,6 +10,7 @@ export default (
   if (!to.meta.requiresAuth) {
     next()
   } else {
+    getUser()
     if (to.meta.requiresAuth && !user.value) {
       next({ name: 'LoginView' })
     } else {

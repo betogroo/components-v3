@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import useAuth from '@/modules/auth/composables/useAuth'
 import { useRouter } from 'vue-router'
-/* interface Props {
-  drawer: boolean
-}
-const props = withDefaults(defineProps<Props>(), {
-  drawer: false,
-}) */
+
 const emit = defineEmits(['toggleDrawer'])
 const { user, logout } = useAuth()
 const router = useRouter()
@@ -14,6 +9,10 @@ const router = useRouter()
 const handleClick = async () => {
   await logout()
   router.push({ name: 'LoginView' })
+}
+
+const goToProfile = () => {
+  console.log('Clicando aqui vai para a página do ', user.value.email)
 }
 
 const toggleDrawer = () => {
@@ -40,6 +39,7 @@ const toggleDrawer = () => {
         icon="mdi-information"
         :to="{ name: 'AboutView' }"
       ></v-btn>
+      <v-icon @click="goToProfile">mdi-account</v-icon>
       <v-btn
         icon="mdi-logout"
         @click="handleClick"

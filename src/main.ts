@@ -13,12 +13,15 @@ import { createApp, App as Application } from 'vue'
 // Plugins
 import { registerPlugins } from '@/plugins'
 
-// Firebase
-import { auth, onAuthStateChanged } from './plugins/firebase'
-
+// supabase
+import { supabase } from './plugins/supabase'
+import useAuth from '@/modules/auth/composables/useAuth'
+const { getUser } = useAuth()
 let app: Application
 
-onAuthStateChanged(auth, () => {
+supabase.auth.onAuthStateChange((event) => {
+  console.log('onAuth', event)
+  getUser()
   if (!app) {
     app = createApp(App)
     registerPlugins(app)
