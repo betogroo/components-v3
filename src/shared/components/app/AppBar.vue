@@ -11,10 +11,6 @@ const handleClick = async () => {
   router.push({ name: 'LoginView' })
 }
 
-const goToProfile = () => {
-  console.log('Clicando aqui vai para a página do ', user.value.email)
-}
-
 const toggleDrawer = () => {
   emit('toggleDrawer')
 }
@@ -39,7 +35,11 @@ const toggleDrawer = () => {
         icon="mdi-information"
         :to="{ name: 'AboutView' }"
       ></v-btn>
-      <v-icon @click="goToProfile">mdi-account</v-icon>
+      <v-btn
+        icon="mdi-account"
+        :to="{ name: 'ProfileView' }"
+      ></v-btn>
+
       <v-btn
         icon="mdi-logout"
         @click="handleClick"
