@@ -17,6 +17,14 @@ const routes: CustomRouteRecordRaw[] = [
       requiresAuth: false,
     },
   },
+  {
+    path: '/profile',
+    name: 'ProfileView',
+    component: () => import('../views/ProfileView.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
 
   {
     path: '/:catchAll(.*)',
