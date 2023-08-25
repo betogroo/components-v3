@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>Profile Page</div>
+  <div>Component</div>
 </template>
