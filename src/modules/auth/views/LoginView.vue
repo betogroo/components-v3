@@ -1,17 +1,8 @@
 <script setup lang="ts">
 import useAuth from '@/modules/auth/composables/useAuth'
 import { useRouter } from 'vue-router'
-const {
-  email,
-  password,
-  isPending,
-  error,
-  user,
-  login,
-  getSession,
-  getUser,
-  logout,
-} = useAuth()
+const { email, password, isPending, error, user, login, getSession, logout } =
+  useAuth()
 const router = useRouter()
 
 const handleLogin = async () => {
@@ -22,9 +13,7 @@ const handleLogin = async () => {
 const handleSession = async () => {
   await getSession()
 }
-const handleUser = async () => {
-  await getUser()
-}
+
 const handleLogout = async () => {
   await logout()
 }
@@ -68,12 +57,6 @@ const handleLogout = async () => {
           >Login</v-btn
         >
 
-        <v-btn
-          block
-          color="warning"
-          @click="handleUser"
-          >Get User</v-btn
-        >
         <v-btn
           block
           color="purple"

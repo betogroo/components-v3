@@ -21,7 +21,7 @@ let app: Application
 
 supabase.auth.onAuthStateChange((event) => {
   console.log('onAuth', event)
-  getUser()
+  //getUser()
   if (!app) {
     app = createApp(App)
     registerPlugins(app)

@@ -73,10 +73,11 @@ const getSession = async () => {
   const { data, error: err } = await supabase.auth.getSession()
   console.log(data, err)
 }
+// remove
 const getUser = async () => {
-  const { data } = await supabase.auth.getUser()
+  const { data, error: err } = await supabase.auth.getUser()
   if (data.user) user.value = data.user
-  // console.log(err?.message)
+  console.log(data.user?.id, err?.message)
 }
 
 const useAuth = () => {
