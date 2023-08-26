@@ -3,6 +3,7 @@ import { supabase, AuthUser } from '@/plugins/supabase'
 
 const email = ref('beto@beto.com')
 const password = ref('123456')
+const passwordConfirm = ref('123456')
 const error = ref<Error | null | string>(null)
 const user = ref<AuthUser | undefined | null>(null)
 const isPending = ref(false)
@@ -55,6 +56,9 @@ const signup = async () => {
     error.value = null
     isPending.value = true
     await delay()
+    if (password.value !== passwordConfirm.value) {
+      throw new Error('As senhas não são iguais')
+    }
     const { data, error: err } = await supabase.auth.signUp({
       email: email.value,
       password: password.value,
@@ -64,7 +68,7 @@ const signup = async () => {
   } catch (err) {
     const e = err as Error
     error.value = e.message
-    console.log(e)
+    console.log(e.message)
   } finally {
     isPending.value = false
   }
@@ -98,6 +102,7 @@ const useAuth = () => {
   return {
     email,
     password,
+    passwordConfirm,
     login,
     logout,
     signup,
