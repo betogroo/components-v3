@@ -1,11 +1,11 @@
 import { ref } from 'vue'
-import { supabase } from '@/plugins/supabase'
+import { supabase, AuthUser } from '@/plugins/supabase'
 
 const email = ref('beto@beto.com')
 const password = ref('123456')
 const error = ref<Error | null | string>(null)
+const user = ref<AuthUser | undefined | null>(null)
 const isPending = ref(false)
-const user = ref()
 
 const delay = (amount = 2000, msg = false): Promise<void> => {
   if (msg) {
@@ -75,9 +75,22 @@ const getSession = async () => {
 }
 // remove
 const getUser = async () => {
-  const { data, error: err } = await supabase.auth.getUser()
-  if (data.user) user.value = data.user
-  console.log(data.user?.id, err?.message)
+  try {
+    error.value = null
+    isPending.value = true
+    const { data, error: err } = await supabase.auth.getUser()
+    if (err) throw err
+    if (data.user) user.value = data.user
+  } catch (err) {
+    const e = err as Error
+    console.log(e.message)
+  } finally {
+    isPending.value = false
+  }
+}
+
+const isLogged = () => {
+  return !!user.value
 }
 
 const useAuth = () => {
@@ -89,6 +102,7 @@ const useAuth = () => {
     signup,
     getSession,
     getUser,
+    isLogged,
     error,
     isPending,
     user,
