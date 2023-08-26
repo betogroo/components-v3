@@ -55,11 +55,12 @@ const signup = async () => {
     error.value = null
     isPending.value = true
     await delay()
-    const { error: err } = await supabase.auth.signUp({
+    const { data, error: err } = await supabase.auth.signUp({
       email: email.value,
       password: password.value,
     })
     if (err) throw err
+    user.value = data.user
   } catch (err) {
     const e = err as Error
     error.value = e.message

@@ -5,10 +5,9 @@ import useAuth from '@/modules/auth/composables/useAuth'
 const { signup, isPending, error, email, password } = useAuth()
 const router = useRouter()
 const handleSignup = async () => {
-  await signup()
-  if (!error.value) {
-    router.push({ name: 'HomeView' })
-  }
+  await signup().then(() => {
+    router.push({ name: 'ProfileView' })
+  })
 }
 </script>
 
