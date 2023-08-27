@@ -7,7 +7,7 @@ const router = useRouter()
 
 const handleLogin = async () => {
   await login()
-  if (!error.value) router.push({ name: 'HomeView' })
+  if (!error.value) router.push({ name: 'ProfileView' })
 }
 
 const handleSession = async () => {
