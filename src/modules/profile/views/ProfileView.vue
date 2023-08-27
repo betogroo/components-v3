@@ -1,54 +1,27 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ProfileComponent } from '../components'
 import { useProfile } from '../composable'
-const { getProfile, updateProfile, profile, user, isSuccess, isPending } =
+import type { ProfileUpdate, ProfileInsert, Profile } from '../model'
+
+const { getProfile, updateProfile, profile, user, error, isPending } =
   useProfile()
 
 await getProfile()
-
-const email = ref(user.value?.email)
-const username = ref(profile.value.username)
-const website = ref(profile.value.website)
-const full_name = ref(profile.value.full_name)
-const handleUpdate = async () => {
-  const updates = {
-    id: user.value!.id,
-    username: username.value,
-    website: website.value,
-    full_name: full_name.value,
-  }
+const handleUpdate = async (updates: ProfileInsert) => {
   await updateProfile(updates)
 }
 </script>
 
 <template>
-  <div>Profile</div>
-  <v-text-field
-    v-model.value="email"
-    disabled
-    label="Email"
-    variant="filled"
+  <ProfileComponent
+    :is-loading="isPending"
+    :profile="profile"
+    :user="user"
+    @update-profile="(n) => handleUpdate(n)"
   />
-  <v-text-field
-    v-model.value="full_name"
-    label="Nome Completo"
-  />
-  <v-text-field
-    v-model="username"
-    label="Username"
-  />
-  <v-text-field
-    v-model="website"
-    label="Site"
-  />
-  <v-btn
-    :loading="isPending"
-    @click="handleUpdate"
-    >Gravar</v-btn
-  >
   <v-alert
-    v-if="isSuccess"
-    type="success"
-    >{{ isSuccess }}</v-alert
+    v-if="error"
+    type="error"
+    >{{ error }}</v-alert
   >
 </template>

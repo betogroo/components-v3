@@ -1,19 +1,33 @@
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { supabase, User } from '@/plugins/supabase'
 import { useAuth } from '@/modules/auth/composables'
-import { ProfileInsert } from '../model'
+import { ProfileInsert, ProfileUpdate, Profile } from '../model'
 const { getSession } = useAuth()
-const profile = ref<ProfileInsert>({ username: '', id: '' })
+const profile = ref<Profile>({
+  avatar_url: '',
+  full_name: '',
+  id: '',
+  updated_at: '',
+  username: '',
+  website: '',
+})
 const user = ref<User>()
 const isPending = ref(false)
-const isSuccess = ref<false | string>(false)
 const error = ref<null | string>(null)
+
+const delay = (amount = 2000, msg = false): Promise<void> => {
+  if (msg) {
+    console.log(`Delay de ${amount / 1000} segundos para testes!`)
+  }
+  return new Promise((resolve) => setTimeout(resolve, amount))
+}
 
 const useProfile = () => {
   const getProfile = async () => {
     try {
       error.value = null
       isPending.value = true
+      await delay()
       const { data, error: userErr } = await supabase.auth.getUser()
       if (userErr) throw userErr
       user.value = data.user
@@ -29,9 +43,10 @@ const useProfile = () => {
           .single()
         if (profileErr && status !== 406) throw profileErr
         if (profileData) {
-          profile.value.username = profileData.username
-          profile.value.website = profileData.website
-          profile.value.full_name = profileData.full_name
+          /* profile.username = profileData.username
+          profile.website = profileData.website
+          profile.full_name = profileData.full_name */
+          profile.value = profileData
         }
       }
     } catch (err) {
@@ -47,11 +62,11 @@ const useProfile = () => {
     try {
       error.value = null
       isPending.value = true
+      await delay()
       const { data, error: err } = await supabase
         .from('profiles')
         .upsert(updates)
       if (err) throw err
-      isSuccess.value = 'Atualizado com sucesso'
     } catch (err) {
       const e = err as Error
       error.value = e.message
@@ -62,7 +77,6 @@ const useProfile = () => {
   }
   return {
     isPending,
-    isSuccess,
     error,
     profile,
     user,

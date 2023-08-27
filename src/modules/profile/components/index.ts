@@ -1,3 +1,3 @@
-import ModuleComponent from './ModuleComponent.vue'
+import ProfileComponent from './ProfileComponent.vue'
 
-export { ModuleComponent }
+export { ProfileComponent }
