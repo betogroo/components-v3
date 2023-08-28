@@ -4,8 +4,10 @@ import { AppBar, AppNavDrawer, AppLoader } from '@/shared/components/'
 import { supabase } from './plugins/supabase'
 import { useAuth } from './modules/auth/composables'
 import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 const { user, getUser, logout } = useAuth()
 const router = useRouter()
+const route = useRoute()
 
 const drawer = ref(false)
 const toggleDrawer = () => {
@@ -17,6 +19,7 @@ const handleLogout = async () => {
     router.push({ name: 'LoginView' })
   })
 }
+console.log(route.meta.hideNavBar)
 
 onMounted(() => {
   supabase.auth.onAuthStateChange(() => {
@@ -27,6 +30,7 @@ onMounted(() => {
 <template>
   <v-app>
     <AppBar
+      v-if="!route.meta.hideNavBar"
       :user="user"
       @logout="handleLogout"
       @toggle-drawer="toggleDrawer"

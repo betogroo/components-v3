@@ -6,6 +6,7 @@ const routes: CustomRouteRecordRaw[] = [
     component: () => import('../views/LoginView.vue'),
     meta: {
       requiresAuth: false,
+      hideNavBar: true,
     },
   },
   {
@@ -14,6 +15,7 @@ const routes: CustomRouteRecordRaw[] = [
     component: () => import('../views/SignupView.vue'),
     meta: {
       requiresAuth: false,
+      hideNavBar: true,
     },
   },
 ]
