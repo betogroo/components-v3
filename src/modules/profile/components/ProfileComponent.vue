@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue'
-import type { ProfileInsert, ProfileUpdate } from '../model'
+import type { ProfileInsert } from '../model'
 import type { User } from '@supabase/supabase-js'
 
 interface Props {
   profile: ProfileInsert
-  user: User | any
+  user: User
   isLoading?: boolean
 }
 const props = defineProps<Props>()
 const emit = defineEmits<{
-  updateProfile: [updates: typeof updates.value]
+  updateProfile: [updates: ProfileInsert]
 }>()
 const { username, website, full_name } = toRefs(props.profile)
 const { id, email } = toRefs(props.user)
