@@ -18,6 +18,7 @@ const formCommonProps = {
   variant: 'outlined',
   hideDetails: true,
   density: 'compact',
+  class: 'my-2',
 }
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
@@ -28,6 +29,7 @@ export default createVuetify({
     },
     VSelect: { ...formCommonProps },
     VTextField: { ...formCommonProps },
+    VBtn: { class: 'my-2' },
   },
   theme: {
     themes: {

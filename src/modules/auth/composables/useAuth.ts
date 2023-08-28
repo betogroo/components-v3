@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import { supabase, AuthUser } from '@/plugins/supabase'
+import { Credentials } from '../model'
 
 const email = ref('beto@beto.com')
 const password = ref('123456')
@@ -32,14 +33,15 @@ const logout = async () => {
   }
 }
 
-const login = async () => {
+const login = async (credentials: Credentials) => {
   try {
+    const { email, password } = credentials
     error.value = null
     isPending.value = true
     await delay()
     const { data, error: err } = await supabase.auth.signInWithPassword({
-      email: email.value,
-      password: password.value,
+      email,
+      password,
     })
     if (err) throw err
     user.value = data.user
