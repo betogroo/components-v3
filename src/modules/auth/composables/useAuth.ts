@@ -2,9 +2,6 @@ import { ref } from 'vue'
 import { supabase, AuthUser } from '@/plugins/supabase'
 import { Credentials } from '../model'
 
-const email = ref('beto@beto.com')
-const password = ref('123456')
-const passwordConfirm = ref('123456')
 const error = ref<Error | null | string>(null)
 const user = ref<AuthUser | undefined | null>(null)
 const isPending = ref(false)
@@ -53,17 +50,18 @@ const login = async (credentials: Credentials) => {
   }
 }
 
-const signup = async () => {
+const signup = async (credentials: Credentials) => {
   try {
+    const { email, password, passwordConfirm } = credentials
     error.value = null
     isPending.value = true
     await delay()
-    if (password.value !== passwordConfirm.value) {
+    if (password !== passwordConfirm) {
       throw new Error('As senhas não são iguais')
     }
     const { data, error: err } = await supabase.auth.signUp({
-      email: email.value,
-      password: password.value,
+      email,
+      password,
     })
     if (err) throw err
     user.value = data.user
@@ -102,9 +100,6 @@ const isLogged = () => {
 
 const useAuth = () => {
   return {
-    email,
-    password,
-    passwordConfirm,
     login,
     logout,
     signup,
