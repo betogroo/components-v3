@@ -7,9 +7,9 @@ declare module 'vue-router' {
   }
   interface RouteMeta {
     requiresAuth: boolean
+    hideNavBar?: boolean
     /* title: string
     isAdmin?: boolean
-    hideNavBar?: boolean
     icon?: string
     showInNavBar?: boolean
     showInDrawer?: boolean */
