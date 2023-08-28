@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import useAuth from '@/modules/auth/composables/useAuth'
+import { SignupForm } from '../components'
+import { useAuth } from '../composables'
+import type { Credentials } from '../model'
 
-const { signup, isPending, error, email, password, passwordConfirm } = useAuth()
+const { signup, isPending, error } = useAuth()
 const router = useRouter()
-const handleSignup = async () => {
-  await signup().then(() => {
+const handleSignup = async (credentials: Credentials) => {
+  await signup(credentials).then(() => {
     if (error.value) return
     router.push({ name: 'ProfileView' })
   })
@@ -21,43 +23,7 @@ const handleSignup = async () => {
       width="400"
     >
       <v-card-title class="text-center text-h4 mb-4">Registro</v-card-title>
-      <v-form>
-        <v-text-field
-          v-model="email"
-          hint="Digite o seu email de cadastro"
-          label="Email"
-          type="email"
-          variant="outlined"
-        />
-        <v-text-field
-          v-model="password"
-          hint="A senha deve conter números e letras"
-          label="Senha"
-          type="password"
-          variant="outlined"
-        />
-        <v-text-field
-          v-model="passwordConfirm"
-          hint="A senha deve conter números e letras"
-          label="Confirme"
-          type="password"
-          variant="outlined"
-        />
-        <v-btn
-          block
-          color="primary"
-          @click.prevent="handleSignup"
-          >Cadastrar</v-btn
-        >
-        <div class="text-body-1">
-          Já é cadastrado? Clique
-          <RouterLink
-            class="text-subtitle-1 text-decoration-none text-primary font-weight-black"
-            :to="{ name: 'LoginView' }"
-            >aqui</RouterLink
-          >
-        </div>
-      </v-form>
+      <SignupForm @signup="(n) => handleSignup(n)" />
       <v-alert
         v-if="error"
         class="pa-2 ma-2"
