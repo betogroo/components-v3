@@ -45,15 +45,5 @@ const toggleDrawer = () => {
         @click="handleLogout"
       ></v-btn>
     </template>
-    <template v-if="!user">
-      <v-btn
-        icon="mdi-login"
-        :to="{ name: 'LoginView' }"
-      ></v-btn>
-      <v-btn
-        icon="mdi-account-plus"
-        :to="{ name: 'SignupView' }"
-      ></v-btn>
-    </template>
   </v-app-bar>
 </template>

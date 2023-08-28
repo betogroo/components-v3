@@ -9,14 +9,14 @@ export default (
   next: NavigationGuardNext,
 ) => {
   if (!to.meta.requiresAuth) {
-    if ((to.name === 'LoginView' || to.name == 'SignupView') && isLogged()) {
+    if (to.name === 'AuthView' && isLogged()) {
       next({ name: 'ProfileView' })
     } else {
       next()
     }
   } else {
     if (to.meta.requiresAuth && !isLogged()) {
-      next({ name: 'LoginView' })
+      next({ path: '/auth/login' })
     } else {
       next()
     }

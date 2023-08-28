@@ -16,10 +16,9 @@ const toggleDrawer = () => {
 
 const handleLogout = async () => {
   await logout().then(() => {
-    router.push({ name: 'LoginView' })
+    router.push({ path: '/auth/login' })
   })
 }
-console.log(route.meta.hideNavBar)
 
 onMounted(() => {
   supabase.auth.onAuthStateChange(() => {

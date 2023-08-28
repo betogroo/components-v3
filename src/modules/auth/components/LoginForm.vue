@@ -47,5 +47,13 @@ const handleSubmit = () => {
       type="submit"
       >Login</v-btn
     >
+    <div class="text-body-1">
+      Ainda não tem cadastro? Clique
+      <RouterLink
+        class="text-subtitle-1 text-decoration-none text-primary font-weight-black"
+        :to="{ path: '/auth/signup' }"
+        >aqui</RouterLink
+      >
+    </div>
   </v-form>
 </template>

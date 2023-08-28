@@ -47,7 +47,7 @@ const signup = () => {
       Já é cadastrado? Clique
       <RouterLink
         class="text-subtitle-1 text-decoration-none text-primary font-weight-black"
-        :to="{ name: 'LoginView' }"
+        :to="{ path: '/auth/login' }"
         >aqui</RouterLink
       >
     </div>

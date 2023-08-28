@@ -1,18 +1,10 @@
 import { CustomRouteRecordRaw } from 'vue-router'
 const routes: CustomRouteRecordRaw[] = [
   {
-    path: '/login',
-    name: 'LoginView',
-    component: () => import('../views/LoginView.vue'),
-    meta: {
-      requiresAuth: false,
-      hideNavBar: true,
-    },
-  },
-  {
-    path: '/signup',
-    name: 'SignupView',
-    component: () => import('../views/SignupView.vue'),
+    path: '/auth/:type(login|signup)',
+    name: 'AuthView',
+    component: () => import('../views/AuthView.vue'),
+    props: true,
     meta: {
       requiresAuth: false,
       hideNavBar: true,
