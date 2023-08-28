@@ -24,12 +24,20 @@ const handleLogin = async (credentials: Credentials) => {
         :is-pending="isPending"
         @login="(n) => handleLogin(n)"
       />
-      <v-alert
-        v-if="error"
-        type="error"
-        >{{ error }}</v-alert
-      >
+      <div class="text-body-1">
+        Ainda não tem cadastro? Clique
+        <RouterLink
+          class="text-subtitle-1 text-decoration-none text-primary font-weight-black"
+          :to="{ name: 'SignupView' }"
+          >aqui</RouterLink
+        >
+      </div>
     </v-card>
+    <v-alert
+      v-if="error"
+      type="error"
+      >{{ error }}</v-alert
+    >
   </v-container>
 </template>
 
