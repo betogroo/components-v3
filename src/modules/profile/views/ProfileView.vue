@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ProfileComponent } from '../components'
 import { useProfile } from '../composable'
-import type { ProfileUpdate, ProfileInsert, Profile } from '../model'
+import type { ProfileInsert } from '../model'
 
 const { getProfile, updateProfile, profile, user, error, isPending } =
   useProfile()

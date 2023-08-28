@@ -1,7 +1,7 @@
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import { supabase, User } from '@/plugins/supabase'
 import { useAuth } from '@/modules/auth/composables'
-import { ProfileInsert, ProfileUpdate, Profile } from '../model'
+import { ProfileInsert, Profile } from '../model'
 const { getSession } = useAuth()
 const profile = ref<Profile>({
   avatar_url: '',
@@ -63,9 +63,7 @@ const useProfile = () => {
       error.value = null
       isPending.value = true
       await delay()
-      const { data, error: err } = await supabase
-        .from('profiles')
-        .upsert(updates)
+      const { error: err } = await supabase.from('profiles').upsert(updates)
       if (err) throw err
     } catch (err) {
       const e = err as Error
