@@ -32,12 +32,13 @@ const handleLogin = async (credentials: Credentials) => {
           >aqui</RouterLink
         >
       </div>
+      <v-alert
+        v-if="error"
+        class="pa-2 ma-2"
+        type="error"
+        >{{ error }}</v-alert
+      >
     </v-card>
-    <v-alert
-      v-if="error"
-      type="error"
-      >{{ error }}</v-alert
-    >
   </v-container>
 </template>
 

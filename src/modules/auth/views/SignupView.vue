@@ -47,15 +47,23 @@ const handleSignup = async () => {
           block
           color="primary"
           @click.prevent="handleSignup"
-          >Gravar</v-btn
+          >Cadastrar</v-btn
         >
-        <v-alert
-          v-if="error"
-          class="mt-3"
-          type="error"
-          >{{ error }}</v-alert
-        >
+        <div class="text-body-1">
+          Já é cadastrado? Clique
+          <RouterLink
+            class="text-subtitle-1 text-decoration-none text-primary font-weight-black"
+            :to="{ name: 'LoginView' }"
+            >aqui</RouterLink
+          >
+        </div>
       </v-form>
+      <v-alert
+        v-if="error"
+        class="pa-2 ma-2"
+        type="error"
+        >{{ error }}</v-alert
+      >
     </v-card>
   </v-container>
 </template>
