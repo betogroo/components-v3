@@ -11,7 +11,7 @@ const profile = ref<Profile>({
   username: '',
   website: '',
 })
-const user = ref<User>()
+const user = ref<User | null>()
 const isPending = ref(false)
 const error = ref<null | string>(null)
 
