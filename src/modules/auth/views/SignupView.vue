@@ -11,6 +11,7 @@ const handleSignup = async (credentials: Credentials) => {
     if (error.value) return
     router.push({ name: 'ProfileView' })
   })
+  console.log(credentials)
 }
 </script>
 
