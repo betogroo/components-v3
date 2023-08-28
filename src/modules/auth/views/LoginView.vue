@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import useAuth from '@/modules/auth/composables/useAuth'
+import { useAuth } from '../composables'
 import { useRouter } from 'vue-router'
-const { email, password, isPending, error, user, login, getSession, logout } =
-  useAuth()
+const { email, password, isPending, error, user, login, getSession } = useAuth()
 const router = useRouter()
 
 const handleLogin = async () => {
@@ -13,20 +12,10 @@ const handleLogin = async () => {
 const handleSession = async () => {
   await getSession()
 }
-
-const handleLogout = async () => {
-  await logout()
-}
 </script>
 
 <template>
   <v-container class="fill-height justify-center">
-    <div
-      v-if="user"
-      class="text-h6"
-    >
-      {{ user.email || 'username' }}
-    </div>
     <v-card
       class="pa-4 rounded"
       elevation="6"
@@ -62,12 +51,6 @@ const handleLogout = async () => {
           color="purple"
           @click="handleSession"
           >Get Session</v-btn
-        >
-        <v-btn
-          block
-          color="error"
-          @click="handleLogout"
-          >Logout</v-btn
         >
       </v-form>
       <p class="mt-3 text-subtitle text-body-1">
