@@ -1,11 +1,12 @@
 import { ref } from 'vue'
-import { supabase } from '@/plugins/supabase'
+import { supabase, AuthUser } from '@/plugins/supabase'
 
 const email = ref('beto@beto.com')
 const password = ref('123456')
+const passwordConfirm = ref('123456')
 const error = ref<Error | null | string>(null)
+const user = ref<AuthUser | undefined | null>(null)
 const isPending = ref(false)
-const user = ref()
 
 const delay = (amount = 2000, msg = false): Promise<void> => {
   if (msg) {
@@ -55,15 +56,19 @@ const signup = async () => {
     error.value = null
     isPending.value = true
     await delay()
-    const { error: err } = await supabase.auth.signUp({
+    if (password.value !== passwordConfirm.value) {
+      throw new Error('As senhas não são iguais')
+    }
+    const { data, error: err } = await supabase.auth.signUp({
       email: email.value,
       password: password.value,
     })
     if (err) throw err
+    user.value = data.user
   } catch (err) {
     const e = err as Error
     error.value = e.message
-    console.log(e)
+    console.log(e.message)
   } finally {
     isPending.value = false
   }
@@ -73,21 +78,37 @@ const getSession = async () => {
   const { data, error: err } = await supabase.auth.getSession()
   console.log(data, err)
 }
+// remove
 const getUser = async () => {
-  const { data } = await supabase.auth.getUser()
-  if (data.user) user.value = data.user
-  // console.log(err?.message)
+  try {
+    error.value = null
+    isPending.value = true
+    const { data, error: err } = await supabase.auth.getUser()
+    if (err) throw err
+    if (data.user) user.value = data.user
+  } catch (err) {
+    const e = err as Error
+    console.log(e.message)
+  } finally {
+    isPending.value = false
+  }
+}
+
+const isLogged = () => {
+  return !!user.value
 }
 
 const useAuth = () => {
   return {
     email,
     password,
+    passwordConfirm,
     login,
     logout,
     signup,
     getSession,
     getUser,
+    isLogged,
     error,
     isPending,
     user,

@@ -1,20 +1,16 @@
 <script setup lang="ts">
-import useAuth from '@/modules/auth/composables/useAuth'
-import { useRouter } from 'vue-router'
+import type { AuthUser } from '@supabase/supabase-js'
+import { toRefs } from 'vue'
 
-const emit = defineEmits(['toggleDrawer'])
-const { user, logout } = useAuth()
-const router = useRouter()
-
-const handleClick = async () => {
-  await logout()
-  router.push({ name: 'LoginView' })
+interface Props {
+  user: AuthUser | undefined | null
 }
-
-const goToProfile = () => {
-  console.log('Clicando aqui vai para a página do ', user.value.email)
+const props = defineProps<Props>()
+const emit = defineEmits(['toggleDrawer', 'logout'])
+const { user } = toRefs(props)
+const handleLogout = async () => {
+  emit('logout')
 }
-
 const toggleDrawer = () => {
   emit('toggleDrawer')
 }
@@ -39,10 +35,14 @@ const toggleDrawer = () => {
         icon="mdi-information"
         :to="{ name: 'AboutView' }"
       ></v-btn>
-      <v-icon @click="goToProfile">mdi-account</v-icon>
+      <v-btn
+        icon="mdi-account"
+        :to="{ name: 'ProfileView' }"
+      ></v-btn>
+
       <v-btn
         icon="mdi-logout"
-        @click="handleClick"
+        @click="handleLogout"
       ></v-btn>
     </template>
     <template v-if="!user">

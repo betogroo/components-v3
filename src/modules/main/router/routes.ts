@@ -17,7 +17,6 @@ const routes: CustomRouteRecordRaw[] = [
       requiresAuth: false,
     },
   },
-
   {
     path: '/:catchAll(.*)',
     name: 'NotFound',

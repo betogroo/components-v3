@@ -2,13 +2,13 @@
 import { useRouter } from 'vue-router'
 import useAuth from '@/modules/auth/composables/useAuth'
 
-const { signup, isPending, error, email, password } = useAuth()
+const { signup, isPending, error, email, password, passwordConfirm } = useAuth()
 const router = useRouter()
 const handleSignup = async () => {
-  await signup()
-  if (!error.value) {
-    router.push({ name: 'HomeView' })
-  }
+  await signup().then(() => {
+    if (error.value) return
+    router.push({ name: 'ProfileView' })
+  })
 }
 </script>
 
@@ -36,10 +36,17 @@ const handleSignup = async () => {
           type="password"
           variant="outlined"
         />
+        <v-text-field
+          v-model="passwordConfirm"
+          hint="A senha deve conter números e letras"
+          label="Confirme"
+          type="password"
+          variant="outlined"
+        />
         <v-btn
           block
           color="primary"
-          @click="handleSignup"
+          @click.prevent="handleSignup"
           >Gravar</v-btn
         >
         <v-alert
