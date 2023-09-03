@@ -10,6 +10,7 @@ withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   login: [credentials: Credentials]
+  loginWithOtp: [email: Credentials['email']]
 }>()
 const credentials = ref<Credentials>({
   email: '',
@@ -18,6 +19,9 @@ const credentials = ref<Credentials>({
 
 const handleSubmit = () => {
   emit('login', credentials.value)
+}
+const handleLoginOtp = () => {
+  emit('loginWithOtp', credentials.value.email)
 }
 </script>
 
@@ -46,6 +50,13 @@ const handleSubmit = () => {
       color="primary"
       type="submit"
       >Login</v-btn
+    >
+    <div class="text-center">ou</div>
+    <v-btn
+      block
+      color="primary"
+      @click="handleLoginOtp"
+      >Receber link para acesso único</v-btn
     >
     <div class="text-body-1">
       Ainda não tem cadastro? Clique

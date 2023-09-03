@@ -5,10 +5,15 @@ import { Credentials } from '../model'
 import { LoginForm, SignupForm } from '../components'
 import { useRouter } from 'vue-router'
 const props = defineProps<Props>()
-const { isPending, error, login, signup } = useAuth()
+const { isPending, error, login, loginWithOtp, signup } = useAuth()
 const router = useRouter()
 const handleLogin = async (credentials: Credentials) => {
   await login(credentials)
+  if (!error.value) router.push({ name: 'ProfileView' })
+}
+const handleLoginWithOtp = async (email: Credentials['email']) => {
+  await loginWithOtp(email)
+  console.log(email)
   if (!error.value) router.push({ name: 'ProfileView' })
 }
 const handleSignup = async (credentials: Credentials) => {
@@ -43,6 +48,7 @@ watch(type, () => {
         v-if="type === 'login'"
         :is-pending="isPending"
         @login="(n) => handleLogin(n)"
+        @login-with-otp="(n) => handleLoginWithOtp(n)"
       />
       <SignupForm
         v-if="type === 'signup'"

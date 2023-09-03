@@ -49,6 +49,21 @@ const login = async (credentials: Credentials) => {
     isPending.value = false
   }
 }
+const loginWithOtp = async (email: Credentials['email']) => {
+  try {
+    error.value = null
+    isPending.value = true
+    await delay()
+    const { data, error: err } = await supabase.auth.signInWithOtp({ email })
+    if (err) throw err
+    user.value = data.user
+  } catch (err) {
+    const e = err as Error
+    error.value = e.message
+  } finally {
+    isPending.value = false
+  }
+}
 
 const signup = async (credentials: Credentials) => {
   try {
@@ -101,6 +116,7 @@ const isLogged = () => {
 const useAuth = () => {
   return {
     login,
+    loginWithOtp,
     logout,
     signup,
     getSession,
