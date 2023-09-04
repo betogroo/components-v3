@@ -5,9 +5,13 @@ import { AppLoader } from '../components/'
 
 // composables
 import { usePurchase } from '../composable'
+import { useUtils } from '../composable'
 
-const { getPurchases, isLoading, purchases, error } = usePurchase()
-getPurchases()
+const { getPurchases, isLoading, purchases, error, purchaseCount } =
+  usePurchase()
+await getPurchases()
+
+const { itemsCount } = useUtils()
 </script>
 
 <template>
@@ -20,10 +24,13 @@ getPurchases()
       variant="elevated"
       >Nova Compra</v-btn
     >
+    <div class="text-subtitle">
+      {{ itemsCount(purchaseCount!, 'processo', 'processos') }}
+    </div>
     <div class="d-flex flex-wrap justify-center">
       <v-alert
         v-if="error"
-        type="warning"
+        type="error"
         >{{ error.message }}</v-alert
       >
       <PurchaseCard

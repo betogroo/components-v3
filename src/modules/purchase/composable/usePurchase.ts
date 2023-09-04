@@ -65,7 +65,10 @@ const usePurchase = () => {
         data,
         error: err,
         count,
-      } = await supabase.from('purchase').select('*').order('innerProcess')
+      } = await supabase
+        .from('purchase')
+        .select('*', { count: 'exact', head: false })
+        .order('innerProcess')
       if (data) {
         isLoading.value = false
         purchases.value = data
@@ -75,8 +78,11 @@ const usePurchase = () => {
         error.value = err
       }
     } catch (err) {
+      const e = err as Error
+      error.value = e.message
+      console.log(e.message)
+    } finally {
       isLoading.value = false
-      error.value = err
     }
   }
 
