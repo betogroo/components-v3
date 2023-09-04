@@ -13,7 +13,6 @@ const handleLogin = async (credentials: Credentials) => {
 }
 const handleLoginWithOtp = async (email: Credentials['email']) => {
   await loginWithOtp(email)
-  console.log(email)
   if (!error.value) router.push({ name: 'ProfileView' })
 }
 const handleSignup = async (credentials: Credentials) => {
