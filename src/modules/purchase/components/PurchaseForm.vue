@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+interface Props {
+  isPending: boolean
+}
+withDefaults(defineProps<Props>(), {
+  isPending: false,
+})
+
+const emit = defineEmits<{
+  'submit-form': [data: PurchaseInsert]
+}>()
 
 //composables
 import { useDisplay } from 'vuetify'
 
 //types
 import type { PurchaseInsert } from '../model'
-const emit = defineEmits<{
-  'submit-form': [data: PurchaseInsert]
-}>()
 
 const purchase = ref<PurchaseInsert>({})
 
@@ -21,6 +28,7 @@ const handleSubmit = () => {
 <template>
   <v-form
     class="pa-1 ma-1"
+    :disabled="isPending"
     @submit.prevent="handleSubmit"
   >
     <v-row>
@@ -78,6 +86,7 @@ const handleSubmit = () => {
         <v-btn
           :block="mobile"
           color="success"
+          :loading="isPending"
           type="submit"
           >Gravar</v-btn
         >

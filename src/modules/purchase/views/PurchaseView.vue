@@ -24,7 +24,7 @@ interface Props {
 const { id } = toRefs(props)
 const formActive = ref(false)
 
-const { getPurchase, purchase, isLoading, error } = usePurchase()
+const { getPurchase, purchase, isPending, error } = usePurchase()
 const { itemsCount } = useUtils()
 await getPurchase(id.value)
 
@@ -54,7 +54,7 @@ const iconClick = (index: number) => {
 }
 </script>
 <template>
-  <AppLoader v-if="isLoading" />
+  <AppLoader v-if="isPending" />
   <v-container>
     <v-alert
       v-show="error"

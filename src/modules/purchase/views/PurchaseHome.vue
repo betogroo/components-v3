@@ -7,7 +7,7 @@ import { AppLoader } from '../components/'
 import { usePurchase } from '../composable'
 import { useUtils } from '../composable'
 
-const { getPurchases, isLoading, purchases, error, purchaseCount } =
+const { getPurchases, isPending, purchases, error, purchaseCount } =
   usePurchase()
 await getPurchases()
 
@@ -15,7 +15,7 @@ const { itemsCount } = useUtils()
 </script>
 
 <template>
-  <AppLoader v-if="isLoading" />
+  <AppLoader v-if="isPending" />
   <v-container>
     <v-btn
       block

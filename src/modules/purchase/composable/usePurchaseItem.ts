@@ -5,14 +5,14 @@ import { supabase } from '@/plugins/supabase'
 import type { PurchaseItemInsert, PurchaseItem } from '../model/'
 
 const usePurchaseItem = () => {
-  const isLoading = ref(false)
+  const isPending = ref(false)
   const error = ref(null)
   const purchaseItems = ref<PurchaseItem[] | null>()
   const itemsCount = ref<number | null>(0)
 
   const getPurchaseItems = async (id: string) => {
     error.value = null
-    isLoading.value = true
+    isPending.value = true
     try {
       const {
         error: err,
@@ -25,17 +25,17 @@ const usePurchaseItem = () => {
       if (err) {
         throw new Error(err.message)
       }
-      isLoading.value = false
+      isPending.value = false
       itemsCount.value = count
       purchaseItems.value = data
     } catch (err) {
-      isLoading.value = false
+      isPending.value = false
       console.log(err)
     }
   }
   const addData = async (newData: PurchaseItemInsert) => {
     console.log('Vai add um ou mais item, começando com 1', newData)
-    isLoading.value = true
+    isPending.value = true
     try {
       const { error: err, data } = await supabase
         .from('purchase_item')
@@ -43,19 +43,19 @@ const usePurchaseItem = () => {
         .select()
         .single()
       if (err) {
-        isLoading.value = false
+        isPending.value = false
         throw new Error(err.message)
       }
-      isLoading.value = false
+      isPending.value = false
       return data
     } catch (err) {
-      isLoading.value = false
+      isPending.value = false
       console.log(err)
     }
   }
 
   return {
-    isLoading,
+    isPending,
     error,
     getPurchaseItems,
     addData,

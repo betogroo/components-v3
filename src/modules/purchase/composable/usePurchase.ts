@@ -11,13 +11,22 @@ const purchases = ref<Purchase[]>([])
 const purchase = ref<Purchase | null>()
 const purchaseCount = ref<number | null>(0)
 
-const isLoading = ref(false)
+const isPending = ref(false)
 const error = ref()
+
+const delay = (amount = 2000, msg = false): Promise<void> => {
+  if (msg) {
+    console.log(`Delay de ${amount / 1000} segundos para testes!`)
+  }
+  return new Promise((resolve) => setTimeout(resolve, amount))
+}
 
 const usePurchase = () => {
   const addData = async (formData: PurchaseInsert) => {
-    isLoading.value = true
     try {
+      isPending.value = true
+      error.value = false
+      await delay()
       const { error: err, data } = await supabase
         .from('purchase')
         .insert({
@@ -25,20 +34,18 @@ const usePurchase = () => {
         })
         .select()
         .single()
-      if (err) {
-        isLoading.value = false
-        throw new Error(err.message)
-      }
-      isLoading.value = false
+      if (err) throw err
       return data
     } catch (err) {
-      isLoading.value = false
-      console.log(err)
+      const e = err as Error
+      error.value = e.message
+    } finally {
+      isPending.value = false
     }
   }
   const getPurchase = async (id: string) => {
     error.value = null
-    isLoading.value = true
+    isPending.value = true
     try {
       const { error: err, data } = await supabase
         .from('purchase')
@@ -47,19 +54,22 @@ const usePurchase = () => {
         .single()
       if (!data) {
         console.log(err.message)
-        isLoading.value = false
+        isPending.value = false
         throw new Error('Não foi encontrada a compra especificada')
       }
-      isLoading.value = false
+      isPending.value = false
       purchase.value = data
     } catch (err) {
-      isLoading.value = false
-      error.value = err
+      const e = err as Error
+      error.value = e.message
+      isPending.value = false
+    } finally {
+      isPending.value = false
     }
   }
   const getPurchases = async () => {
     error.value = null
-    isLoading.value = true
+    isPending.value = true
     try {
       const {
         data,
@@ -70,11 +80,11 @@ const usePurchase = () => {
         .select('*', { count: 'exact', head: false })
         .order('innerProcess')
       if (data) {
-        isLoading.value = false
+        isPending.value = false
         purchases.value = data
         purchaseCount.value = count
       } else {
-        isLoading.value = false
+        isPending.value = false
         error.value = err
       }
     } catch (err) {
@@ -82,7 +92,7 @@ const usePurchase = () => {
       error.value = e.message
       console.log(e.message)
     } finally {
-      isLoading.value = false
+      isPending.value = false
     }
   }
 
@@ -94,7 +104,7 @@ const usePurchase = () => {
     purchase,
     purchaseCount,
     error,
-    isLoading,
+    isPending,
   }
 }
 

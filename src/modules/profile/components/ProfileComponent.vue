@@ -6,7 +6,7 @@ import type { User } from '@supabase/supabase-js'
 interface Props {
   profile: ProfileInsert
   user: User
-  isLoading?: boolean
+  isPending?: boolean
 }
 const props = defineProps<Props>()
 const emit = defineEmits<{
@@ -85,7 +85,7 @@ const profileInitials = (full_name: string | undefined | null) => {
     <v-divider></v-divider>
     <v-form
       class="my-3"
-      :disabled="isLoading"
+      :disabled="isPending"
     >
       <div class="text-h6">Complete ou atualize seus dados</div>
       <v-row>
@@ -115,7 +115,7 @@ const profileInitials = (full_name: string | undefined | null) => {
       <v-row>
         <v-col class="text-right">
           <v-btn
-            :loading="isLoading"
+            :loading="isPending"
             @click="handleUpdate"
             >Gravar</v-btn
           >
