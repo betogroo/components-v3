@@ -1,16 +1,23 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-//composables
-import { useDisplay } from 'vuetify'
-
-//types
-// import { Timestamp } from '@/shared/model/Firebase.interfaces'
-import type { PurchaseItemInsert } from '../model'
+interface Props {
+  isPending: boolean
+}
+withDefaults(defineProps<Props>(), {
+  isPending: false,
+})
 
 const emit = defineEmits<{
   'submit-form': [data: PurchaseItemInsert]
 }>()
+
+//composables
+import { useDisplay } from 'vuetify'
+
+//types
+import type { PurchaseItemInsert } from '../model'
+
 const { mobile } = useDisplay()
 const formValues = ref<PurchaseItemInsert>({})
 
@@ -21,7 +28,10 @@ const handleSubmit = async () => {
 
 <template>
   <v-sheet max-width="600">
-    <v-form @submit.prevent="handleSubmit">
+    <v-form
+      :disabled="isPending"
+      @submit.prevent="handleSubmit"
+    >
       <v-row>
         <v-col class="ma-0"
           ><v-text-field
@@ -75,6 +85,7 @@ const handleSubmit = async () => {
           ><v-btn
             :block="mobile"
             color="success"
+            :loading="isPending"
             type="submit"
             >Adicionar</v-btn
           ></v-col

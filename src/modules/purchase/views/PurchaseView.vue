@@ -22,9 +22,9 @@ interface Props {
   id: string
 }
 const { id } = toRefs(props)
-const formActive = ref(false)
+const formActive = ref<boolean>(false)
 
-const { getPurchase, purchase, isPending, error } = usePurchase()
+const { getPurchase, purchase, error } = usePurchase()
 const { itemsCount } = useUtils()
 await getPurchase(id.value)
 
@@ -32,15 +32,17 @@ const {
   getPurchaseItems,
   purchaseItems,
   itemsCount: purchaseItemsCount,
+  isPending: isItemsPending,
 } = usePurchaseItem()
 await getPurchaseItems(id.value)
 
-const { addData: _addPurchaseItem } = usePurchaseItem()
+const { addData: _addPurchaseItem, isPending: isFormPending } =
+  usePurchaseItem()
 const addPurchaseItem = async (formValues: PurchaseItemInsert) => {
   const newData = { ...formValues, purchase_id: id.value }
   await _addPurchaseItem(newData).then(() => {
     formActive.value = false
-    getPurchaseItems(id.value)
+    // getPurchaseItems(id.value)
   })
 }
 
@@ -54,8 +56,8 @@ const iconClick = (index: number) => {
 }
 </script>
 <template>
-  <AppLoader v-if="isPending" />
   <v-container>
+    <AppLoader v-if="isItemsPending" />
     <v-alert
       v-show="error"
       :text="error?.message"
@@ -76,7 +78,8 @@ const iconClick = (index: number) => {
       />
       <PurchaseItemForm
         v-if="formActive"
-        @submit-form="addPurchaseItem"
+        :is-pending="isFormPending"
+        @submit-form="(n) => addPurchaseItem(n)"
       />
       <PurchaseItems
         v-for="(item, index) in purchaseItems"
