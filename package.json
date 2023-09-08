@@ -9,7 +9,8 @@
     "format": "prettier .  --write",
     "check-types": "tsc --noemit",
     "vue-check-types": "vue-tsc --noemit",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "commitlint": "commitlint --edit"
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
