@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ProfileComponent } from '../components'
+import { ProfileComponent, ProfileForm } from '../components'
 import { useProfile } from '../composable'
 import type { ProfileInsert } from '../model'
 
@@ -14,9 +14,14 @@ const handleUpdate = async (updates: ProfileInsert) => {
 
 <template>
   <ProfileComponent
-    :is-loading="isPending"
+    :email="user?.email"
+    :full_name="profile.full_name"
+    :is-pending="isPending"
+  />
+  <ProfileForm
+    :id="user?.id"
+    :is-pending="isPending"
     :profile="profile"
-    :user="user"
     @update-profile="(n) => handleUpdate(n)"
   />
   <v-alert
