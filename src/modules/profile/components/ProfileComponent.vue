@@ -69,15 +69,13 @@ const profileInitials = (full_name: string | undefined | null) => {
       <v-col class="text-right"
         ><v-icon size="28">mdi-message-plus</v-icon></v-col
       >
-      <v-col>
+      <v-col class="text-center">
         <v-avatar
           class="mx-3"
           color="red"
           :size="120"
         >
-          <span class="text-h3 text-center">{{
-            profileInitials(full_name)
-          }}</span>
+          <span class="text-h3">{{ profileInitials(full_name) }}</span>
         </v-avatar>
       </v-col>
       <v-col><v-icon size="28">mdi-message-plus</v-icon></v-col>
