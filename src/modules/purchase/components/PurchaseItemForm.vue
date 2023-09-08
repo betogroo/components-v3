@@ -84,7 +84,7 @@ const handleSubmit = async () => {
         <v-col class="text-right"
           ><v-btn
             :block="mobile"
-            color="success"
+            :color="isPending ? 'red' : 'success'"
             :loading="isPending"
             type="submit"
             >Adicionar</v-btn

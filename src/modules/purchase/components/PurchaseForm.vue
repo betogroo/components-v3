@@ -85,7 +85,7 @@ const handleSubmit = () => {
       <v-col class="text-right">
         <v-btn
           :block="mobile"
-          color="success"
+          :color="isPending ? 'red' : 'success'"
           :loading="isPending"
           type="submit"
           >Gravar</v-btn
