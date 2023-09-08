@@ -13,6 +13,9 @@ import { createApp, App as Application } from 'vue'
 // Plugins
 import { registerPlugins } from '@/plugins'
 
+//
+//test husky
+
 // supabase
 //import { supabase } from './plugins/supabase'
 //import useAuth from '@/modules/auth/composables/useAuth'
