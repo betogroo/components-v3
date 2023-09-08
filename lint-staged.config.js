@@ -1,7 +1,4 @@
 module.exports = {
-  '*.{ts,js,vue}': [
-    () => 'npm run check-types',
-    'npm run lint',
-    'npm run format',
-  ],
+  '*.{ts,js}': [() => 'npm run check-types', 'npm run lint', 'npm run format'],
+  '*.vue': [() => 'npm run vue-check-types', 'npm run lint', 'npm run format'],
 }
