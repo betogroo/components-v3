@@ -63,6 +63,7 @@ const handleUpdate = () => {
     <v-row>
       <v-col class="text-right">
         <v-btn
+          :color="isPending ? 'red' : 'success'"
           :loading="isPending"
           @click="handleUpdate"
           >Gravar</v-btn
