@@ -5,15 +5,16 @@
   "dictionaries": [],
   "language": "en,pt-BR,lorem",
   "words": [
+    "commitlint",
     "composables",
     "Composables",
     "firestore",
     "materialdesignicons",
     "Roboto",
+    "supabase",
     "unsub",
     "vuetify",
-    "webfontloader",
-    "supabase"
+    "webfontloader"
   ],
   "ignoreWords": [],
   "import": []
