@@ -46,6 +46,7 @@ export interface Database {
       purchase: {
         Row: {
           createdAt: string
+          createdBy: string | null
           description: string | null
           id: string
           innerProcess: number | null
@@ -54,6 +55,7 @@ export interface Database {
         }
         Insert: {
           createdAt?: string
+          createdBy?: string | null
           description?: string | null
           id?: string
           innerProcess?: number | null
@@ -62,6 +64,7 @@ export interface Database {
         }
         Update: {
           createdAt?: string
+          createdBy?: string | null
           description?: string | null
           id?: string
           innerProcess?: number | null
@@ -69,6 +72,12 @@ export interface Database {
           purchaseTypeId?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: 'purchase_createdBy_fkey'
+            columns: ['createdBy']
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
           {
             foreignKeyName: 'purchase_purchaseTypeId_fkey'
             columns: ['purchaseTypeId']
