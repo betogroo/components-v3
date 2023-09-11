@@ -6,7 +6,6 @@ import {
   PurchaseHead,
   PurchaseDetails,
   PurchaseItemForm,
-  AppLoader,
   PurchaseItems,
 } from '../components'
 import { AppIconBtn } from '@/shared/components'
@@ -28,14 +27,6 @@ const { getPurchase, purchase, error } = usePurchase()
 const { itemsCount } = useUtils()
 await getPurchase(id.value)
 
-const {
-  getPurchaseItems,
-  purchaseItems,
-  itemsCount: purchaseItemsCount,
-  isPending: isItemsPending,
-} = usePurchaseItem()
-await getPurchaseItems(id.value)
-
 const { addData: _addPurchaseItem, isPending: isFormPending } =
   usePurchaseItem()
 const addPurchaseItem = async (formValues: PurchaseItemInsert) => {
@@ -51,18 +42,20 @@ const toggleForm = () => {
 }
 
 const iconClick = (index: number) => {
-  const title = purchaseItems.value ? purchaseItems.value[index].title : ''
+  const title = purchase.value?.purchaseItems
+    ? purchase.value.purchaseItems[index].title
+    : ''
   console.log(title)
 }
 </script>
 <template>
   <v-container>
-    <AppLoader v-if="isItemsPending" />
     <v-alert
       v-show="error"
       :text="error?.message"
       type="error"
     ></v-alert>
+
     <div v-if="purchase">
       <PurchaseHead :purchase="purchase" />
       <v-divider></v-divider>
@@ -70,7 +63,11 @@ const iconClick = (index: number) => {
         inner-process-title="Processo SEI"
         :purchase="purchase"
       />
-      {{ itemsCount(purchaseItemsCount ? purchaseItemsCount : 0) }}
+      {{
+        itemsCount(
+          purchase.purchaseItems?.length ? purchase.purchaseItems.length : 0,
+        )
+      }}
       <AppIconBtn
         :toggle-btn="formActive"
         tooltip-title="Adicionar produto"
@@ -82,7 +79,7 @@ const iconClick = (index: number) => {
         @submit-form="(n) => addPurchaseItem(n)"
       />
       <PurchaseItems
-        v-for="(item, index) in purchaseItems"
+        v-for="(item, index) in purchase.purchaseItems"
         :key="item.id"
         :item="item"
         @icon-click="iconClick(index)"

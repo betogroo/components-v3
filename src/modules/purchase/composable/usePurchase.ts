@@ -8,7 +8,7 @@ import { supabase } from '@/plugins/supabase'
 import type { PurchaseInsert, Purchase, PurchaseWithItems } from '../model/'
 
 const purchases = ref<Purchase[]>([])
-const purchase = ref<Purchase | null | PurchaseWithItems>()
+const purchase = ref<PurchaseWithItems | null>()
 const purchaseCount = ref<number | null>(0)
 
 const isPending = ref(false)
@@ -46,10 +46,11 @@ const usePurchase = () => {
   const getPurchase = async (id: string) => {
     error.value = null
     isPending.value = true
+    await delay()
     try {
       const { error: err, data } = await supabase
         .from('purchase')
-        .select('*, purchase_item(*)')
+        .select('*, purchaseItems: purchase_item(*)')
         .eq('id', id)
         .single()
       if (!data) {
@@ -58,7 +59,6 @@ const usePurchase = () => {
         throw new Error('Não foi encontrada a compra especificada')
       }
       console.log(data)
-      isPending.value = false
       purchase.value = data
     } catch (err) {
       const e = err as Error
