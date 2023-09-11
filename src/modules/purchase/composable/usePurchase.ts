@@ -5,10 +5,10 @@ import { ref } from 'vue'
 import { supabase } from '@/plugins/supabase'
 
 //types
-import type { PurchaseInsert, Purchase } from '../model/'
+import type { PurchaseInsert, Purchase, PurchaseWithItems } from '../model/'
 
 const purchases = ref<Purchase[]>([])
-const purchase = ref<Purchase | null>()
+const purchase = ref<Purchase | null | PurchaseWithItems>()
 const purchaseCount = ref<number | null>(0)
 
 const isPending = ref(false)
@@ -49,7 +49,7 @@ const usePurchase = () => {
     try {
       const { error: err, data } = await supabase
         .from('purchase')
-        .select('*')
+        .select('*, purchase_item(*)')
         .eq('id', id)
         .single()
       if (!data) {
@@ -57,6 +57,7 @@ const usePurchase = () => {
         isPending.value = false
         throw new Error('Não foi encontrada a compra especificada')
       }
+      console.log(data)
       isPending.value = false
       purchase.value = data
     } catch (err) {
