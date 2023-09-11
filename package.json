@@ -11,7 +11,7 @@
     "vue-check-types": "vue-tsc --noemit",
     "prepare": "husky install",
     "commitlint": "commitlint --edit",
-    "gen-types" : "npx supabase gen types typescript --project-id \"sxqxihgahgbcgwpcftbx\" --schema public > src/shared/model/Supabase.interface.ts"
+    "gen-types": "npx supabase gen types typescript --project-id \"sxqxihgahgbcgwpcftbx\" --schema public > src/shared/model/Supabase.interface.ts"
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
