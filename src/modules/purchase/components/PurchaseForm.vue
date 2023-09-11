@@ -18,10 +18,10 @@ import { useDisplay } from 'vuetify'
 import type { PurchaseInsert } from '../model'
 
 const purchase = ref<PurchaseInsert>({
-  id: '',
+  id: undefined,
   innerProcess: 0,
-  createdAt: '',
-  createdBy: '',
+  createdAt: undefined,
+  createdBy: undefined,
   description: '',
   outerProcess: '',
   purchaseTypeId: '',
