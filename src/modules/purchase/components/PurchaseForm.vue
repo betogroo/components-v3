@@ -17,7 +17,15 @@ import { useDisplay } from 'vuetify'
 //types
 import type { PurchaseInsert } from '../model'
 
-const purchase = ref<PurchaseInsert>({})
+const purchase = ref<PurchaseInsert>({
+  id: '',
+  innerProcess: 0,
+  createdAt: '',
+  createdBy: '',
+  description: '',
+  outerProcess: '',
+  purchaseTypeId: '',
+})
 
 const { mobile } = useDisplay()
 const handleSubmit = () => {

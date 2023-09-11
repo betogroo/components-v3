@@ -49,7 +49,7 @@ export interface Database {
           createdBy: string | null
           description: string | null
           id: string
-          innerProcess: number | null
+          innerProcess: number
           outerProcess: string | null
           purchaseTypeId: string | null
         }
@@ -58,7 +58,7 @@ export interface Database {
           createdBy?: string | null
           description?: string | null
           id?: string
-          innerProcess?: number | null
+          innerProcess: number
           outerProcess?: string | null
           purchaseTypeId?: string | null
         }
@@ -67,7 +67,7 @@ export interface Database {
           createdBy?: string | null
           description?: string | null
           id?: string
-          innerProcess?: number | null
+          innerProcess?: number
           outerProcess?: string | null
           purchaseTypeId?: string | null
         }
