@@ -60,7 +60,7 @@ const iconClick = (index: number) => {
       <PurchaseHead :purchase="purchase" />
       <v-divider></v-divider>
       <PurchaseDetails
-        inner-process-title="Processo SEI"
+        outer-process-title="Processo SEI"
         :purchase="purchase"
       />
       {{

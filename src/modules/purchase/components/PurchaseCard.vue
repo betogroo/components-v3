@@ -1,7 +1,6 @@
 <script setup lang="ts">
 // components
-import { profile } from 'console'
-import { PurchaseHead } from '.'
+import { PurchaseHead, PurchaseDetails } from '.'
 
 // types
 import type { Purchase, PurchaseWithItems } from '../model'
@@ -24,11 +23,10 @@ interface Props {
       <PurchaseHead :purchase="purchase" />
     </v-card-item>
     <v-card-text>
-      Detalhes
-
-      <div class="subtitle">
-        Aberto por: {{ purchase.purchaseOwner?.full_name }}
-      </div>
+      <PurchaseDetails
+        outer-process-title="Processo Sei"
+        :purchase="purchase"
+      />
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>

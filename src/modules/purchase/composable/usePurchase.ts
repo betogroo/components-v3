@@ -11,14 +11,14 @@ import type { PurchaseInsert, Purchase, PurchaseWithItems } from '../model/'
 import { useAuth } from '@/modules/auth/composables'
 const { getUser, user } = useAuth()
 
-const purchases = ref<PurchaseWithItems[]>([])
+const purchases = ref<PurchaseWithItems[] | null>([])
 const purchase = ref<PurchaseWithItems | null>()
 const purchaseCount = ref<number | null>(0)
 
 const isPending = ref(false)
 const error = ref()
 
-const delay = (amount = 2000, msg = false): Promise<void> => {
+const delay = (amount = 500, msg = false): Promise<void> => {
   if (msg) {
     console.log(`Delay de ${amount / 1000} segundos para testes!`)
   }
