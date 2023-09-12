@@ -1,13 +1,14 @@
 <script setup lang="ts">
 // components
+import { profile } from 'console'
 import { PurchaseHead } from '.'
 
 // types
-import type { Purchase } from '../model'
+import type { Purchase, PurchaseWithItems } from '../model'
 
 defineProps<Props>()
 interface Props {
-  purchase: Purchase
+  purchase: PurchaseWithItems
 }
 </script>
 
@@ -22,7 +23,13 @@ interface Props {
     <v-card-item>
       <PurchaseHead :purchase="purchase" />
     </v-card-item>
-    <v-card-text> Detalhes </v-card-text>
+    <v-card-text>
+      Detalhes
+
+      <div class="subtitle">
+        Aberto por: {{ purchase.purchaseOwner?.full_name }}
+      </div>
+    </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
       <v-spacer></v-spacer>

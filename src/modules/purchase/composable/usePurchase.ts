@@ -11,7 +11,7 @@ import type { PurchaseInsert, Purchase, PurchaseWithItems } from '../model/'
 import { useAuth } from '@/modules/auth/composables'
 const { getUser, user } = useAuth()
 
-const purchases = ref<Purchase[]>([])
+const purchases = ref<PurchaseWithItems[]>([])
 const purchase = ref<PurchaseWithItems | null>()
 const purchaseCount = ref<number | null>(0)
 
@@ -58,7 +58,9 @@ const usePurchase = () => {
     try {
       const { error: err, data } = await supabase
         .from('purchase')
-        .select('*, purchaseItems: purchase_item(*)')
+        .select(
+          '*, purchaseItems: purchase_item(*), purchaseOwner: profiles(*)',
+        )
         .eq('id', id)
         .single()
       if (!data) {
@@ -86,9 +88,16 @@ const usePurchase = () => {
         count,
       } = await supabase
         .from('purchase')
-        .select('*', { count: 'exact', head: false })
+        .select(
+          '*, purchaseItems: purchase_item(*), purchaseOwner: profiles(*)',
+          {
+            count: 'exact',
+            head: false,
+          },
+        )
         .order('innerProcess')
       if (data) {
+        console.log(data)
         isPending.value = false
         purchases.value = data
         purchaseCount.value = count
