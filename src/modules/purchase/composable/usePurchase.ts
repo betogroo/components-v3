@@ -7,6 +7,10 @@ import { supabase } from '@/plugins/supabase'
 //types
 import type { PurchaseInsert, Purchase, PurchaseWithItems } from '../model/'
 
+//composables
+import { useAuth } from '@/modules/auth/composables'
+const { getUser, user } = useAuth()
+
 const purchases = ref<Purchase[]>([])
 const purchase = ref<PurchaseWithItems | null>()
 const purchaseCount = ref<number | null>(0)
@@ -23,14 +27,18 @@ const delay = (amount = 2000, msg = false): Promise<void> => {
 
 const usePurchase = () => {
   const addData = async (formData: PurchaseInsert) => {
+    await getUser()
+    console.log(user.value?.id)
     try {
       isPending.value = true
       error.value = false
+
       await delay()
       const { error: err, data } = await supabase
         .from('purchase')
         .insert({
           ...formData,
+          createdBy: user.value?.id,
         })
         .select()
         .single()
