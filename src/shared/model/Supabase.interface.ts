@@ -75,7 +75,7 @@ export interface Database {
           {
             foreignKeyName: 'purchase_createdBy_fkey'
             columns: ['createdBy']
-            referencedRelation: 'users'
+            referencedRelation: 'profiles'
             referencedColumns: ['id']
           },
           {
