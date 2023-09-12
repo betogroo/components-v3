@@ -6,7 +6,7 @@ type PURCHASE_DB = Database['public']['Tables']['purchase']
 type PURCHASE_ITEM_DB = Database['public']['Tables']['purchase_item']
 type PURCHASE_TYPE_DB = Database['public']['Tables']['purchase_type']
 
-type Purchase = Omit<PURCHASE_DB['Row'], 'purchaseTypeId'>
+type Purchase = PURCHASE_DB['Row']
 type PurchaseOwner = Omit<Profile, 'id'>
 type PurchaseInsert = PURCHASE_DB['Insert']
 
@@ -18,6 +18,7 @@ type PurchaseItemInsert = PURCHASE_ITEM_DB['Insert']
 interface PurchaseWithItems extends Purchase {
   purchaseItems?: PurchaseItem[]
   purchaseOwner?: PurchaseOwner | null
+  purchaseType?: PurchaseType | null
 }
 
 export interface Budget {

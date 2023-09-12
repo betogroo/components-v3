@@ -59,7 +59,10 @@ const usePurchase = () => {
       const { error: err, data } = await supabase
         .from('purchase')
         .select(
-          '*, purchaseItems: purchase_item(*), purchaseOwner: profiles(*)',
+          `*,
+          purchaseType: purchase_type(*),
+          purchaseItems: purchase_item(*),
+          purchaseOwner: profiles(*)`,
         )
         .eq('id', id)
         .single()

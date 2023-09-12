@@ -3,10 +3,10 @@
 import { useUtils } from '../composable'
 
 //types
-import type { Purchase } from '../model'
+import type { PurchaseWithItems } from '../model'
 defineProps<Props>()
 interface Props {
-  purchase: Purchase
+  purchase: PurchaseWithItems
 }
 const { innerProcessFormatName, dateFormat } = useUtils()
 </script>
@@ -21,5 +21,5 @@ const { innerProcessFormatName, dateFormat } = useUtils()
     </div>
     <span class="font-weight-light">{{ dateFormat(purchase.createdAt) }}</span>
   </div>
-  <div></div>
+  <div>{{ purchase.purchaseType?.title?.toUpperCase() }}</div>
 </template>

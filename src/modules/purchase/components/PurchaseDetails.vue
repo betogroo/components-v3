@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { ToRefs } from 'vue'
+import { toRefs } from 'vue'
 // types
 import { PurchaseWithItems } from '../model'
 
 import { useUtils } from '../composable'
-import { toRefs } from 'vue'
 const props = defineProps<Props>()
 
 interface Props {
